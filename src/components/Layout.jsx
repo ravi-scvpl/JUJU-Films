@@ -1,0 +1,98 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const Layout = ({ children }) => {
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    return (
+        <>
+            <header className="header">
+                <div className="header__container">
+                    <Link className="header__logo" to="/" aria-label="Homepage">
+                        <img src="/JUJU White logo.png" alt="JUJU Films" style={{ height: '40px' }} />
+                    </Link>
+
+                    <button className="mobile-menu-toggle" onClick={toggleMenu} aria-label="Toggle Navigation">
+                        <span className={`hamburger ${isMenuOpen ? 'open' : ''}`}></span>
+                    </button>
+
+                    <nav className={`navigation ${isMenuOpen ? 'mobile-open' : ''}`}>
+                        <ul className="navigation__list">
+                            <li className="navigation__item">
+                                <Link className="navigation__link" to="/portfolio" onClick={() => setIsMenuOpen(false)}>Juju Jr.</Link>
+                            </li>
+                            <li className="navigation__item">
+                                <Link className="navigation__link" to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+
+            <main>
+                {children}
+            </main>
+
+            <footer className="footer parallax-section">
+                <div className="grid footer__container parallax-section__container">
+                    <div pos="1-4">
+                        <nav className="navigation navigation--footer">
+                            <ul className="navigation__list">
+                                <li className="navigation__item"><Link className="navigation__link" to="/portfolio">Portfolio</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/magazine">Magazine</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/agency">Agency</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/contact">Contact</Link></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div className="grid subgrid footer__text-container" pos="7-12" pos-s="row">
+                        <div pos="1-3" pos-s="row" className="footer__text">
+                            <p className="p2">JUJU Films supports brands that are keen to make design a driver of social and economic transformation, helping them meet the challenges of tomorrow.</p>
+                        </div>
+                        <div pos="4-6" pos-s="row" className="footer__text">
+                            <p className="p2">We believe that a brand is a powerful tool for creating fresh narratives, uniting imaginations and shaping desirable futures.</p>
+                        </div>
+                    </div>
+                    <div pos="4-12" pos-s="row" className="footer__logo">
+                        <img src="/JUJU White logo.png" alt="JUJU Films" style={{ maxWidth: '100%', height: 'auto', maxHeight: '100px' }} />
+                    </div>
+                    <div pos="row" className="footer__bottom">
+                        <div className="navigation navigation--bottom">
+                            <div className="navigation__list">
+                                <span className="footer__copyright">© 2002 — 2026</span>
+                                <nav className="navigation navigation--bottom">
+                                    <ul className="navigation__list">
+                                        <li className="navigation__item "><a className="navigation__link" href="#">Coworking Lyon</a></li>
+                                        <li className="navigation__item "><a className="navigation__link" href="#">Shared library</a></li>
+                                        <li className="navigation__item "><a className="navigation__link" href="#cookiesPopin">Cookies</a></li>
+                                    </ul>
+                                </nav>
+                                <div className="navigation navigation--bottom">
+                                    <div className="navigation__list">
+                                        <div className="navigation__item">
+                                            <a className="navigation__link" href="https://ocitocine.com/" target="_blank">Site by Ocitocine</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <nav className="navigation navigation--bottom">
+                            <ul className="navigation__list">
+                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">Newsletter</a></li>
+                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">Behance</a></li>
+                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">LinkedIn</a></li>
+                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://www.instagram.com/JUJUfilms/" rel="noreferrer">Instagram</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </footer>
+        </>
+    );
+};
+
+export default Layout;
