@@ -6,6 +6,7 @@ const Homepage2 = () => {
     // Dynamic Text State
     const words = ["public", "culturel", "digital", "stratégique", "durable", "mémorable"];
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
+    const [isLightTheme, setIsLightTheme] = useState(false);
 
     // Text Cycle Interval
     useEffect(() => {
@@ -13,6 +14,46 @@ const Homepage2 = () => {
             setCurrentWordIndex((prev) => (prev + 1) % words.length);
         }, 2000); // Change every 2 seconds matching the fade animation
         return () => clearInterval(interval);
+    }, []);
+
+    // Theme Transition on Scroll
+    useEffect(() => {
+        const handleScroll = () => {
+            const video = document.querySelector('.h2-hero-media video');
+            if (video) {
+                const rect = video.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                // Trigger transition in the middle of the video
+                const videoTop = rect.top;
+
+                if (videoTop < viewportHeight / 2) {
+                    setIsLightTheme(true);
+                } else {
+                    setIsLightTheme(false);
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Observer for Sectors (Active Red Text)
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Remove active class from all
+                    document.querySelectorAll('.h2-sector-item').forEach(el => el.classList.remove('active'));
+                    // Add to current
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { rootMargin: "-40% 0px -40% 0px" }); // Trigger at center (20% zone)
+
+        document.querySelectorAll('.h2-sector-item').forEach(el => observer.observe(el));
+        return () => observer.disconnect();
     }, []);
 
     // Intersection Observer for Scroll Reveals
@@ -30,7 +71,7 @@ const Homepage2 = () => {
     }, []);
 
     return (
-        <div className="page-template-homepage2">
+        <div className={`page-template-homepage2 ${isLightTheme ? 'theme-light' : ''}`}>
 
             {/* 1. HERO SECTION */}
             <header className="h2-hero">
@@ -57,18 +98,52 @@ const Homepage2 = () => {
                     </video>
                 </div>
 
-                <div className="h2-filter-bar">
+                {/* <div className="h2-filter-bar">
                     <span className="h2-filter-item">Culture</span>
                     <span className="h2-filter-item">Territoires</span>
                     <span className="h2-filter-item">Institutions</span>
                     <span className="h2-filter-item">Gastronomie</span>
                     <span className="h2-filter-item">Mode & Luxe</span>
                     <span className="h2-filter-item">Sport</span>
-                </div>
+                </div> */}
             </header>
 
-            {/* 2. SELECTED WORKS (2-Col Grid) */}
-            <section className="h2-works">
+            {/* 1.5 INTRO TEXT SECTION */}
+            <section className="h2-intro-section">
+                <div className="h2-intro-grid">
+                    <p className="h2-intro-p">
+                        Graphéine accompagne les marques qui veulent faire du design un levier de transformation sociale et économique, pour relever les défis de demain.
+                    </p>
+                    <p className="h2-intro-p">
+                        Nous croyons que la marque est un outil puissant pour inventer de nouveaux récits, fédérer les imaginaires et dessiner des futurs désirables.
+                    </p>
+                </div>
+            </section>
+
+            {/* 2. SECTORS SECTION */}
+            <section className="h2-sectors-container">
+                {/* Left Side: Static/Sticky Video */}
+                <div className="h2-sectors-media">
+                    <video autoPlay muted loop playsInline src="https://grapheine.com/wp-content/uploads/2025/10/showreel_grapheine_27_octobre.mp4"></video>
+                </div>
+
+                {/* Right Side: Scrollable Text */}
+                <div className="h2-sectors-list">
+                    {["Culture", "Territoires", "Éducation", "Technologies", "Conseil & services", "Industries", "Écologie & Environnement", "Sport & santé", "Gastronomie", "Mode & luxe"].map((sector, index) => (
+                        <div
+                            key={index}
+                            className="h2-sector-item"
+                            id={`sector-${index}`}
+                        >
+                            {sector}
+                        </div>
+                    ))}
+                    <div style={{ height: '30vh' }}></div> {/* Spacer */}
+                </div>
+            </section>
+
+            {/* 3. FILTER / PROJECT GRID */}
+            <section className="h2-filter-section">
                 <div className="h2-works-grid">
                     {/* Project 1 */}
                     <div className="h2-project-card">

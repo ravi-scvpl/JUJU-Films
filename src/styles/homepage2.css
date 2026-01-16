@@ -13,8 +13,53 @@
     background-color: var(--h2-color-bg);
     color: var(--h2-color-text);
     font-family: var(--h2-font-stack);
-    overflow-x: hidden;
     line-height: 1.2;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    /* Faster transition for 'while scrolling' feel */
+}
+
+/* Light Theme Override (Triggered on Scroll) */
+.page-template-homepage2.theme-light {
+    background-color: #ffffff;
+    color: #111111;
+}
+
+/* Force HERO background to change too */
+.page-template-homepage2.theme-light .h2-hero {
+    background-color: #ffffff;
+    transition: background-color 0.5s ease;
+}
+
+/* Update child text colors in light mode */
+.page-template-homepage2.theme-light .h2-hero h1 {
+    color: #111;
+    /* Invert text to Black */
+    transition: color 0.5s ease;
+}
+
+.page-template-homepage2.theme-light .h2-filter-item {
+    color: #666;
+}
+
+.page-template-homepage2.theme-light .h2-filter-item:hover {
+    color: var(--h2-color-accent);
+}
+
+.page-template-homepage2.theme-light .h2-project-card {
+    color: #111;
+}
+
+.page-template-homepage2.theme-light .h2-magazine {
+    background: #f9f9f9;
+    /* Light grey for mag section */
+}
+
+.page-template-homepage2.theme-light .h2-section-title {
+    border-bottom: 2px solid #ddd;
+}
+
+.page-template-homepage2.theme-light .h2-article {
+    border-bottom: 1px solid #eee;
 }
 
 /* 1. HERO SECTION */
@@ -31,6 +76,8 @@
     background: #000;
     overflow: visible;
     /* Content flows down */
+    transition: background-color 0.5s ease;
+    /* Ensure smooth back-transition */
 }
 
 /* Hero Content Wrapper (Text over video) */
@@ -42,10 +89,10 @@
 }
 
 .h2-hero h1 {
-    font-size: 85px;
+    font-size: 60px;
     /* Exact Size */
     line-height: 1.1;
-    font-weight: 700;
+    font-weight: 400;
     text-transform: none;
     /* Looks like sentence case in screenshot */
     letter-spacing: normal;
@@ -95,16 +142,131 @@
 .h2-hero-media {
     width: 100%;
     margin-top: 40px;
+    position: relative;
+    /* Ensure container respects layout */
 }
 
 .h2-hero-media video {
     width: 100%;
-    height: auto;
-    max-height: 80vh;
+    /* Height > 100vh per user request */
+    height: 120vh;
     object-fit: cover;
+    display: block;
     border-radius: 4px;
-    /* Optional slight rounding */
 }
+
+/* 1.5 INTRO TEXT SECTION */
+/* 1.5 INTRO TEXT SECTION */
+.h2-intro-section {
+    padding: 0 5vw 10vh;
+    background-color: #fff;
+    color: #111;
+}
+
+/* Section Divider (User Manual) */
+.section-devider {
+    padding: 5vh 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #fff;
+}
+
+.section-devider-line {
+    width: 90%;
+    height: 1px;
+    background-color: #dbdbdb;
+}
+
+.h2-intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 60%;
+    /* 50-60% width as requested */
+    max-width: none;
+}
+
+.h2-intro-p {
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .h2-intro-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .h2-intro-p {
+        font-size: 20px;
+    }
+}
+
+/* 2. SECTORS SECTION (Video Left, Text Right) */
+.h2-sectors-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background-color: #fff;
+    color: #111;
+    overflow: visible;
+    align-items: flex-start;
+    /* CRITICAL: Prevent stretching so sticky works */
+}
+
+.h2-sectors-media {
+    width: 50%;
+    /* Slightly narrower column */
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    padding-top: 25vh;
+    padding-left: 5vw;
+    align-items: start;
+    overflow: hidden;
+    background: #fff;
+}
+
+/* Video Size: User asked for ~40% of container visually */
+.h2-sectors-media video {
+    width: 90%;
+    max-width: 300px;
+    /* Constraint */
+    height: auto;
+    object-fit: contain;
+}
+
+.h2-sectors-list {
+    width: 50%;
+    /* Wider text column */
+    padding-bottom: 15vh;
+    /* More padding */
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.h2-sector-item {
+    font-size: 64px;
+    /* Large */
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    /* Explicit Light Gray (Inactive) */
+    transition: color 0.3s ease;
+    cursor: pointer;
+    line-height: 1.0;
+    letter-spacing: -3px;
+}
+
+.h2-sector-item.active {
+    color: #ff3333;
+    /* Bright Red Active */
+}
+
 
 
 .h2-filter-bar {
