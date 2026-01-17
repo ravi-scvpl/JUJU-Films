@@ -108,6 +108,13 @@ const Homepage2 = () => {
                 </div> */}
             </header>
 
+            {/* Divider Section */}
+            <section>
+                <div className="section-devider">
+                    <div className="section-devider-line"></div>
+                </div>
+            </section>
+
             {/* 1.5 INTRO TEXT SECTION */}
             <section className="h2-intro-section">
                 <div className="h2-intro-grid">
@@ -138,68 +145,126 @@ const Homepage2 = () => {
                             {sector}
                         </div>
                     ))}
-                    <div style={{ height: '30vh' }}></div> {/* Spacer */}
+                    <div style={{ height: '30vh' }}></div>
                 </div>
             </section>
+
+
 
             {/* 3. FILTER / PROJECT GRID */}
             <section className="h2-filter-section">
                 <div className="h2-works-grid">
-                    {/* Project 1 */}
+                    {/* 1. Mont Saint-Michel */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src="/local_assets/wp-content/uploads/2025/09/01_concarneau-logo-cover-2-1-2560x1583.webp" alt="Concarneau" />
-                            {/* Hover Video */}
+                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2026/01/00-branding-logo-mont-saint-michel-monument-france-cover-2560x1583.jpg" alt="Mont Saint-Michel" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
                                 <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
                             </video>
                         </div>
                         <div className="h2-project-info">
-                            <h3 className="h2-project-title">Concarneau</h3>
-                            <div className="h2-project-category">Territoires</div>
+                            <h3 className="h2-project-title">Mont Saint-Michel</h3>
+                            <div className="h2-project-category">Territories</div>
                         </div>
                     </div>
 
-                    {/* Project 2 (Staggered by margin in Grid if needed, or naturally flowing) */}
-                    <div className="h2-project-card" style={{ marginTop: '150px' }}>
-                        <div className="h2-project-media-container">
-                            <img className="h2-project-img" src="/local_assets/wp-content/uploads/2025/10/carre-baudouin-case-study-202507162-2560x1312.webp" alt="Pavillon Carré de Baudouin" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
-                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
-                            </video>
-                        </div>
-                        <div className="h2-project-info">
-                            <h3 className="h2-project-title">Pavillon Carré de Baudouin</h3>
-                            <div className="h2-project-category">Culture / Architecture</div>
-                        </div>
-                    </div>
-
-                    {/* Project 3 */}
+                    {/* 2. City of Concarneau */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2024/02/vivre-lessentiel-couv.jpg" alt="Vivre l'Essentiel" />
+                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/09/01_concarneau-logo-cover-2-1-2560x1583.webp" alt="City of Concarneau" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
                                 <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
                             </video>
                         </div>
                         <div className="h2-project-info">
-                            <h3 className="h2-project-title">Vivre l'Essentiel</h3>
-                            <div className="h2-project-category">Gastronomy</div>
+                            <h3 className="h2-project-title">City of Concarneau</h3>
+                            <div className="h2-project-category">Territories</div>
                         </div>
                     </div>
 
-                    {/* Project 4 */}
-                    <div className="h2-project-card" style={{ marginTop: '150px' }}>
+                    {/* 3. Caramba: Live Culture */}
+                    <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src="/local_assets/wp-content/uploads/2025/10/showreel_grapheine_27_octobre.mp4" alt="Showreel" />
+                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/07/01-caramba-culturel-logotype-4-2560x1583.webp" alt="Caramba: Live Culture" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
                                 <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
                             </video>
                         </div>
                         <div className="h2-project-info">
-                            <h3 className="h2-project-title">Showreel 2025</h3>
-                            <div className="h2-project-category">Motion Design</div>
+                            <h3 className="h2-project-title">Caramba: Live Culture</h3>
+                            <div className="h2-project-category">Culture</div>
                         </div>
+                    </div>
+
+                    {/* 4. Elegy */}
+                    <div className="h2-project-card">
+                        <div className="h2-project-media-container">
+                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/09/cs_elegy-gallimard-jeunesse-2560x1313.webp" alt="Elegy" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
+                            </video>
+                        </div>
+                        <div className="h2-project-info">
+                            <h3 className="h2-project-title">Elegy</h3>
+                            <div className="h2-project-category">Culture</div>
+                        </div>
+                    </div>
+
+                    {/* 5. Baudouin Square */}
+                    <div className="h2-project-card">
+                        <div className="h2-project-media-container">
+                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/10/carre-baudouin-case-study-202507162-2560x1312.webp" alt="Baudouin Square" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
+                            </video>
+                        </div>
+                        <div className="h2-project-info">
+                            <h3 className="h2-project-title">Baudouin Square</h3>
+                            <div className="h2-project-category">Culture</div>
+                        </div>
+                    </div>
+
+                    {/* 6. The Animal Company */}
+                    <div className="h2-project-card">
+                        <div className="h2-project-media-container">
+                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/09/00-compagne-animaux-logo-vignette-2560x1575.webp" alt="The Animal Company" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
+                            </video>
+                        </div>
+                        <div className="h2-project-info">
+                            <h3 className="h2-project-title">The Animal Company</h3>
+                            <div className="h2-project-category">Advice & services</div>
+                            <p style={{ fontSize: '18px', marginTop: '10px', color: '#666', lineHeight: '1.4' }}>
+                                A visual identity to make veterinary advice accessible; a logo embodying expertise, proximity and animal welfare.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 3.5 AGENCY INFO SECTION */}
+            <section className="h2-agency-info-section">
+                <div className="h2-agency-info-header">
+                    <h2>
+                        <span className="h2-statement-line-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Making brand design a lever for</span>
+                        <br />
+                        <span className="h2-statement-line-2">
+                            <span className="highlight-red">social and economic transformation</span>, to meet the challenges of tomorrow.
+                        </span>
+                    </h2>
+                </div>
+                <div className="h2-agency-info-grid">
+                    <div className="h2-agency-info-col-1">
+                        <p className="h2-agency-info-p">
+                            For 25 years, in Paris and Lyon, our designers, coming from vibrant training programs, diverse professional backgrounds and a shared passion for imagery, have been supporting you in the creation of brand strategies and designs.
+                        </p>
+                    </div>
+                    <div className="h2-agency-info-col-2">
+                        <p className="h2-agency-info-p">
+                            The goal is to make your brand visible, understandable, and desirable. To achieve this, we enjoy understanding complexity, developing simple strategies, and designing original, agile, and sustainable solutions.
+                        </p>
+                        <Link to="/agence" className="h2-agency-info-link">Discover the agency</Link>
                     </div>
                 </div>
             </section>
