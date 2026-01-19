@@ -171,11 +171,17 @@
     color: #111;
 }
 
-.h2-intro-heading {
-    font-weight: 300;
+.h2-intro-heading h2 {
+    grid-column: 1 / -1;
+    /* Spans full width */
     font-size: 64px;
-    line-height: 1.0;
+    /* Slightly larger per screenshot feel */
+    line-height: 1.05;
+    font-weight: 300 !important;
+    max-width: none;
+    margin-bottom: 100px;
     letter-spacing: -3px;
+    text-align: left;
 }
 
 /* Section Divider (User Manual) */

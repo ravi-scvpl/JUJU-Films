@@ -67,7 +67,7 @@ const Layout = ({ children }) => {
                         <div pos="4-6" pos-s="row" className="footer__text">
                             <p className="p2">We believe that a brand is a powerful tool for creating fresh narratives, uniting imaginations and shaping desirable futures.</p>
                         </div>
-                        <div pos="4-12" pos-s="row" className="footer__logo">
+                        <div pos="3-6" pos-s="row" className="footer__logo" style={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <img src="/JUJU-6.png" alt="JUJU Films" style={{ maxWidth: '100%', height: '20vh' }} />
                         </div>
                     </div>
