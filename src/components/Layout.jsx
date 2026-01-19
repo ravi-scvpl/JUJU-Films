@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
             <header className="header">
                 <div className="header__container">
                     <Link className="header__logo" to="/" aria-label="Homepage">
-                        <img src="/JUJU White logo.png" alt="JUJU Films" style={{ height: '40px' }} />
+                        <img src="/JUJU White logo.png" alt="JUJU Films" style={{ height: '25px' }} />
                     </Link>
 
                     <button className="mobile-menu-toggle" onClick={toggleMenu} aria-label="Toggle Navigation">
@@ -22,11 +22,21 @@ const Layout = ({ children }) => {
 
                     <nav className={`navigation ${isMenuOpen ? 'mobile-open' : ''}`}>
                         <ul className="navigation__list">
+
                             <li className="navigation__item">
-                                <Link className="navigation__link" to="/portfolio" onClick={() => setIsMenuOpen(false)}>Juju Jr.</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/brand-collabrations" onClick={() => setIsMenuOpen(false)}>Juju Storytellers</Link>
+                            </li>
+                            <li className="navigation__item">
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/portfolio" onClick={() => setIsMenuOpen(false)}>Juju Commercials </Link>
+                            </li>
+                            <li className="navigation__item">
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-lab" onClick={() => setIsMenuOpen(false)}>Juju AI Filmakers</Link>
+                            </li>
+                            <li className="navigation__item">
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
                             </li>
                         </ul>
                     </nav>
@@ -42,9 +52,10 @@ const Layout = ({ children }) => {
                     <div pos="1-4">
                         <nav className="navigation navigation--footer">
                             <ul className="navigation__list">
-                                <li className="navigation__item"><Link className="navigation__link" to="/portfolio">Portfolio</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/magazine">Magazine</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/agency">Agency</Link></li>
+
+                                <li className="navigation__item"><Link className="navigation__link" to="/brand-collabrations">Storytellers</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/portfolio">Commercials</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ai-lab">AI Filmmakers</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/contact">Contact</Link></li>
                             </ul>
                         </nav>

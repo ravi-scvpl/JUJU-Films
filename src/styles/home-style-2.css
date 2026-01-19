@@ -1096,6 +1096,7 @@ fieldset {
 
 .navigation__list {
     display: flex;
+    font-size: 12px;
     margin-left: auto;
     gap: round(1.25rem, 1px)
 }
@@ -1106,7 +1107,7 @@ fieldset {
 
 .navigation__link {
     display: block;
-    font-size: round(1.0625rem, 1px);
+    font-size: 12px;
     line-height: round(110%, 1px)
 }
 

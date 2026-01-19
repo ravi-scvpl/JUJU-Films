@@ -4,7 +4,7 @@ import '../styles/homepage2.css';
 
 const Homepage2 = () => {
     // Dynamic Text State
-    const words = ["public", "culturel", "digital", "stratégique", "durable", "mémorable"];
+    const words = ["JUJU Storytellers", "JUJU Commercials", "JUJU AI Filmakers"];
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [isLightTheme, setIsLightTheme] = useState(false);
 
@@ -77,7 +77,8 @@ const Homepage2 = () => {
             <header className="h2-hero">
                 <div className="h2-hero-content">
                     <h1>
-                        <span className="h2-static-text">Brand design</span>
+                        <span className="h2-static-text">JUJU Films is a creator collective building original stories,
+                            under one JUJU philosophy.</span>
                         <div className="h2-dynamic-text-wrapper">
                             {words.map((word, index) => (
                                 <span
@@ -247,7 +248,7 @@ const Homepage2 = () => {
             <section className="h2-agency-info-section">
                 <div className="h2-agency-info-header">
                     <h2>
-                        <span className="h2-statement-line-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Making brand design a lever for</span>
+                        <span className="h2-statement-line-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Making brand design a lever for</span>
                         <br />
                         <span className="h2-statement-line-2">
                             <span className="highlight-red">social and economic transformation</span>, to meet the challenges of tomorrow.
@@ -269,25 +270,79 @@ const Homepage2 = () => {
                 </div>
             </section>
 
-            {/* 3. MAGAZINE (NEWS) */}
+            {/* 3. MAGAZINE (NEWS) - High Fidelity */}
             <section className="h2-magazine">
-                <h2 className="h2-section-title">Le Magazine</h2>
-                <div className="h2-article-list">
-                    <article className="h2-article">
-                        <span className="h2-article-date">14 Jan 2025</span>
-                        <h3 className="h2-article-title">La gen Z brandit le drapeau One Piece pour saboter les gouvernements.</h3>
-                    </article>
-                    <article className="h2-article">
-                        <span className="h2-article-date">02 Dec 2024</span>
-                        <h3 className="h2-article-title">Pourquoi le logo de votre boulanger est (probablement) moche ?</h3>
-                    </article>
-                    <article className="h2-article">
-                        <span className="h2-article-date">15 Nov 2024</span>
-                        <h3 className="h2-article-title">L'identité visuelle de Paris 2024 décryptée par nos designers.</h3>
-                    </article>
+                <div className="h2-magazine-header">
+                    <h2 className="h2-magazine-title">Magazine</h2>
+                    <div className="h2-magazine-meta">
+                        <span className="h2-mag-clock">10:45:22 UTC+01:00</span>
+                        <span className="h2-mag-count">340 ARTICLES</span>
+                    </div>
                 </div>
-                <div style={{ marginTop: '60px' }}>
-                    <Link to="/magazine" className="h2-filter-item" style={{ fontSize: '1.5rem', borderBottom: '2px solid #E52323' }}>Lire le magazine →</Link>
+
+                <ul className="h2-magazine-nav">
+                    <li><a href="#" className="h2-magazine-nav-link active">All</a></li>
+                    <li><a href="#" className="h2-magazine-nav-link">Graphic perspectives</a></li>
+                    <li><a href="#" className="h2-magazine-nav-link">History of graphic design</a></li>
+                    <li><a href="#" className="h2-magazine-nav-link">Brand culture</a></li>
+                    <li><a href="#" className="h2-magazine-nav-link">The most popular</a></li>
+                </ul>
+
+                <div className="h2-magazine-grid">
+                    {/* Featured Row 1 */}
+                    <div className="h2-mag-featured-row">
+                        <div className="article-first">
+                            <div className="h2-mag-media-placeholder"></div>
+                            <div className="article-content">
+                                <div className="h2-mag-article">
+
+                                    <h3 className="h2-mag-luxury-title">Luxury brand magazines are putting up resistance</h3>
+                                </div>
+                                <div className="h2-mag-article" style={{ justifyContent: 'flex-end', paddingBottom: '20px' }}>
+                                    <p className="h2-mag-desc">
+                                        An overview of luxury brand magazines that seek to stand out and resist the temporal acceleration of current events.
+                                    </p>
+                                    <span className="h2-mag-date">06.01.2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Michel Quarez Row (on the right in screenshot, let's stack or grid it) */}
+                    <div className="h2-mag-article" style={{ gridColumn: '2' }}>
+                        <div className="h2-mag-media-placeholder" style={{ aspectRatio: '4/3' }}></div>
+                        <span className="h2-mag-date">16.12.2025</span>
+                        <h3 className="h2-mag-standard-title">Michel Quarez, an artist/graphic designer eager to live in color</h3>
+                        <p className="h2-mag-desc">
+                            Michel Quarez was a graphic designer, painter, and poster artist. In truth, he made no distinction between these different categories...
+                        </p>
+                    </div>
+
+                    {/* Row 2 */}
+                    <div className="h2-mag-second-row">
+                        <div className="h2-mag-article">
+                            <div className="h2-mag-media-placeholder"></div>
+                            <span className="h2-mag-date">09.12.2025</span>
+                            <h3 className="h2-mag-standard-title">Gen Z brandishes the One Piece flag to sabotage governments</h3>
+                            <p className="h2-mag-desc">
+                                Why the One Piece symbol became the banner of Generation Z, brandished to sabotage governments.
+                            </p>
+                        </div>
+                        <div className="h2-mag-article">
+                            <div className="h2-mag-media-placeholder"></div>
+                            <h3 className="h2-mag-standard-title" style={{ fontSize: '64px' }}>Maison Nicolas, a new logo for a new strategy</h3>
+                            <div style={{ display: 'flex', gap: '40px', marginTop: '20px' }}>
+                                <p className="h2-mag-desc">
+                                    Maison Nicolas has unveiled a new logo and a new identity, unfortunately without drawing on its rich graphic heritage.
+                                </p>
+                                <span className="h2-mag-date">02.12.2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style={{ marginTop: '100px', textAlign: 'right' }}>
+                    <Link to="/magazine" className="h2-magazine-nav-link" style={{ fontSize: '32px', borderBottom: '2px solid #ff8a8a' }}>View the portfolio →</Link>
                 </div>
             </section>
 

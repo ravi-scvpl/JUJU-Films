@@ -49,17 +49,25 @@
     color: #111;
 }
 
-.page-template-homepage2.theme-light .h2-magazine {
-    background: #f9f9f9;
-    /* Light grey for mag section */
+/* Light Theme Overrides for Agency section */
+.theme-light .h2-agency-info-section {
+    background-color: #ffffff;
+    color: #111;
 }
 
-.page-template-homepage2.theme-light .h2-section-title {
-    border-bottom: 2px solid #ddd;
+.theme-light .h2-agency-info-header h2 {
+    color: #000;
 }
 
-.page-template-homepage2.theme-light .h2-article {
-    border-bottom: 1px solid #eee;
+.theme-light .h2-agency-info-p {
+    color: #333;
+}
+
+/* Force Magazine and Footer to stay dark regardless of theme */
+.h2-magazine,
+.h2-footer {
+    background-color: #000 !important;
+    color: #fff !important;
 }
 
 /* 1. HERO SECTION */
@@ -372,53 +380,174 @@
 }
 
 
-/* 3. MAGAZINE SECTION */
+/* 3. MAGAZINE SECTION (HIGH FIDELITY) */
 .h2-magazine {
-    background: #0a0a0a;
-    padding: 100px 43px;
+    background: #000;
+    padding: 120px 43px;
+    color: #fff;
+    border-top: 1px solid #222;
 }
 
-.h2-section-title {
-    font-size: 60px;
-    text-transform: uppercase;
+.h2-magazine-header {
     margin-bottom: 60px;
-    border-bottom: 2px solid #333;
-    padding-bottom: 20px;
+    position: relative;
+}
+
+.h2-magazine-title {
+    font-size: 380px;
+    /* Massive scale */
+    font-family: serif;
+    /* Grapheine uses a high-contract serif */
+    font-weight: 400;
+    line-height: 0.8;
+    margin: 0;
+    letter-spacing: -10px;
+    color: #fff;
     display: block;
     width: 100%;
 }
 
-.h2-article-list {
+.h2-magazine-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    margin-top: -20px;
+    /* Overlap slightly with massive text bottom */
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.h2-magazine-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 60px;
+    list-style: none;
+    padding: 0;
+}
+
+.h2-magazine-nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-family: serif;
+    font-style: italic;
+    font-size: 24px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.h2-magazine-nav-link:hover,
+.h2-magazine-nav-link.active {
+    opacity: 1;
+}
+
+/* Article Grid Layout */
+.h2-magazine-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    /* Asymmetric grid */
+    gap: 80px;
+    margin-top: 100px;
+}
+
+.h2-mag-article {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 20px;
 }
 
-.h2-article {
+.h2-mag-featured-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 80px;
+}
+
+/* Specific Article Styles */
+.h2-mag-luxury-title {
+    font-size: 60px;
+    line-height: 0.9;
+    color: #E52323;
+    /* Salmon/Coral */
+    font-family: serif;
+    margin: 0;
+}
+
+.article-first {
     display: flex;
-    gap: 50px;
-    align-items: center;
-    border-bottom: 1px solid #222;
-    padding-bottom: 40px;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.h2-article-date {
-    font-size: 16px;
-    color: #666;
-    min-width: 120px;
+.article-content {
+    display: flex;
+    gap: 20px;
 }
 
-.h2-article-title {
-    font-size: 40px;
-    font-weight: 700;
+.h2-mag-standard-title {
+    font-size: 48px;
     line-height: 1.1;
+    font-weight: 500;
+    font-family: serif;
+    margin: 0;
+}
+
+.h2-mag-date {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.h2-mag-desc {
+    font-size: 18px;
+    line-height: 1.4;
+    color: #ccc;
+    max-width: 400px;
+}
+
+.h2-mag-media-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #111;
+    margin-bottom: 30px;
+}
+
+/* Second Row Grid */
+.h2-mag-second-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 80px;
+    margin-top: 80px;
+}
+
+@media (max-width: 1024px) {
+    .h2-magazine-title {
+        font-size: 100px;
+        letter-spacing: -2px;
+    }
+
+    .h2-mag-featured-row,
+    .h2-mag-second-row {
+        grid-template-columns: 1fr;
+    }
+
+    .h2-mag-luxury-title {
+        font-size: 50px;
+    }
 }
 
 /* 3.5 AGENCY INFO SECTION (Before Magazine) */
 .h2-agency-info-section {
     padding: 15vh 5vw;
-    background-color: #fff;
-    color: #111;
+    background-color: #000;
+    color: #fff;
 }
 
 .h2-agency-info-header {
@@ -437,7 +566,7 @@
     max-width: none;
     margin-bottom: 100px;
     letter-spacing: -3px;
-    color: #000;
+    color: #fff;
     text-align: left;
     /* Restored to left aligned */
 }
@@ -473,7 +602,7 @@
 .h2-agency-info-p {
     font-size: 18px;
     line-height: 1.5;
-    color: #333;
+    color: #ccc;
 }
 
 .h2-agency-info-link {

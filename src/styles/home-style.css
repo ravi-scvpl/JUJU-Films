@@ -7239,9 +7239,10 @@ ul.frm_rootline_hidden_steps li {
 
     .footer__logo img,
     .header__logo img {
-        max-width: 200px !important;
+        max-height: 50px !important;
+        max-width: 100px !important;
         /* Constrain logo width */
-        height: auto;
+
     }
 
     .header-homepage__title {
@@ -7272,6 +7273,7 @@ ul.frm_rootline_hidden_steps li {
         text-align: center;
     }
 }
+
 /* Fix for White Patch in Identity Section */
 .media::after {
     background: transparent !important;
