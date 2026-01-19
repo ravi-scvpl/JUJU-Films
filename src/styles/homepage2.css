@@ -171,6 +171,13 @@
     color: #111;
 }
 
+.h2-intro-heading {
+    font-weight: 300;
+    font-size: 64px;
+    line-height: 1.0;
+    letter-spacing: -3px;
+}
+
 /* Section Divider (User Manual) */
 .section-devider {
     padding: 15vh 0;

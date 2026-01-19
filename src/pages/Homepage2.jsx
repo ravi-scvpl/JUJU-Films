@@ -4,7 +4,7 @@ import '../styles/homepage2.css';
 
 const Homepage2 = () => {
     // Dynamic Text State
-    const words = ["JUJU Storytellers", "JUJU Commercials", "JUJU AI Filmakers"];
+    const words = ["Story first. Always"];
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [isLightTheme, setIsLightTheme] = useState(false);
 
@@ -16,7 +16,7 @@ const Homepage2 = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Theme Transition on Scro
+    // Theme Transition on Scroll
     useEffect(() => {
         const handleScroll = () => {
             const video = document.querySelector('.h2-hero-media video');
@@ -78,7 +78,7 @@ const Homepage2 = () => {
                 <div className="h2-hero-content">
                     <h1>
                         <span className="h2-static-text">JUJU Films is a creator collective building original stories,
-                            under one JUJU philosophy.</span>
+                            under one <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> philosophy.</span>
                         <div className="h2-dynamic-text-wrapper">
                             {words.map((word, index) => (
                                 <span
@@ -118,12 +118,16 @@ const Homepage2 = () => {
 
             {/* 1.5 INTRO TEXT SECTION */}
             <section className="h2-intro-section">
+                <div className="h2-intro-heading">
+                    <h2>Culture Compounds. Campaigns Expire.</h2>
+                </div>
                 <div className="h2-intro-grid">
                     <p className="h2-intro-p">
-                        Graphéine accompagne les marques qui veulent faire du design un levier de transformation sociale et économique, pour relever les défis de demain.
+                        JUJU Films is designed for brands that want more than impressions.
+                        Not a production house. Not an agency. But a creator collective that builds original stories brands can credibly belong to—moving ideas from concept to culture without the usual friction.
                     </p>
                     <p className="h2-intro-p">
-                        Nous croyons que la marque est un outil puissant pour inventer de nouveaux récits, fédérer les imaginaires et dessiner des futurs désirables.
+                        At JUJU, creators build the narrative, brands fund it with restraint, and OTT platforms deliver scale. No forced placements. No short-term campaigns. Just brand-enabled storytelling with long shelf life, cultural relevance, and measurable recall—built for CMOs who think in years, not weeks.
                     </p>
                 </div>
             </section>
@@ -137,8 +141,8 @@ const Homepage2 = () => {
 
                 {/* Right Side: Scrollable Text */}
                 <div className="h2-sectors-list">
-                    {["Culture", "Territoires", "Éducation", "Technologies", "Conseil & services", "Industries", "Écologie & Environnement", "Sport & santé", "Gastronomie", "Mode & luxe"].map((sector, index) => (
-                        <div
+                    {["Juju Storyteller", "Juju Commercials", "Juju AI Films", "  ", "  ", " ", " ", "Brand Collabration", "Creators Connect", "Internship", "Job"].map((sector, index) => (
+                        < div
                             key={index}
                             className="h2-sector-item"
                             id={`sector-${index}`}
@@ -148,12 +152,12 @@ const Homepage2 = () => {
                     ))}
                     <div style={{ height: '30vh' }}></div>
                 </div>
-            </section>
+            </section >
 
 
 
             {/* 3. FILTER / PROJECT GRID */}
-            <section className="h2-filter-section">
+            < section className="h2-filter-section" >
                 <div className="h2-works-grid">
                     {/* 1. Mont Saint-Michel */}
                     <div className="h2-project-card">
@@ -242,10 +246,10 @@ const Homepage2 = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* 3.5 AGENCY INFO SECTION */}
-            <section className="h2-agency-info-section">
+            < section className="h2-agency-info-section" >
                 <div className="h2-agency-info-header">
                     <h2>
                         <span className="h2-statement-line-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Making brand design a lever for</span>
@@ -268,10 +272,10 @@ const Homepage2 = () => {
                         <Link to="/agence" className="h2-agency-info-link">Discover the agency</Link>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* 3. MAGAZINE (NEWS) - High Fidelity */}
-            <section className="h2-magazine">
+            < section className="h2-magazine" >
                 <div className="h2-magazine-header">
                     <h2 className="h2-magazine-title">Magazine</h2>
                     <div className="h2-magazine-meta">
@@ -344,10 +348,10 @@ const Homepage2 = () => {
                 <div style={{ marginTop: '100px', textAlign: 'right' }}>
                     <Link to="/magazine" className="h2-magazine-nav-link" style={{ fontSize: '32px', borderBottom: '2px solid #ff8a8a' }}>View the portfolio →</Link>
                 </div>
-            </section>
+            </section >
 
             {/* 4. FOOTER */}
-            <footer className="h2-footer">
+            < footer className="h2-footer" >
                 <nav className="h2-big-nav">
                     <Link to="/portfolio" className="h2-nav-link">Projets</Link>
                     <Link to="/magazine" className="h2-nav-link">Magazine</Link>
@@ -374,9 +378,9 @@ const Homepage2 = () => {
                 <div className="h2-footer-logo">
                     graphéine
                 </div>
-            </footer>
+            </footer >
 
-        </div>
+        </div >
     );
 };
 

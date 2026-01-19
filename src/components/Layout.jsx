@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/portfolio" onClick={() => setIsMenuOpen(false)}>Juju Commercials </Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-lab" onClick={() => setIsMenuOpen(false)}>Juju AI Filmakers</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-lab" onClick={() => setIsMenuOpen(false)}>Juju AI Films</Link>
                             </li>
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
@@ -55,7 +55,7 @@ const Layout = ({ children }) => {
 
                                 <li className="navigation__item"><Link className="navigation__link" to="/brand-collabrations">Storytellers</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/portfolio">Commercials</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ai-lab">AI Filmmakers</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ai-lab">AI Films</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/contact">Contact</Link></li>
                             </ul>
                         </nav>
@@ -67,10 +67,11 @@ const Layout = ({ children }) => {
                         <div pos="4-6" pos-s="row" className="footer__text">
                             <p className="p2">We believe that a brand is a powerful tool for creating fresh narratives, uniting imaginations and shaping desirable futures.</p>
                         </div>
+                        <div pos="4-12" pos-s="row" className="footer__logo">
+                            <img src="/JUJU-6.png" alt="JUJU Films" style={{ maxWidth: '100%', height: '20vh' }} />
+                        </div>
                     </div>
-                    <div pos="4-12" pos-s="row" className="footer__logo">
-                        <img src="/JUJU White logo.png" alt="JUJU Films" style={{ maxWidth: '100%', height: 'auto', maxHeight: '100px' }} />
-                    </div>
+
                     <div pos="row" className="footer__bottom">
                         <div className="navigation navigation--bottom">
                             <div className="navigation__list">

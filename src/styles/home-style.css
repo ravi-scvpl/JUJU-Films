@@ -7239,7 +7239,7 @@ ul.frm_rootline_hidden_steps li {
 
     .footer__logo img,
     .header__logo img {
-        max-height: 50px !important;
+        max-height: 25px !important;
         max-width: 100px !important;
         /* Constrain logo width */
 
