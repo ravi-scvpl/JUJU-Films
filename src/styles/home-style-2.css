@@ -1107,7 +1107,7 @@ fieldset {
 
 .navigation__link {
     display: block;
-    font-size: 12px;
+    font-size: round(1.0625rem, 1px);
     line-height: round(110%, 1px)
 }
 

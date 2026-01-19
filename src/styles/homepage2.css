@@ -733,3 +733,47 @@
         font-size: 24px;
     }
 }
+
+/* Juju Storytellers Specific Hero */
+.h2-storytellers-hero {
+    background-color: #000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.h2-storytellers-header {
+    width: 100%;
+    margin-bottom: auto;
+}
+
+.h2-storytellers-label {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.h2-storytellers-content {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 20vh;
+}
+
+.h2-storytellers-title {
+    font-size: clamp(60px, 8vw, 160px);
+    line-height: 0.9;
+    font-weight: 400;
+    margin: 0;
+    letter-spacing: -4px;
+    color: #fff;
+}
+
+.h2-storytellers-red {
+    color: #E52323;
+    display: block;
+}

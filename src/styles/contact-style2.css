@@ -3068,7 +3068,7 @@ fieldset {
 }
 
 .hero__description {
-    font-weight: 400;
+    font-weight: 400 !important;
     font-size: round(6.25rem, 1px);
     line-height: round(100%, 1px);
     margin: 0

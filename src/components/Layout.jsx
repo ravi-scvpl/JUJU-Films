@@ -27,13 +27,13 @@ const Layout = ({ children }) => {
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/brand-collabrations" onClick={() => setIsMenuOpen(false)}>Juju Storytellers</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-storytellers" onClick={() => setIsMenuOpen(false)}>Juju Storytellers</Link>
                             </li>
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/portfolio" onClick={() => setIsMenuOpen(false)}>Juju Commercials </Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-lab" onClick={() => setIsMenuOpen(false)}>Juju AI Films</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>Juju AI Films</Link>
                             </li>
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>

@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Contact from './pages/Contact';
 import Portfolio from './pages/Portfolio';
 import Homepage2 from './pages/Homepage2';
+import JujuStorytellers from './pages/JujuStorytellers';
+import JujuAIFilms from './pages/JujuAIFilms';
 
 // Import Styles
 import './styles/home-style.css';
@@ -19,6 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home2" element={<Homepage2 />} />
+          <Route path="/juju-storytellers" element={<JujuStorytellers />} />
+          <Route path="/juju-ai-films" element={<JujuAIFilms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/portfolio" element={<Portfolio />} />
         </Routes>
