@@ -16,7 +16,7 @@ const Homepage2 = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Theme Transition on Scroll
+    // Theme Transition on Scro
     useEffect(() => {
         const handleScroll = () => {
             const video = document.querySelector('.h2-hero-media video');
