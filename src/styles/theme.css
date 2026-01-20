@@ -1,0 +1,189 @@
+/* Global Light Theme Styles */
+body {
+    background-color: #000;
+    color: #fff;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Light Theme Class (applied to wrapper in Layout) */
+.theme-light body,
+.theme-light main,
+.theme-light .page-template-default,
+.theme-light .page,
+.theme-light {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+}
+
+/* Force light theme on specific text elements */
+.theme-light h1,
+.theme-light h2,
+.theme-light h3,
+.theme-light h4,
+.theme-light h5,
+.theme-light h6,
+.theme-light p,
+.theme-light span,
+.theme-light div,
+.theme-light li,
+.theme-light label {
+    color: #111111;
+    transition: color 0.5s ease;
+}
+
+/* Revert specific areas that should stay dark if needed */
+.theme-light .footer,
+.theme-light footer,
+.theme-light .header,
+.theme-light .h2-magazine {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.theme-light .footer p,
+.theme-light footer p,
+.theme-light .footer span,
+.theme-light footer span,
+.theme-light .footer a,
+.theme-light footer a,
+.theme-light .header a,
+.theme-light .header span,
+.theme-light .header button,
+.theme-light .h2-magazine h2,
+.theme-light .h2-magazine h3,
+.theme-light .h2-magazine p,
+.theme-light .h2-magazine a,
+.theme-light .h2-magazine span {
+    color: #ffffff !important;
+}
+
+/* Specific Page Overrides */
+/* Contact Form Fields */
+.theme-light input,
+.theme-light textarea {
+    background-color: #f0f0f0;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+.theme-light input::placeholder,
+.theme-light textarea::placeholder {
+    color: #666;
+}
+
+/* Links */
+.theme-light a {
+    color: #111;
+}
+
+.theme-light .navigation__link {
+    color: #111;
+}
+
+.theme-light .navigation__link:hover {
+    color: #E52323;
+    /* Graphéine Red */
+}
+
+/* --------------------------------------------------------- */
+/* Contact Page Specific Fixes */
+/* --------------------------------------------------------- */
+
+/* Fix Form Labels in Light Theme */
+.theme-light .frm_primary_label,
+.theme-light .frm_radio label,
+.theme-light .frm_checkbox label,
+.theme-light .frm_description,
+.theme-light .frm_required {
+    color: #111111 !important;
+}
+
+/* Force light theme on specific form parts if needed */
+.theme-light .frm_form_field label {
+    color: #111111 !important;
+}
+
+/* --------------------------------------------------------- */
+/* Tab Styling (Nav Style) for Contact Page */
+/* --------------------------------------------------------- */
+.hero__tabs .tabs__list {
+    display: flex;
+    gap: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0;
+    margin-bottom: 0;
+    list-style: none;
+    padding-right: 5vw;
+    /* Add space from right edge */
+    justify-content: flex-end;
+    /* Ensure they are right-aligned as requested/observed */
+}
+
+.theme-light .hero__tabs .tabs__list {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.hero__tabs .tab {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.hero__tabs .tab__link {
+    background: transparent !important;
+    border: none !important;
+    color: #888 !important;
+    padding: 15px 0 !important;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: none;
+    /* Remove any button capitalization if present */
+    border-radius: 0 !important;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.hero__tabs .tab__link:after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    /* Align with border-bottom */
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #fff;
+    transition: width 0.3s ease;
+}
+
+/* Hover State */
+.hero__tabs .tab__link:hover {
+    color: #E52323 !important;
+}
+
+/* Active State */
+.hero__tabs .tab.tab--active .tab__link {
+    color: #fff !important;
+}
+
+.hero__tabs .tab.tab--active .tab__link:after {
+    width: 100%;
+}
+
+/* Light Theme Adaptations for Tabs */
+.theme-light .hero__tabs .tab__link {
+    color: #666 !important;
+}
+
+.theme-light .hero__tabs .tab__link:after {
+    background-color: #000;
+}
+
+.theme-light .hero__tabs .tab__link:hover {
+    color: #E52323 !important;
+}
+
+.theme-light .hero__tabs .tab.tab--active .tab__link {
+    color: #000 !important;
+}

@@ -3,15 +3,32 @@ import { Link } from 'react-router-dom';
 
 const Layout = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const [isLightTheme, setIsLightTheme] = React.useState(false);
+
+    React.useEffect(() => {
+        const handleScroll = () => {
+            const viewportHeight = window.innerHeight;
+            // Trigger transition when scrolled past 50% of viewport
+            if (window.scrollY > viewportHeight / 2) {
+                setIsLightTheme(true);
+            } else {
+                setIsLightTheme(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
     return (
-        <>
+        <div className={`layout-wrapper ${isLightTheme ? 'theme-light' : ''}`}>
             <header className="header">
                 <div className="header__container">
+
                     <Link className="header__logo" to="/" aria-label="Homepage">
                         <img src="/JUJU White logo.png" alt="JUJU Films" style={{ height: '25px' }} />
                     </Link>
@@ -43,11 +60,11 @@ const Layout = ({ children }) => {
                 </div>
             </header>
 
-            <main>
+            <main style={{ marginBottom: 0 }}>
                 {children}
             </main>
 
-            <footer className="footer parallax-section">
+            <footer className="footer parallax-section" style={{ marginTop: 0 }}>
                 <div className="grid footer__container parallax-section__container">
                     <div pos="1-4">
                         <nav className="navigation navigation--footer">
@@ -103,8 +120,7 @@ const Layout = ({ children }) => {
                     </div>
                 </div>
             </footer>
-        </>
+        </div>
     );
 };
-
 export default Layout;

@@ -19,33 +19,33 @@
 }
 
 /* Light Theme Override (Triggered on Scroll) */
-.page-template-homepage2.theme-light {
+.theme-light .page-template-homepage2 {
     background-color: #ffffff;
     color: #111111;
 }
 
 /* Force HERO background to change too */
-.page-template-homepage2.theme-light .h2-hero {
+.theme-light .h2-hero {
     background-color: #ffffff;
     transition: background-color 0.5s ease;
 }
 
 /* Update child text colors in light mode */
-.page-template-homepage2.theme-light .h2-hero h1 {
+.theme-light .h2-hero h1 {
     color: #111;
     /* Invert text to Black */
     transition: color 0.5s ease;
 }
 
-.page-template-homepage2.theme-light .h2-filter-item {
+.theme-light .h2-filter-item {
     color: #666;
 }
 
-.page-template-homepage2.theme-light .h2-filter-item:hover {
+.theme-light .h2-filter-item:hover {
     color: var(--h2-color-accent);
 }
 
-.page-template-homepage2.theme-light .h2-project-card {
+.theme-light .h2-project-card {
     color: #111;
 }
 
@@ -321,6 +321,7 @@
 }
 
 .h2-works-grid {
+    padding: 2.5%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     /* Exact 2-col layout */
@@ -329,12 +330,22 @@
     row-gap: 100px;
 }
 
-.h2-project-card {
-    position: relative;
+.h2-flex-box {
+    display: flex;
+    gap: 21px;
+}
+
+.h2-project-card-big {
     cursor: pointer;
-    width: 100%;
+    width: 60%;
     text-decoration: none;
-    color: #fff;
+
+}
+
+.h2-project-card-small {
+    cursor: pointer;
+    width: 40%;
+    text-decoration: none;
 }
 
 .h2-project-media-container {
@@ -407,7 +418,7 @@
 }
 
 .h2-magazine-title {
-    font-size: 380px;
+    font-size: 370px;
     /* Massive scale */
     font-family: serif;
     /* Grapheine uses a high-contract serif */

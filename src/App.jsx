@@ -7,12 +7,14 @@ import Portfolio from './pages/Portfolio';
 import Homepage2 from './pages/Homepage2';
 import JujuStorytellers from './pages/JujuStorytellers';
 import JujuAIFilms from './pages/JujuAIFilms';
+import About from './pages/About';
 
 // Import Styles
 import './styles/home-style.css';
 import './styles/home-style-2.css';
 import './styles/style.css';
 import './styles/style2.css';
+import './styles/theme.css';
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route path="/juju-ai-films" element={<JujuAIFilms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </Layout>
     </BrowserRouter>

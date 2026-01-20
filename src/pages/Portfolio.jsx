@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import BrandContactForm from '../components/BrandContactForm';
 
 const Portfolio = () => {
     React.useEffect(() => {
@@ -13,8 +14,15 @@ const Portfolio = () => {
         <div className="page-template page-template-page-archive-work-chronological page-template-page-archive-work-chronological-php page page-id-1601 wp-theme-grapheine switch">
             <header className="hero">
                 <div className="grid hero__content">
-                    <h1 pos="5-12" pos-s="row" className="hero__description">
-                        JUJU Films
+                    <p pos="row" pos-s="row" className="hero__title">
+                        Juju Commercials
+                    </p>
+                    <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '72px' }}>
+                        <span style={{ color: '#FF2B2B' }}>High-impact film craft
+                            across </span> as cultural IP
+                        TVC, DVC, vertical and digital—
+                        built to command attention,
+                        not interrupt it.
                     </h1>
                 </div>
             </header>
@@ -293,6 +301,7 @@ const Portfolio = () => {
                     </li>
                 </ol>
             </section>
+            <BrandContactForm />
         </div>
     );
 };

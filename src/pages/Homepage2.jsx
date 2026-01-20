@@ -6,37 +6,12 @@ const Homepage2 = () => {
     // Dynamic Text State
     const words = ["Story first. Always"];
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
-    const [isLightTheme, setIsLightTheme] = useState(false);
-
     // Text Cycle Interval
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentWordIndex((prev) => (prev + 1) % words.length);
         }, 2000); // Change every 2 seconds matching the fade animation
         return () => clearInterval(interval);
-    }, []);
-
-    // Theme Transition on Scroll
-    useEffect(() => {
-        const handleScroll = () => {
-            const video = document.querySelector('.h2-hero-media video');
-            if (video) {
-                const rect = video.getBoundingClientRect();
-                const viewportHeight = window.innerHeight;
-
-                // Trigger transition in the middle of the video
-                const videoTop = rect.top;
-
-                if (videoTop < viewportHeight / 2) {
-                    setIsLightTheme(true);
-                } else {
-                    setIsLightTheme(false);
-                }
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     // Observer for Sectors (Active Red Text)
@@ -71,7 +46,7 @@ const Homepage2 = () => {
     }, []);
 
     return (
-        <div className={`page-template-homepage2 ${isLightTheme ? 'theme-light' : ''}`}>
+        <div className="page-template-homepage2">
 
             {/* 1. HERO SECTION */}
             <header className="h2-hero">
@@ -159,34 +134,6 @@ const Homepage2 = () => {
             {/* 3. FILTER / PROJECT GRID */}
             < section className="h2-filter-section" >
                 <div className="h2-works-grid">
-                    {/* 1. Mont Saint-Michel */}
-                    <div className="h2-project-card">
-                        <div className="h2-project-media-container">
-                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2026/01/00-branding-logo-mont-saint-michel-monument-france-cover-2560x1583.jpg" alt="Mont Saint-Michel" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
-                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
-                            </video>
-                        </div>
-                        <div className="h2-project-info">
-                            <h3 className="h2-project-title">Mont Saint-Michel</h3>
-                            <div className="h2-project-category">Territories</div>
-                        </div>
-                    </div>
-
-                    {/* 2. City of Concarneau */}
-                    <div className="h2-project-card">
-                        <div className="h2-project-media-container">
-                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/09/01_concarneau-logo-cover-2-1-2560x1583.webp" alt="City of Concarneau" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
-                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
-                            </video>
-                        </div>
-                        <div className="h2-project-info">
-                            <h3 className="h2-project-title">City of Concarneau</h3>
-                            <div className="h2-project-category">Territories</div>
-                        </div>
-                    </div>
-
                     {/* 3. Caramba: Live Culture */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
@@ -196,8 +143,8 @@ const Homepage2 = () => {
                             </video>
                         </div>
                         <div className="h2-project-info">
-                            <h3 className="h2-project-title">Caramba: Live Culture</h3>
-                            <div className="h2-project-category">Culture</div>
+                            <h3 className="h2-project-title">Tera Ghar Mera Ghar</h3>
+                            <div className="h2-project-category">Storyteller</div>
                         </div>
                     </div>
 
@@ -210,8 +157,8 @@ const Homepage2 = () => {
                             </video>
                         </div>
                         <div className="h2-project-info">
-                            <h3 className="h2-project-title">Elegy</h3>
-                            <div className="h2-project-category">Culture</div>
+                            <h3 className="h2-project-title">Chalti ka Namm Ghadi</h3>
+                            <div className="h2-project-category">Storyteller</div>
                         </div>
                     </div>
 
@@ -224,8 +171,8 @@ const Homepage2 = () => {
                             </video>
                         </div>
                         <div className="h2-project-info">
-                            <h3 className="h2-project-title">Baudouin Square</h3>
-                            <div className="h2-project-category">Culture</div>
+                            <h3 className="h2-project-title">Game Badal de</h3>
+                            <div className="h2-project-category">Commercials</div>
                         </div>
                     </div>
 
@@ -238,11 +185,41 @@ const Homepage2 = () => {
                             </video>
                         </div>
                         <div className="h2-project-info">
-                            <h3 className="h2-project-title">The Animal Company</h3>
-                            <div className="h2-project-category">Advice & services</div>
-                            <p style={{ fontSize: '18px', marginTop: '10px', color: '#666', lineHeight: '1.4' }}>
+                            <h3 className="h2-project-title">Out Karo</h3>
+                            <div className="h2-project-category">Commercials</div>
+                            {/* <p style={{ fontSize: '18px', marginTop: '10px', color: '#666', lineHeight: '1.4' }}>
                                 A visual identity to make veterinary advice accessible; a logo embodying expertise, proximity and animal welfare.
-                            </p>
+                            </p> */}
+                        </div>
+                    </div>
+
+                    <div className="h2-project-card">
+                        <div className="h2-project-media-container">
+                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/10/carre-baudouin-case-study-202507162-2560x1312.webp" alt="Baudouin Square" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
+                            </video>
+                        </div>
+                        <div className="h2-project-info">
+                            <h3 className="h2-project-title">Expert ki Suno</h3>
+                            <div className="h2-project-category">AI Films</div>
+                        </div>
+                    </div>
+
+                    {/* 6. The Animal Company */}
+                    <div className="h2-project-card">
+                        <div className="h2-project-media-container">
+                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/09/00-compagne-animaux-logo-vignette-2560x1575.webp" alt="The Animal Company" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
+                            </video>
+                        </div>
+                        <div className="h2-project-info">
+                            <h3 className="h2-project-title">Super Shayari</h3>
+                            <div className="h2-project-category">AI Films</div>
+                            {/* <p style={{ fontSize: '18px', marginTop: '10px', color: '#666', lineHeight: '1.4' }}>
+                                A visual identity to make veterinary advice accessible; a logo embodying expertise, proximity and animal welfare.
+                            </p> */}
                         </div>
                     </div>
                 </div>
@@ -252,24 +229,33 @@ const Homepage2 = () => {
             < section className="h2-agency-info-section" >
                 <div className="h2-agency-info-header">
                     <h2>
-                        <span className="h2-statement-line-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Making brand design a lever for</span>
+                        <span className="h2-statement-line-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JUJU Films is a creator collective making
+                        </span>
                         <br />
                         <span className="h2-statement-line-2">
-                            <span className="highlight-red">social and economic transformation</span>, to meet the challenges of tomorrow.
+                            <span className="highlight-red">micro-dramas, series, and films—
+
+                            </span>where brands don’t interrupt stories, they enable them.
                         </span>
                     </h2>
                 </div>
                 <div className="h2-agency-info-grid">
                     <div className="h2-agency-info-col-1">
                         <p className="h2-agency-info-p">
-                            For 25 years, in Paris and Lyon, our designers, coming from vibrant training programs, diverse professional backgrounds and a shared passion for imagery, have been supporting you in the creation of brand strategies and designs.
+                            JUJU Films is not a production house.
+                            It’s a collective of India’s best storytellers, partnering on IP—not hired on payroll.
+
+                            We bring creators, brands, and platforms together to build original narratives for OTTs, digital platforms, and emerging formats—funded by brands who believe in culture over clutter.
                         </p>
                     </div>
                     <div className="h2-agency-info-col-2">
                         <p className="h2-agency-info-p">
-                            The goal is to make your brand visible, understandable, and desirable. To achieve this, we enjoy understanding complexity, developing simple strategies, and designing original, agile, and sustainable solutions.
+                            From short-form micro-dramas to original series and films,
+                            we create stories designed to travel—across formats, languages, and time.
+
+                            Our work includes brand-enabled content where the brand lives inside the world, silently and authentically, supported by AI-powered storytelling that allows faster creation, regional scale, and future-ready formats.
                         </p>
-                        <Link to="/agence" className="h2-agency-info-link">Discover the agency</Link>
+                        <Link to="/about" className="h2-agency-info-link">Discover the Collective</Link>
                     </div>
                 </div>
             </section >
@@ -277,19 +263,19 @@ const Homepage2 = () => {
             {/* 3. MAGAZINE (NEWS) - High Fidelity */}
             < section className="h2-magazine" >
                 <div className="h2-magazine-header">
-                    <h2 className="h2-magazine-title">Magazine</h2>
+                    <h2 className="h2-magazine-title">Collective</h2>
                     <div className="h2-magazine-meta">
                         <span className="h2-mag-clock">10:45:22 UTC+01:00</span>
-                        <span className="h2-mag-count">340 ARTICLES</span>
+                        <span className="h2-mag-count">JUJU Films</span>
                     </div>
                 </div>
 
                 <ul className="h2-magazine-nav">
                     <li><a href="#" className="h2-magazine-nav-link active">All</a></li>
-                    <li><a href="#" className="h2-magazine-nav-link">Graphic perspectives</a></li>
-                    <li><a href="#" className="h2-magazine-nav-link">History of graphic design</a></li>
-                    <li><a href="#" className="h2-magazine-nav-link">Brand culture</a></li>
-                    <li><a href="#" className="h2-magazine-nav-link">The most popular</a></li>
+                    <li><a href="#" className="h2-magazine-nav-link">Directors</a></li>
+                    <li><a href="#" className="h2-magazine-nav-link">Cinematographers</a></li>
+                    <li><a href="#" className="h2-magazine-nav-link">Music Directors</a></li>
+                    <li><a href="#" className="h2-magazine-nav-link">Casting Directors</a></li>
                 </ul>
 
                 <div className="h2-magazine-grid">
@@ -300,7 +286,8 @@ const Homepage2 = () => {
                             <div className="article-content">
                                 <div className="h2-mag-article">
 
-                                    <h3 className="h2-mag-luxury-title">Luxury brand magazines are putting up resistance</h3>
+                                    <h3 className="h2-mag-luxury-title">Why the Director Is No Longer Just a Storyteller—but a Cultural Architect
+                                    </h3>
                                 </div>
                                 <div className="h2-mag-article" style={{ justifyContent: 'flex-end', paddingBottom: '20px' }}>
                                     <p className="h2-mag-desc">
@@ -316,7 +303,9 @@ const Homepage2 = () => {
                     <div className="h2-mag-article" style={{ gridColumn: '2' }}>
                         <div className="h2-mag-media-placeholder" style={{ aspectRatio: '4/3' }}></div>
                         <span className="h2-mag-date">16.12.2025</span>
-                        <h3 className="h2-mag-standard-title">Michel Quarez, an artist/graphic designer eager to live in color</h3>
+                        <h3 className="h2-mag-standard-title">Before the Audience Feels the Story, the Camera Decides It
+
+                        </h3>
                         <p className="h2-mag-desc">
                             Michel Quarez was a graphic designer, painter, and poster artist. In truth, he made no distinction between these different categories...
                         </p>
@@ -327,14 +316,16 @@ const Homepage2 = () => {
                         <div className="h2-mag-article">
                             <div className="h2-mag-media-placeholder"></div>
                             <span className="h2-mag-date">09.12.2025</span>
-                            <h3 className="h2-mag-standard-title">Gen Z brandishes the One Piece flag to sabotage governments</h3>
+                            <h3 className="h2-mag-standard-title">Music Is Not Background. It’s the Memory of the Story
+                            </h3>
                             <p className="h2-mag-desc">
                                 Why the One Piece symbol became the banner of Generation Z, brandished to sabotage governments.
                             </p>
                         </div>
                         <div className="h2-mag-article">
                             <div className="h2-mag-media-placeholder"></div>
-                            <h3 className="h2-mag-standard-title" style={{ fontSize: '64px' }}>Maison Nicolas, a new logo for a new strategy</h3>
+                            <h3 className="h2-mag-standard-title" style={{ fontSize: '64px' }}>Casting Is the First Creative Decision That Shapes Belief
+                            </h3>
                             <div style={{ display: 'flex', gap: '40px', marginTop: '20px' }}>
                                 <p className="h2-mag-desc">
                                     Maison Nicolas has unveiled a new logo and a new identity, unfortunately without drawing on its rich graphic heritage.
@@ -351,7 +342,7 @@ const Homepage2 = () => {
             </section >
 
             {/* 4. FOOTER */}
-            < footer className="h2-footer" >
+            {/* < footer className="h2-footer" >
                 <nav className="h2-big-nav">
                     <Link to="/portfolio" className="h2-nav-link">Projets</Link>
                     <Link to="/magazine" className="h2-nav-link">Magazine</Link>
@@ -378,7 +369,7 @@ const Homepage2 = () => {
                 <div className="h2-footer-logo">
                     graphéine
                 </div>
-            </footer >
+            </footer > */}
 
         </div >
     );
