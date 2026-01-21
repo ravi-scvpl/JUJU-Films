@@ -6,12 +6,25 @@ const Homepage2 = () => {
     // Dynamic Text State
     const words = ["Story first. Always"];
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
-    // Text Cycle Interval
+    const [blogs, setBlogs] = useState([]);
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentWordIndex((prev) => (prev + 1) % words.length);
         }, 2000); // Change every 2 seconds matching the fade animation
         return () => clearInterval(interval);
+    }, []);
+
+    // Fetch Blogs
+    useEffect(() => {
+        fetch('/blog/blogs.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data.articles) {
+                    setBlogs(data.articles);
+                }
+            })
+            .catch(err => console.error("Error fetching homepage blogs:", err));
     }, []);
 
     // Observer for Sectors (Active Red Text)
@@ -260,8 +273,8 @@ const Homepage2 = () => {
                 </div>
             </section >
 
-            {/* 3. MAGAZINE (NEWS) - High Fidelity */}
-            < section className="h2-magazine" >
+            {/* 3. MAGAZINE (NEWS) - Dynamic */}
+            <section className="h2-magazine">
                 <div className="h2-magazine-header">
                     <h2 className="h2-magazine-title">Collective</h2>
                     <div className="h2-magazine-meta">
@@ -271,75 +284,89 @@ const Homepage2 = () => {
                 </div>
 
                 <ul className="h2-magazine-nav">
-                    <li><a href="#" className="h2-magazine-nav-link active">All</a></li>
-                    <li><a href="#" className="h2-magazine-nav-link">Directors</a></li>
-                    <li><a href="#" className="h2-magazine-nav-link">Cinematographers</a></li>
-                    <li><a href="#" className="h2-magazine-nav-link">Music Directors</a></li>
-                    <li><a href="#" className="h2-magazine-nav-link">Casting Directors</a></li>
+                    <li><Link to="/blog" className="h2-magazine-nav-link active">All</Link></li>
+                    <li><span className="h2-magazine-nav-link">Directors</span></li>
+                    <li><span className="h2-magazine-nav-link">Cinematographers</span></li>
+                    <li><span className="h2-magazine-nav-link">Music Directors</span></li>
+                    <li><span className="h2-magazine-nav-link">Casting Directors</span></li>
                 </ul>
 
-                <div className="h2-magazine-grid">
-                    {/* Featured Row 1 */}
-                    <div className="h2-mag-featured-row">
-                        <div className="article-first">
-                            <div className="h2-mag-media-placeholder"></div>
-                            <div className="article-content">
-                                <div className="h2-mag-article">
+                <div className="h2-magazine-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '40px' }}>
 
-                                    <h3 className="h2-mag-luxury-title">Why the Director Is No Longer Just a Storyteller—but a Cultural Architect
-                                    </h3>
+                    {/* Row 1, Item 1: 1-8 (7 cols) */}
+                    {blogs[0] && (
+                        <div style={{ gridColumn: '1 / 8' }}>
+                            <Link to={`/blog/${blogs[0].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <div className="h2-mag-media-placeholder" style={{ aspectRatio: '16/9' }}>
+                                    <img src={`https://placehold.co/1200x800/111/fff?text=${encodeURIComponent(blogs[0].title)}`}
+                                        alt={blogs[0].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </div>
-                                <div className="h2-mag-article" style={{ justifyContent: 'flex-end', paddingBottom: '20px' }}>
-                                    <p className="h2-mag-desc">
-                                        An overview of luxury brand magazines that seek to stand out and resist the temporal acceleration of current events.
-                                    </p>
-                                    <span className="h2-mag-date">06.01.2026</span>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
+                                    <h3 className="h2-mag-luxury-title" style={{ fontSize: '48px', width: '70%' }}>{blogs[0].title}</h3>
+                                    <div style={{ textAlign: 'right' }}>
+                                        <span className="h2-mag-date">{blogs[0].date || '06.01.2026'}</span>
+                                        <span style={{ display: 'block', color: '#E52323', textTransform: 'uppercase', fontSize: '14px', marginTop: '10px' }}>{blogs[0].category || 'Thought Leadership'}</span>
+                                    </div>
                                 </div>
-                            </div>
+                                <p className="h2-mag-desc" style={{ marginTop: '20px', maxWidth: '80%' }}>{blogs[0].intro.substring(0, 150)}...</p>
+                            </Link>
                         </div>
-                    </div>
+                    )}
 
-                    {/* Michel Quarez Row (on the right in screenshot, let's stack or grid it) */}
-                    <div className="h2-mag-article" style={{ gridColumn: '2' }}>
-                        <div className="h2-mag-media-placeholder" style={{ aspectRatio: '4/3' }}></div>
-                        <span className="h2-mag-date">16.12.2025</span>
-                        <h3 className="h2-mag-standard-title">Before the Audience Feels the Story, the Camera Decides It
-
-                        </h3>
-                        <p className="h2-mag-desc">
-                            Michel Quarez was a graphic designer, painter, and poster artist. In truth, he made no distinction between these different categories...
-                        </p>
-                    </div>
-
-                    {/* Row 2 */}
-                    <div className="h2-mag-second-row">
-                        <div className="h2-mag-article">
-                            <div className="h2-mag-media-placeholder"></div>
-                            <span className="h2-mag-date">09.12.2025</span>
-                            <h3 className="h2-mag-standard-title">Music Is Not Background. It’s the Memory of the Story
-                            </h3>
-                            <p className="h2-mag-desc">
-                                Why the One Piece symbol became the banner of Generation Z, brandished to sabotage governments.
-                            </p>
+                    {/* Row 1, Item 2: 8-13 (5 cols) */}
+                    {blogs[1] && (
+                        <div style={{ gridColumn: '8 / 13' }}>
+                            <Link to={`/blog/${blogs[1].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <div className="h2-mag-media-placeholder" style={{ aspectRatio: '4/3' }}>
+                                    <img src={`https://placehold.co/800x600/222/fff?text=${encodeURIComponent(blogs[1].title)}`}
+                                        alt={blogs[1].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </div>
+                                <span className="h2-mag-date" style={{ marginTop: '20px' }}>{blogs[1].date || '06.01.2026'}</span>
+                                <h3 className="h2-mag-standard-title" style={{ fontSize: '32px', marginTop: '10px' }}>{blogs[1].title}</h3>
+                                <p className="h2-mag-desc" style={{ marginTop: '10px' }}>{blogs[1].intro.substring(0, 100)}...</p>
+                            </Link>
                         </div>
-                        <div className="h2-mag-article">
-                            <div className="h2-mag-media-placeholder"></div>
-                            <h3 className="h2-mag-standard-title" style={{ fontSize: '64px' }}>Casting Is the First Creative Decision That Shapes Belief
-                            </h3>
-                            <div style={{ display: 'flex', gap: '40px', marginTop: '20px' }}>
-                                <p className="h2-mag-desc">
-                                    Maison Nicolas has unveiled a new logo and a new identity, unfortunately without drawing on its rich graphic heritage.
-                                </p>
-                                <span className="h2-mag-date">02.12.2025</span>
-                            </div>
+                    )}
+
+                    {/* Row 2, Item 3: 1-5 (4 cols) */}
+                    {blogs[2] && (
+                        <div style={{ gridColumn: '1 / 5', marginTop: '80px' }}>
+                            <Link to={`/blog/${blogs[2].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <div className="h2-mag-media-placeholder" style={{ aspectRatio: '3/4' }}>
+                                    <img src={`https://placehold.co/600x800/333/fff?text=${encodeURIComponent(blogs[2].title)}`}
+                                        alt={blogs[2].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </div>
+                                <span className="h2-mag-date" style={{ marginTop: '20px' }}>{blogs[2].date || '06.01.2026'}</span>
+                                <h3 className="h2-mag-standard-title" style={{ fontSize: '28px', marginTop: '10px' }}>{blogs[2].title}</h3>
+                            </Link>
                         </div>
-                    </div>
+                    )}
+
+                    {/* Row 2, Item 4: 5-13 (8 cols) */}
+                    {blogs[3] && (
+                        <div style={{ gridColumn: '5 / 13', marginTop: '80px' }}>
+                            <Link to={`/blog/${blogs[3].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <div className="h2-mag-media-placeholder" style={{ aspectRatio: '21/9' }}>
+                                    <img src={`https://placehold.co/1200x500/444/fff?text=${encodeURIComponent(blogs[3].title)}`}
+                                        alt={blogs[3].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+                                    <h3 className="h2-mag-standard-title" style={{ fontSize: '48px', width: '70%' }}>{blogs[3].title}</h3>
+                                    <div style={{ textAlign: 'right' }}>
+                                        <span className="h2-mag-date">{blogs[3].date || '06.01.2026'}</span>
+                                        <p className="h2-mag-desc" style={{ marginTop: '10px', maxWidth: '300px' }}>{blogs[3].intro.substring(0, 120)}...</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    )}
+
                 </div>
 
                 <div style={{ marginTop: '100px', textAlign: 'right' }}>
-                    <Link to="/magazine" className="h2-magazine-nav-link" style={{ fontSize: '32px', borderBottom: '2px solid #ff8a8a' }}>View the portfolio →</Link>
+                    <Link to="/about" className="h2-magazine-nav-link" style={{ fontSize: '32px', borderBottom: '2px solid #ff8a8a' }}>View all stories →</Link>
                 </div>
-            </section >
+            </section>
 
             {/* 4. FOOTER */}
             {/* < footer className="h2-footer" >

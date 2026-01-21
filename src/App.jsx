@@ -8,6 +8,7 @@ import Homepage2 from './pages/Homepage2';
 import JujuStorytellers from './pages/JujuStorytellers';
 import JujuAIFilms from './pages/JujuAIFilms';
 import About from './pages/About';
+import BlogPost from './pages/BlogPost';
 
 // Import Styles
 import './styles/home-style.css';
@@ -21,13 +22,16 @@ function App() {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home2" element={<Homepage2 />} />
+          <Route path="/" element={<Homepage2 />} />
+          <Route path="/homepage-2" element={<Homepage2 />} />
           <Route path="/juju-storytellers" element={<JujuStorytellers />} />
           <Route path="/juju-ai-films" element={<JujuAIFilms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/about" element={<About />} />
+          <Route path="/team" element={<About />} />
+          <Route path="/blog" element={<About />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -79,10 +79,10 @@ const Layout = ({ children }) => {
                     </div>
                     <div className="grid subgrid footer__text-container" pos="7-12" pos-s="row">
                         <div pos="1-3" pos-s="row" className="footer__text">
-                            <p className="p2">JUJU Films supports brands that are keen to make design a driver of social and economic transformation, helping them meet the challenges of tomorrow.</p>
+                            <p className="p2">JUJU Films exists to build stories that last—stories created with intention, restraint, and respect for the audience. By bringing together creators, brands, and platforms under one collective, we design narratives that don’t chase attention, but earn it over time.</p>
                         </div>
                         <div pos="4-6" pos-s="row" className="footer__text">
-                            <p className="p2">We believe that a brand is a powerful tool for creating fresh narratives, uniting imaginations and shaping desirable futures.</p>
+                            <p className="p2">Because culture isn’t built through campaigns alone. It’s shaped through stories people choose to remember. And when brands help make those stories possible, they don’t just show up—they belong.</p>
                         </div>
                         <div pos="3-6" pos-s="row" className="footer__logo" style={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <img src="/JUJU-6.png" alt="JUJU Films" style={{ maxWidth: '100%', height: '20vh' }} />
