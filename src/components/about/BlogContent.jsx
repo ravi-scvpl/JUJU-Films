@@ -1,19 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const BlogContent = () => {
-    const [blogs, setBlogs] = useState([]);
-
-    useEffect(() => {
-        fetch('/blog/blogs.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data.articles) {
-                    setBlogs(data.articles);
-                }
-            })
-            .catch(err => console.error("Error fetching blogs:", err));
-    }, []);
+const BlogContent = ({ blogs = [] }) => {
 
     return (
         <section className="section" style={{ paddingTop: 0, marginTop: '-1px', paddingBottom: '80px', backgroundColor: '#000', color: '#fff' }}>

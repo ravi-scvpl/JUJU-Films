@@ -11,6 +11,7 @@ import About from './pages/About';
 import CollectivePage from './pages/CollectivePage';
 import BlogPage from './pages/BlogPage';
 import BlogPost from './pages/BlogPost';
+import InfluencePage from './pages/InfluencePage';
 
 // Import Styles
 import './styles/home-style.css';
@@ -32,6 +33,7 @@ function App() {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/about" element={<About />} />
           <Route path="/team" element={<CollectivePage />} />
+          <Route path="/influence" element={<InfluencePage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogPost />} />
         </Routes>

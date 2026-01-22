@@ -1,0 +1,53 @@
+{
+    "articles": [
+        {
+            "id": "inf-1",
+            "title": "The ROI of Authenticity: How Micro-Influencers Drove 400% Sales Growth",
+            "intro": "In a saturated market, trust is the new currency. See how our campaign leveraging 50 niche creators outperformed celebrity endorsements by a factor of four.",
+            "date": "24.01.2026",
+            "category": "Case Study"
+        },
+        {
+            "id": "inf-2",
+            "title": "Viral Velocity: Deconstructing the 'Unboxing' Phenomenon",
+            "intro": "We reverse-engineered the psychology behind viral unboxing videos to create a packaging experience that generated millions of organic impressions.",
+            "date": "18.01.2026",
+            "category": "Strategy"
+        },
+        {
+            "id": "inf-3",
+            "title": "Luxury Reimagined: TikTok Creators and High-End Fashion",
+            "intro": "Bridging the gap between heritage luxury and Gen Z aesthetics. A deep dive into our Paris Fashion Week activation.",
+            "date": "10.01.2026",
+            "category": "Brand Partnership"
+        },
+        {
+            "id": "inf-4",
+            "title": "Data-Driven Discovery: AI in Influencer Selection",
+            "intro": "Moving beyond vanity metrics. How we use proprietary AI to match brands with creators who share genuine audience overlap.",
+            "date": "05.01.2026",
+            "category": "Tech & Data"
+        },
+        {
+            "id": "inf-5",
+            "title": "Community First: Building Ambassador Programs that Last",
+            "intro": "Short-term posts vs. long-term relationships. Why switching to an ambassador model reduced CPA by 35% over six months.",
+            "date": "29.12.2025",
+            "category": "Strategy"
+        },
+        {
+            "id": "inf-6",
+            "title": "The Sound of Influence: Audio Marketing on Reels and Shorts",
+            "intro": "Sonic branding is back. How a custom audio track became the anthem of the summer for a leading beverage brand.",
+            "date": "15.12.2025",
+            "category": "Trends"
+        },
+        {
+            "id": "inf-7",
+            "title": "From Feed to Footfall: Driving Retail Traffic via IG",
+            "intro": "Digital influence, physical results. A look at how geo-targeted creator content drove record store visits for a major retailer.",
+            "date": "01.12.2025",
+            "category": "Case Study"
+        }
+    ]
+}

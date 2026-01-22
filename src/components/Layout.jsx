@@ -1,14 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Layout = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [isLightTheme, setIsLightTheme] = React.useState(false);
+    const location = useLocation();
 
     React.useEffect(() => {
+        // ALWAYS scroll to top on route change
+        window.scrollTo(0, 0);
+
         const handleScroll = () => {
             const viewportHeight = window.innerHeight;
-            // Trigger transition when scrolled past 50% of viewport
             if (window.scrollY > viewportHeight / 2) {
                 setIsLightTheme(true);
             } else {
@@ -17,8 +20,52 @@ const Layout = ({ children }) => {
         };
 
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+
+        // --- Scroll Reveal Observer ---
+        const observerOptions = {
+            threshold: 0.01, // Trigger almost immediately
+            rootMargin: '0px 0px 0px 0px' // No offset, simpler behavior
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // If intersecting, add the class
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // We DO NOT unobserve here. Keeping it active ensures that if React 
+                    // re-renders and wipes the class, a subsequent scroll/observer event 
+                    // will re-add it. It's a "self-healing" mechanism for the class.
+                }
+            });
+        }, observerOptions);
+
+        // Select and observe all elements with .reveal-on-scroll
+        const observeElements = () => {
+            const elements = document.querySelectorAll('.reveal-on-scroll');
+            elements.forEach(el => observer.observe(el));
+        };
+
+        // Delay slightly to ensure DOM is ready? 
+        // useEffect runs after render, but sometimes sub-components need a tick.
+        setTimeout(observeElements, 100);
+
+        // Observe DOM mutations to catch new elements (e.g. on route change)
+        const mutationObserver = new MutationObserver((mutations) => {
+            // Debounce or just run? For now, just run.
+            observeElements();
+        });
+
+        const main = document.querySelector('main');
+        if (main) {
+            mutationObserver.observe(main, { childList: true, subtree: true });
+        }
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            observer.disconnect();
+            mutationObserver.disconnect();
+        };
+    }, [location.pathname]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -47,13 +94,16 @@ const Layout = ({ children }) => {
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/team" onClick={() => setIsMenuOpen(false)}>Collective</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-storytellers" onClick={() => setIsMenuOpen(false)}>Juju Storytellers</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-storytellers" onClick={() => setIsMenuOpen(false)}>Storytellers</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/portfolio" onClick={() => setIsMenuOpen(false)}>Juju Commercials </Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/portfolio" onClick={() => setIsMenuOpen(false)}>Commercials </Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>Juju AI Films</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>AI Films</Link>
+                            </li>
+                            <li className="navigation__item">
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/influence" onClick={() => setIsMenuOpen(false)}>Influence</Link>
                             </li>
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/blog" onClick={() => setIsMenuOpen(false)}>Stories</Link>
@@ -66,7 +116,7 @@ const Layout = ({ children }) => {
                 </div>
             </header>
 
-            <main style={{ marginBottom: 0 }}>
+            <main style={{ marginBottom: 0 }} className="animate-enter">
                 {children}
             </main>
 
@@ -101,15 +151,15 @@ const Layout = ({ children }) => {
                                 <span className="footer__copyright">© 2002 — 2026</span>
                                 <nav className="navigation navigation--bottom">
                                     <ul className="navigation__list">
-                                        <li className="navigation__item "><a className="navigation__link" href="#">Coworking Lyon</a></li>
-                                        <li className="navigation__item "><a className="navigation__link" href="#">Shared library</a></li>
-                                        <li className="navigation__item "><a className="navigation__link" href="#cookiesPopin">Cookies</a></li>
+                                        <li className="navigation__item "><a className="navigation__link" href="#">Privacy Policy</a></li>
+                                        <li className="navigation__item "><a className="navigation__link" href="#">Terms of Use</a></li>
+                                        <li className="navigation__item "><a className="navigation__link" href="#cookiesPopin">Disclaimer</a></li>
                                     </ul>
                                 </nav>
                                 <div className="navigation navigation--bottom">
                                     <div className="navigation__list">
                                         <div className="navigation__item">
-                                            <a className="navigation__link" href="https://ocitocine.com/" target="_blank">Site by Ocitocine</a>
+                                            <a className="navigation__link" href="https://socialcloudventures.com/" target="_blank">Site by <span style={{ color: '#E52323' }}>SocialCloudVentures</span></a>
                                         </div>
                                     </div>
                                 </div>

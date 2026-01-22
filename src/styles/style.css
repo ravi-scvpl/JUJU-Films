@@ -39,7 +39,7 @@
     --field-margin: 20px;
     --field-weight: normal;
     --text-color: #1D2939;
-    --border-color: #D0D5DD;
+    --border-color: #666666;
     --field-border-width: 1px;
     --field-border-style: solid;
     --bg-color: #ffffff;
@@ -706,7 +706,7 @@ legend.frm_hidden {
     --field-pad: 14px 14px 14px 14px;
     --field-margin: 17px;
     --text-color: rgba(0, 0, 0, 1);
-    --border-color: #var(--color-separator);
+    --border-color: #666666;
     --bg-color: rgba(255, 255, 255, 0);
     --border-color-active: #ff2b2b;
     --check-label-color: #000000;

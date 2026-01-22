@@ -10,7 +10,7 @@ const CollectivePage = () => {
     }, []);
 
     return (
-        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ marginBottom: 0, paddingBottom: 0, paddingTop: '120px' }}>
+        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ marginBottom: 0, paddingBottom: 0 }}>
             <div>
                 <div style={{ minHeight: '50vh', padding: '0' }}>
                     <CollectiveContent />

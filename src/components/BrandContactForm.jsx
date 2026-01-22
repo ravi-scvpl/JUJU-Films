@@ -2,6 +2,14 @@ import React from 'react';
 import '../styles/contact-style.css';
 
 const BrandContactForm = () => {
+    const [selectedFile, setSelectedFile] = React.useState(null);
+    const fileInputRef = React.useRef(null);
+
+    const handleFileChange = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            setSelectedFile(event.target.files[0]);
+        }
+    };
     return (
         <section className="section section-form" style={{ backgroundColor: '#000000', color: '#ffffff', padding: '60px 0', margin: 0 }}>
             <div className="grid">
@@ -64,11 +72,26 @@ const BrandContactForm = () => {
 
                                         <div className="frm_form_field form-field frm_top_container frm12 frm_first">
                                             <label className="frm_primary_label">Attach a file</label>
-                                            <div className="frm_dropzone frm_multi_upload frm_clearfix" role="group">
+                                            <div
+                                                className="frm_dropzone frm_multi_upload frm_clearfix"
+                                                role="group"
+                                                onClick={() => fileInputRef.current.click()}
+                                                style={{ cursor: 'pointer', border: '1px dashed #ccc', padding: '20px', textAlign: 'center', borderRadius: '4px' }}
+                                            >
                                                 <div className="dz-message needsclick">
-                                                    <span className="frm_upload_text"><button type="button">Drop a file here or click to upload</button></span>
-                                                    <div className="frm_small_text"><p>Max file size: 128MB</p></div>
+                                                    <span className="frm_upload_text">
+                                                        <button type="button" style={{ pointerEvents: 'none' }}>
+                                                            {selectedFile ? selectedFile.name : "Drop a file here or click to upload"}
+                                                        </button>
+                                                    </span>
+                                                    {!selectedFile && <div className="frm_small_text"><p>Max file size: 128MB</p></div>}
                                                 </div>
+                                                <input
+                                                    type="file"
+                                                    ref={fileInputRef}
+                                                    onChange={handleFileChange}
+                                                    style={{ display: 'none' }}
+                                                />
                                             </div>
                                         </div>
 

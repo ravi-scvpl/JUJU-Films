@@ -13,7 +13,7 @@ const Portfolio = () => {
     return (
         <div className="page-template page-template-page-archive-work-chronological page-template-page-archive-work-chronological-php page page-id-1601 wp-theme-grapheine switch">
             <header className="hero">
-                <div className="grid hero__content">
+                <div className="grid hero__content reveal-on-scroll">
                     <p pos="row" pos-s="row" className="hero__title">
                         Juju Commercials
                     </p>
@@ -28,7 +28,7 @@ const Portfolio = () => {
             </header>
 
             <section className="works-chronology">
-                <ol className="works-chronology__list grid">
+                <ol className="works-chronology__list grid reveal-on-scroll">
                     <li className="works-chronology__year">
                         <h5 className="works-chronology__title">2025</h5>
                         <ol>

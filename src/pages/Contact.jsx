@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 const Contact = () => {
     const [activeTab, setActiveTab] = useState('brand');
+    const [selectedFile, setSelectedFile] = useState(null);
+    const fileInputRef = React.useRef(null);
 
-    useEffect(() => {
-        document.body.classList.add('switch');
-        return () => {
-            document.body.classList.remove('switch');
-        };
-    }, []);
+    const handleFileChange = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            setSelectedFile(event.target.files[0]);
+        }
+    };
+
+
 
     const tabContent = {
         brand: {
@@ -40,7 +43,7 @@ const Contact = () => {
     const current = tabContent[activeTab];
 
     return (
-        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch">
+        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine">
             <div>
                 <header className="hero  ">
                     <div className="hero__tabs">
@@ -61,7 +64,7 @@ const Contact = () => {
                             </ul>
                         </nav>
                     </div>
-                    <div className="grid hero__content">
+                    <div className="grid hero__content reveal-on-scroll">
                         <p pos="row" pos-s="row" className="hero__title">
                             Contact </p>
                         <h1 pos="5-12" pos-s="row" className="hero__description" dangerouslySetInnerHTML={{ __html: current.title }}></h1>
@@ -69,7 +72,7 @@ const Contact = () => {
                 </header>
 
                 <div>
-                    <section className="section section-wysiwyg">
+                    <section className="section section-wysiwyg reveal-on-scroll">
                         <div className="grid">
                             <div className="grid subgrid section-wysiwyg__container" pos="row">
                                 <div pos="5-12" pos-s="row" className="text">
@@ -80,7 +83,7 @@ const Contact = () => {
                         </div>
                     </section>
 
-                    <section className="section section-form">
+                    <section className="section section-form reveal-on-scroll">
                         <div className="grid">
                             <div pos="5-12" pos-s="row">
                                 <div className="frm_forms  with_frm_style frm_style_formidable-style" id="frm_form_2_container">
@@ -146,11 +149,26 @@ const Contact = () => {
 
                                                     <div className="frm_form_field form-field frm_top_container frm12 frm_first">
                                                         <label className="frm_primary_label">Attach a file</label>
-                                                        <div className="frm_dropzone frm_multi_upload frm_clearfix" role="group">
+                                                        <div
+                                                            className="frm_dropzone frm_multi_upload frm_clearfix"
+                                                            role="group"
+                                                            onClick={() => fileInputRef.current.click()}
+                                                            style={{ cursor: 'pointer', border: '1px dashed #ccc', padding: '20px', textAlign: 'center', borderRadius: '4px' }}
+                                                        >
                                                             <div className="dz-message needsclick">
-                                                                <span className="frm_upload_text"><button type="button">Drop a file here or click to upload</button></span>
-                                                                <div className="frm_small_text"><p>Max file size: 128MB</p></div>
+                                                                <span className="frm_upload_text">
+                                                                    <button type="button" style={{ pointerEvents: 'none' }}>
+                                                                        {selectedFile ? selectedFile.name : "Drop a file here or click to upload"}
+                                                                    </button>
+                                                                </span>
+                                                                {!selectedFile && <div className="frm_small_text"><p>Max file size: 128MB</p></div>}
                                                             </div>
+                                                            <input
+                                                                type="file"
+                                                                ref={fileInputRef}
+                                                                onChange={handleFileChange}
+                                                                style={{ display: 'none' }}
+                                                            />
                                                         </div>
                                                     </div>
 
@@ -168,7 +186,7 @@ const Contact = () => {
                         </div>
                     </section>
 
-                    <section className="section section-table">
+                    <section className="section section-table reveal-on-scroll">
                         <div className="grid">
                             <ul pos="5-12" pos-s="row" className="grid subgrid section-table__list">
                                 <li pos="row" className="grid subgrid section-table__item">
