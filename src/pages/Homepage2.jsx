@@ -8,11 +8,41 @@ const Homepage2 = () => {
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [blogs, setBlogs] = useState([]);
 
+    // Stories Typing Animation State
+    const [storiesTypedText, setStoriesTypedText] = useState("");
+    const storiesTitleRef = React.useRef(null);
+    const storiesTargetText = "Stories";
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentWordIndex((prev) => (prev + 1) % words.length);
         }, 2000); // Change every 2 seconds matching the fade animation
         return () => clearInterval(interval);
+    }, []);
+
+    // Typing Effect for "Stories"
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    let i = 0;
+                    const typeInterval = setInterval(() => {
+                        setStoriesTypedText(storiesTargetText.substring(0, i + 1));
+                        i++;
+                        if (i === storiesTargetText.length) {
+                            clearInterval(typeInterval);
+                        }
+                    }, 150); // Typing speed
+                    observer.disconnect(); // Play once
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% visible
+
+        if (storiesTitleRef.current) {
+            observer.observe(storiesTitleRef.current);
+        }
+
+        return () => observer.disconnect();
     }, []);
 
     // Fetch Blogs
@@ -129,7 +159,7 @@ const Homepage2 = () => {
 
                 {/* Right Side: Scrollable Text */}
                 <div className="h2-sectors-list">
-                    {["Juju Storyteller", "Juju Commercials", "Juju AI Films", "  ", "  ", " ", " ", "Brand Collabration", "Creators Connect", "Internship", "Job"].map((sector, index) => (
+                    {["Juju Storyteller", "Juju Commercials", "Juju AI Films", "Collective", "Stories", " ", " ", "Brand Collabration", "Creators Connect", "Internship", "Job"].map((sector, index) => (
                         < div
                             key={index}
                             className="h2-sector-item"
@@ -138,7 +168,7 @@ const Homepage2 = () => {
                             {sector}
                         </div>
                     ))}
-                    <div style={{ height: '30vh' }}></div>
+                    <div className="spacerForPc"></div>
                 </div>
             </section >
 
@@ -276,9 +306,12 @@ const Homepage2 = () => {
             {/* 3. MAGAZINE (NEWS) - Dynamic */}
             <section className="h2-magazine">
                 <div className="h2-magazine-header">
-                    <h2 className="h2-magazine-title">Collective</h2>
+                    <h2 className="h2-magazine-title" ref={storiesTitleRef}>
+                        {storiesTypedText}
+                        <span className="h2-cursor-blink"></span>
+                    </h2>
                     <div className="h2-magazine-meta">
-                        <span className="h2-mag-clock">10:45:22 UTC+01:00</span>
+                        <span className="h2-mag-clock"></span>
                         <span className="h2-mag-count">JUJU Films</span>
                     </div>
                 </div>

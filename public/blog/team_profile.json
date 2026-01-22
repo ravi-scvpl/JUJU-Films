@@ -1,0 +1,125 @@
+{
+    "title": "Technicians and Work Profile",
+    "categories": [
+        {
+            "category": "Director",
+            "items": [
+                {
+                    "sr_no": 1,
+                    "name": "Abhay Raha",
+                    "profile_url": "https://www.abhayraha.com"
+                },
+                {
+                    "sr_no": 2,
+                    "name": "Samar Gupta",
+                    "profile_url": "https://vimeo.com/showcase/11776023"
+                },
+                {
+                    "sr_no": 3,
+                    "name": "Anish Dedhia",
+                    "profile_url": "https://vimeo.com/anishdedhia"
+                },
+                {
+                    "sr_no": 4,
+                    "name": "Errol - Aditya",
+                    "profile_url": "https://errol-adityashowreel.my.canva.site"
+                },
+                {
+                    "sr_no": 5,
+                    "name": "Raihan Muhimtule",
+                    "profile_url": "https://vimeo.com/raihanmuhimtule"
+                }
+            ]
+        },
+        {
+            "category": "Cinematographer",
+            "items": [
+                {
+                    "sr_no": 1,
+                    "name": "Malay Prakash",
+                    "profile_url": "https://www.malayprakash.com"
+                },
+                {
+                    "sr_no": 2,
+                    "name": "Pratik Deora",
+                    "profile_url": "https://www.pratikdeora.com"
+                },
+                {
+                    "sr_no": 3,
+                    "name": "Chinmay Salaskar",
+                    "profile_url": "https://www.chinmaysalaskar.com"
+                },
+                {
+                    "sr_no": 4,
+                    "name": "Saurabh Waghmare",
+                    "profile_url": "https://sourabhwaghmare.com"
+                },
+                {
+                    "sr_no": 5,
+                    "name": "RDEE",
+                    "profile_url": "https://cinematographerrdee.com"
+                }
+            ]
+        },
+        {
+            "category": "Music Director",
+            "items": [
+                {
+                    "sr_no": 1,
+                    "name": "Bharat - Hitharth",
+                    "profile_url": "https://www.instagram.com"
+                },
+                {
+                    "sr_no": 2,
+                    "name": "Mayank Mehra",
+                    "profile_url": "https://www.youtube.com/@magoandmayankmikelal3827"
+                },
+                {
+                    "sr_no": 3,
+                    "name": "Anand Bajpai",
+                    "profile_url": "https://www.instagram.com/aanandbajpai"
+                },
+                {
+                    "sr_no": 4,
+                    "name": "Yash Narvekar",
+                    "profile_url": "https://vimeo.com/yashnarvekar"
+                },
+                {
+                    "sr_no": 5,
+                    "name": "Naozed Patel",
+                    "profile_url": "https://www.youtube.com/@Naozad99"
+                }
+            ]
+        },
+        {
+            "category": "Casting Director",
+            "items": [
+                {
+                    "sr_no": 1,
+                    "name": "Anti Casting",
+                    "profile_url": "https://anticasting.in"
+                },
+                {
+                    "sr_no": 2,
+                    "name": "Casting Bay",
+                    "profile_url": "https://www.instagram.com/castingbay?igsh=cjBqb2ZkeXA5MmI="
+                },
+                {
+                    "sr_no": 3,
+                    "name": "Dharma Casting Agency",
+                    "profile_url": "https://www.instagram.com/dcatalent?igsh=Z3NwaXlndGpwaW1s"
+                },
+                {
+                    "sr_no": 4,
+                    "name": "Shivam Gupta Casting",
+                    "profile_url": "https://www.instagram.com/sg_casting?igsh=MTZ3bGdvazRkYzd5dA=="
+                },
+                {
+                    "sr_no": 5,
+                    "name": "Megh Malhar Casting",
+                    "profile_url": "https://www.instagram.com/meghmallharcastting?igsh=ZGpscmZnMm9lZ2I0"
+                }
+            ]
+        }
+    ]
+}

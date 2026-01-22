@@ -44,6 +44,9 @@ const Layout = ({ children }) => {
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
                             </li>
                             <li className="navigation__item">
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/team" onClick={() => setIsMenuOpen(false)}>Collective</Link>
+                            </li>
+                            <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-storytellers" onClick={() => setIsMenuOpen(false)}>Juju Storytellers</Link>
                             </li>
                             <li className="navigation__item">
@@ -51,6 +54,9 @@ const Layout = ({ children }) => {
                             </li>
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>Juju AI Films</Link>
+                            </li>
+                            <li className="navigation__item">
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/blog" onClick={() => setIsMenuOpen(false)}>Stories</Link>
                             </li>
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>

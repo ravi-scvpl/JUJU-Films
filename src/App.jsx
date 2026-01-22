@@ -8,6 +8,8 @@ import Homepage2 from './pages/Homepage2';
 import JujuStorytellers from './pages/JujuStorytellers';
 import JujuAIFilms from './pages/JujuAIFilms';
 import About from './pages/About';
+import CollectivePage from './pages/CollectivePage';
+import BlogPage from './pages/BlogPage';
 import BlogPost from './pages/BlogPost';
 
 // Import Styles
@@ -29,8 +31,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/about" element={<About />} />
-          <Route path="/team" element={<About />} />
-          <Route path="/blog" element={<About />} />
+          <Route path="/team" element={<CollectivePage />} />
+          <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogPost />} />
         </Routes>
       </Layout>

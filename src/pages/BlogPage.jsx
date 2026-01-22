@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import AboutContent from '../components/about/AboutContent';
+import BlogContent from '../components/about/BlogContent';
 
-const About = () => {
+const BlogPage = () => {
     useEffect(() => {
         document.body.classList.add('switch');
         return () => {
@@ -13,11 +13,11 @@ const About = () => {
         <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ marginBottom: 0, paddingBottom: 0, paddingTop: '120px' }}>
             <div>
                 <div style={{ minHeight: '50vh', padding: '0' }}>
-                    <AboutContent />
+                    <BlogContent />
                 </div>
             </div>
         </div>
     );
 };
 
-export default About;
+export default BlogPage;
