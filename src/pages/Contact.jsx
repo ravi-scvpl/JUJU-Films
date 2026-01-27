@@ -1,13 +1,94 @@
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../supabaseClient';
 
 const Contact = () => {
     const [activeTab, setActiveTab] = useState('brand');
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = React.useRef(null);
 
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        company: '',
+        address: '',
+        deadline: '',
+        budget: '',
+        portfolio_url: '',
+        message: ''
+    });
+    const [submitting, setSubmitting] = useState(false);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
     const handleFileChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             setSelectedFile(event.target.files[0]);
+        }
+    };
+
+    const uploadFile = async () => {
+        if (!selectedFile) return null;
+
+        const fileExt = selectedFile.name.split('.').pop();
+        const fileName = `${Math.random()}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+            .from('contact-uploads')
+            .upload(filePath, selectedFile);
+
+        if (uploadError) {
+            console.error('Error uploading file:', uploadError);
+            return null;
+        }
+
+        const { data } = supabase.storage.from('contact-uploads').getPublicUrl(filePath);
+        return data.publicUrl;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+
+        try {
+            const fileUrl = await uploadFile();
+
+            const { error } = await supabase
+                .from('contacts')
+                .insert([{
+                    type: activeTab,
+                    first_name: formData.first_name,
+                    last_name: formData.last_name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    company: activeTab === 'brand' ? formData.company : null,
+                    address: activeTab === 'brand' ? formData.address : null,
+                    deadline: activeTab === 'brand' ? formData.deadline : null,
+                    budget: activeTab === 'brand' ? formData.budget : null,
+                    portfolio_url: activeTab !== 'brand' ? formData.portfolio_url : null,
+                    message: formData.message,
+                    file_url: fileUrl,
+                    status: 'new'
+                }]);
+
+            if (error) throw error;
+
+            alert('Thank you! Your message has been sent.');
+            setFormData({
+                first_name: '', last_name: '', email: '', phone: '',
+                company: '', address: '', deadline: '', budget: '',
+                portfolio_url: '', message: ''
+            });
+            setSelectedFile(null);
+        } catch (error) {
+            alert('Error sending message: ' + error.message);
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -87,7 +168,7 @@ const Contact = () => {
                         <div className="grid">
                             <div pos="5-12" pos-s="row">
                                 <div className="frm_forms  with_frm_style frm_style_formidable-style" id="frm_form_2_container">
-                                    <form encType="multipart/form-data" method="post" className="frm-show-form frm_js_validate frm_pro_form">
+                                    <form encType="multipart/form-data" method="post" className="frm-show-form frm_js_validate frm_pro_form" onSubmit={handleSubmit}>
                                         <div className="frm_form_fields ">
                                             <fieldset>
                                                 <legend className="frm_screen_reader">{current.introHeading}</legend>
@@ -95,19 +176,19 @@ const Contact = () => {
                                                     {/* Common Fields */}
                                                     <div className="frm_form_field form-field frm_required_field frm_top_container frm6 frm_first">
                                                         <label className="frm_primary_label">Last Name <span className="frm_required">*</span></label>
-                                                        <input type="text" placeholder="Last Name" required />
+                                                        <input type="text" name="last_name" value={formData.last_name} onChange={handleInputChange} placeholder="Last Name" required />
                                                     </div>
                                                     <div className="frm_form_field form-field frm_required_field frm_top_container frm6">
                                                         <label className="frm_primary_label">First Name <span className="frm_required">*</span></label>
-                                                        <input type="text" placeholder="First Name" required />
+                                                        <input type="text" name="first_name" value={formData.first_name} onChange={handleInputChange} placeholder="First Name" required />
                                                     </div>
                                                     <div className="frm_form_field form-field frm_required_field frm_top_container frm6 frm_first">
                                                         <label className="frm_primary_label">Email <span className="frm_required">*</span></label>
-                                                        <input type="email" placeholder="Email" required />
+                                                        <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email" required />
                                                     </div>
                                                     <div className="frm_form_field form-field frm_top_container frm6">
                                                         <label className="frm_primary_label">Phone</label>
-                                                        <input type="tel" placeholder="+33000000000" />
+                                                        <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="+33000000000" />
                                                     </div>
 
                                                     {/* Conditional: Brand Only */}
@@ -115,19 +196,19 @@ const Contact = () => {
                                                         <>
                                                             <div className="frm_form_field form-field frm_top_container frm6 frm_first">
                                                                 <label className="frm_primary_label">Company</label>
-                                                                <input type="text" placeholder="Company" />
+                                                                <input type="text" name="company" value={formData.company} onChange={handleInputChange} placeholder="Company" />
                                                             </div>
                                                             <div className="frm_form_field form-field frm_top_container frm6">
                                                                 <label className="frm_primary_label">Address</label>
-                                                                <input type="text" placeholder="Address" />
+                                                                <input type="text" name="address" value={formData.address} onChange={handleInputChange} placeholder="Address" />
                                                             </div>
                                                             <div className="frm_form_field form-field frm_top_container frm6 frm_first">
                                                                 <label className="frm_primary_label">What is your deadline?</label>
-                                                                <input type="text" />
+                                                                <input type="text" name="deadline" value={formData.deadline} onChange={handleInputChange} />
                                                             </div>
                                                             <div className="frm_form_field form-field frm_top_container frm6">
                                                                 <label className="frm_primary_label">What is your budget?</label>
-                                                                <input type="text" />
+                                                                <input type="text" name="budget" value={formData.budget} onChange={handleInputChange} />
                                                             </div>
                                                         </>
                                                     )}
@@ -136,7 +217,7 @@ const Contact = () => {
                                                     {activeTab !== 'brand' && (
                                                         <div className="frm_form_field form-field frm_top_container frm12 frm_first">
                                                             <label className="frm_primary_label">Portfolio / Resume URL</label>
-                                                            <input type="url" placeholder="https://behance.net/..." />
+                                                            <input type="url" name="portfolio_url" value={formData.portfolio_url} onChange={handleInputChange} placeholder="https://behance.net/..." />
                                                         </div>
                                                     )}
 
@@ -144,7 +225,7 @@ const Contact = () => {
                                                         <label className="frm_primary_label">
                                                             {activeTab === 'brand' ? 'What is your request?' : 'Tell us about yourself / your project'}
                                                         </label>
-                                                        <textarea rows="5"></textarea>
+                                                        <textarea name="message" value={formData.message} onChange={handleInputChange} rows="5"></textarea>
                                                     </div>
 
                                                     <div className="frm_form_field form-field frm_top_container frm12 frm_first">
@@ -173,7 +254,9 @@ const Contact = () => {
 
                                                     <div className="frm_form_field form-field frm12 frm_first">
                                                         <div className="frm_submit frm_flex">
-                                                            <button className="frm_button_submit frm_final_submit" type="submit">{current.buttonText}</button>
+                                                            <button className="frm_button_submit frm_final_submit" type="submit" disabled={submitting}>
+                                                                {submitting ? 'Sending...' : current.buttonText}
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>

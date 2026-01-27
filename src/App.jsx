@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
@@ -20,24 +20,48 @@ import './styles/style.css';
 import './styles/style2.css';
 import './styles/theme.css';
 
+import { AuthProvider } from './contexts/AuthContext';
+import Login from './pages/admin/Login';
+import AdminLayout from './layouts/AdminLayout';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminBlog from './pages/admin/AdminBlog';
+import AdminInfluence from './pages/admin/AdminInfluence';
+import ProtectedRoute from './components/admin/ProtectedRoute';
+
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
+      <AuthProvider>
         <Routes>
-          <Route path="/" element={<Homepage2 />} />
-          <Route path="/homepage-2" element={<Homepage2 />} />
-          <Route path="/juju-storytellers" element={<JujuStorytellers />} />
-          <Route path="/juju-ai-films" element={<JujuAIFilms />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/team" element={<CollectivePage />} />
-          <Route path="/influence" element={<InfluencePage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
+          {/* Public Routes with Main Layout */}
+          <Route element={<Layout><Outlet /></Layout>}>
+            <Route path="/" element={<Homepage2 />} />
+            <Route path="/homepage-2" element={<Homepage2 />} />
+            <Route path="/juju-storytellers" element={<JujuStorytellers />} />
+            <Route path="/juju-ai-films" element={<JujuAIFilms />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/team" element={<CollectivePage />} />
+            <Route path="/influence" element={<InfluencePage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+          </Route>
+
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }>
+            <Route index element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="blog" element={<AdminBlog />} />
+            <Route path="influence" element={<AdminInfluence />} />
+          </Route>
         </Routes>
-      </Layout>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

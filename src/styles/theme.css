@@ -127,6 +127,41 @@ body.collective-page .theme-light .page {
 @media only screen and (max-width: 767px) {
 
 
+    /* Global Mobile Heading Sizes */
+    h1,
+    .h1 {
+        font-size: 32px !important;
+        line-height: 1.2 !important;
+    }
+
+    h2,
+    .h2 {
+        font-size: 26px !important;
+        line-height: 1.3 !important;
+    }
+
+    h3,
+    .h3 {
+        font-size: 22px !important;
+        line-height: 1.4 !important;
+    }
+
+    h4,
+    .h4 {
+        font-size: 20px !important;
+        line-height: 1.4 !important;
+    }
+
+    h5,
+    .h5 {
+        font-size: 18px !important;
+    }
+
+    h6,
+    .h6 {
+        font-size: 16px !important;
+    }
+
     /* About Page Mobile Fixes */
     .about-section .grid,
     .about-content .grid {
@@ -168,8 +203,14 @@ body.collective-page .theme-light .page {
         grid-template-columns: 1fr !important;
     }
 
-    .services-section .service-item {
-        grid-column: 1 / -1;
+    .services-section .service-item,
+    .services-section .service-item:nth-of-type(n) {
+        grid-column: 1 / -1 !important;
+        margin-bottom: 20px;
+    }
+
+    .services-section .services-header {
+        grid-column: 1 / -1 !important;
     }
 
     /* Mobile Footer Fixes (Moved inside media query) */
@@ -236,6 +277,31 @@ body.collective-page .theme-light .page {
         display: flex;
         justify-content: center;
         width: 100%;
+    }
+
+    /* Mobile Sub-menu Fixes */
+    .hero__tabs .tabs__list {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start !important;
+        padding-right: 20px !important;
+        width: 100% !important;
+        scrollbar-width: none;
+        /* Firefox */
+        gap: 20px !important;
+        /* Ensure gap is consistent */
+    }
+
+    .hero__tabs .tabs__list::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
+
+    .hero__tabs .tab {
+        flex: 0 0 auto !important;
+        margin: 0 !important;
     }
 }
 
