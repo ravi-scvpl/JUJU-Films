@@ -61,7 +61,7 @@ const CollectiveContent = () => {
 
             {/* Grid - 3 Columns */}
             <section className="section" style={{ backgroundColor: '#000', color: '#fff', paddingTop: '40px' }}>
-                <div className="grid reveal-on-scroll" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px', padding: '0 5vw 100px' }}>
+                <div className="grid reveal-on-scroll" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px', padding: '0 5vw 40px' }}>
                     {displayedItems.map((member, index) => (
                         <a
                             key={index}

@@ -150,16 +150,15 @@ const Contact = () => {
                                                     <div className="frm_form_field form-field frm_top_container frm12 frm_first">
                                                         <label className="frm_primary_label">Attach a file</label>
                                                         <div
-                                                            className="frm_dropzone frm_multi_upload frm_clearfix"
+                                                            className="frm_dropzone frm_multi_upload frm_clearfix frm_attachment_dropzone"
                                                             role="group"
                                                             onClick={() => fileInputRef.current.click()}
-                                                            style={{ cursor: 'pointer', border: '1px dashed #ccc', padding: '20px', textAlign: 'center', borderRadius: '4px' }}
                                                         >
                                                             <div className="dz-message needsclick">
                                                                 <span className="frm_upload_text">
-                                                                    <button type="button" style={{ pointerEvents: 'none' }}>
+                                                                    <span className="frm_attachment_label">
                                                                         {selectedFile ? selectedFile.name : "Drop a file here or click to upload"}
-                                                                    </button>
+                                                                    </span>
                                                                 </span>
                                                                 {!selectedFile && <div className="frm_small_text"><p>Max file size: 128MB</p></div>}
                                                             </div>

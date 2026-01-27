@@ -335,7 +335,7 @@ const Homepage2 = () => {
                                         alt={blogs[0].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
-                                    <h3 className="h2-mag-luxury-title" style={{ fontSize: '48px', width: '70%' }}>{blogs[0].title}</h3>
+                                    <h3 className="h2-mag-luxury-title" style={{ fontSize: '36px', width: '70%' }}>{blogs[0].title}</h3>
                                     <div style={{ textAlign: 'right' }}>
                                         <span className="h2-mag-date">{blogs[0].date || '06.01.2026'}</span>
                                         <span style={{ display: 'block', color: '#E52323', textTransform: 'uppercase', fontSize: '14px', marginTop: '10px' }}>{blogs[0].category || 'Thought Leadership'}</span>

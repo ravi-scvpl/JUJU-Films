@@ -253,6 +253,34 @@ template {
     }
 }
 
+@media only screen and (max-width: 767px) {
+    :root {
+        --space-grid-column-count: 4;
+        --space-grid-gap: 10px;
+        --space-grid-padding: 16px;
+        --font-size--H1: 2.5rem;
+        --font-size--H2: 2rem;
+        --font-size--H3: 1.75rem;
+        --font-size--H4: 1.5rem;
+        --font-size--900: 2rem;
+        --font-size--800: 1.75rem;
+        --font-size--700: 1.5rem;
+        --font-size--600: 1.25rem;
+    }
+
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    img,
+    video {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
 * {
     outline: none;
     box-sizing: border-box;

@@ -22,7 +22,7 @@ const AboutDetailedContent = () => {
 
             {/* Our Commitments */}
             <section className="section grid reveal-on-scroll" style={{ display: 'grid', marginBottom: '100px' }}>
-                <div className="" style={{ gridColumn: '5 / 13', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px' }}>
+                <div className="our-philosophy-content" style={{ gridColumn: '5 / 13', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px' }}>
                     <div style={{ marginBottom: '40px' }}>
                         <h2 className="h2" style={{ borderBottom: '1px solid #333', paddingBottom: '20px' }}>Our Philosophy</h2>
                     </div>
@@ -81,24 +81,22 @@ const AboutDetailedContent = () => {
             {/* Office Image */}
             <section className="section reveal-on-scroll" style={{ marginBottom: '100px' }}>
                 <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px' }}>
-                    <div style={{ gridColumn: '5 / 13' }}>
+                    <div className="office-image-container" style={{ gridColumn: '5 / 13' }}>
                         <img src="https://placehold.co/800x500" alt="Office Space" style={{ width: '100%', display: 'block' }} />
                     </div>
                 </div>
             </section>
 
             {/* Services and Professions */}
-            <section className="grid reveal-on-scroll" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px' }}>
-                <div style={{ gridColumn: '5 / 13' }} >
+            {/* Services and Professions */}
+            <section className="grid reveal-on-scroll services-section">
+                <div className="services-header">
                     <h2 className="h2" style={{ borderBottom: '1px solid #333', paddingBottom: '20px' }}>What we build</h2>
                     <p>JUJU Films operates across three focused verticals—each serving a distinct role, all guided by the same philosophy.
                     </p>
                 </div>
-                <div style={{ gridColumn: '5 / 13' }} >
-
-                </div>
                 {services.map((service, index) => (
-                    <div key={index} style={{ gridColumn: `${5 + (index * 2)} / ${7 + (index * 2)}`, marginBottom: '40px' }}>
+                    <div key={index} className="service-item" data-index={index}>
                         <h4 style={{ fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '20px' }}>{service.title}</h4>
                         <p>{service.desc}</p>
                     </div>
