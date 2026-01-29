@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BrandContactForm from '../components/BrandContactForm';
 
-const Portfolio = () => {
+const JujuCommercial = () => {
     React.useEffect(() => {
         document.body.classList.add('switch');
         return () => {
@@ -54,7 +54,7 @@ const Portfolio = () => {
                                             ></iframe>
                                         </div>
                                     </div>
-                                    <Link className="work__link" to="/portfolio/la-compagnie-des-animaux/" aria-label="The Animal Company">
+                                    <Link className="work__link" to="/juju-commercials/la-compagnie-des-animaux/" aria-label="The Animal Company">
                                         <h3 className="work__title">La Compagnie des Animaux</h3>
                                         <span className="work__sector">Consulting & Services</span>
                                     </Link>
@@ -85,7 +85,7 @@ const Portfolio = () => {
                                             ></iframe>
                                         </div>
                                     </div>
-                                    <Link className="work__link" to="/portfolio/la-compagnie-des-animaux/" aria-label="The Animal Company">
+                                    <Link className="work__link" to="/juju-commercials/la-compagnie-des-animaux/" aria-label="The Animal Company">
                                         <h3 className="work__title">La Compagnie des Animaux</h3>
                                         <span className="work__sector">Consulting & Services</span>
                                     </Link>
@@ -116,7 +116,7 @@ const Portfolio = () => {
                                             ></iframe>
                                         </div>
                                     </div>
-                                    <Link className="work__link" to="/portfolio/la-compagnie-des-animaux/" aria-label="The Animal Company">
+                                    <Link className="work__link" to="/juju-commercials/la-compagnie-des-animaux/" aria-label="The Animal Company">
                                         <h3 className="work__title">La Compagnie des Animaux</h3>
                                         <span className="work__sector">Consulting & Services</span>
                                     </Link>
@@ -147,7 +147,7 @@ const Portfolio = () => {
                                             ></iframe>
                                         </div>
                                     </div>
-                                    <Link className="work__link" to="/portfolio/la-compagnie-des-animaux/" aria-label="The Animal Company">
+                                    <Link className="work__link" to="/juju-commercials/la-compagnie-des-animaux/" aria-label="The Animal Company">
                                         <h3 className="work__title">La Compagnie des Animaux</h3>
                                         <span className="work__sector">Consulting & Services</span>
                                     </Link>
@@ -178,7 +178,7 @@ const Portfolio = () => {
                                             ></iframe>
                                         </div>
                                     </div>
-                                    <Link className="work__link" to="/portfolio/la-compagnie-des-animaux/" aria-label="The Animal Company">
+                                    <Link className="work__link" to="/juju-commercials/la-compagnie-des-animaux/" aria-label="The Animal Company">
                                         <h3 className="work__title">La Compagnie des Animaux</h3>
                                         <span className="work__sector">Consulting & Services</span>
                                     </Link>
@@ -209,7 +209,7 @@ const Portfolio = () => {
                                             ></iframe>
                                         </div>
                                     </div>
-                                    <Link className="work__link" to="/portfolio/la-compagnie-des-animaux/" aria-label="The Animal Company">
+                                    <Link className="work__link" to="/juju-commercials/la-compagnie-des-animaux/" aria-label="The Animal Company">
                                         <h3 className="work__title">La Compagnie des Animaux</h3>
                                         <span className="work__sector">Consulting & Services</span>
                                     </Link>
@@ -240,7 +240,7 @@ const Portfolio = () => {
                                             ></iframe>
                                         </div>
                                     </div>
-                                    <Link className="work__link" to="/portfolio/la-compagnie-des-animaux/" aria-label="The Animal Company">
+                                    <Link className="work__link" to="/juju-commercials/la-compagnie-des-animaux/" aria-label="The Animal Company">
                                         <h3 className="work__title">La Compagnie des Animaux</h3>
                                         <span className="work__sector">Consulting & Services</span>
                                     </Link>
@@ -261,7 +261,7 @@ const Portfolio = () => {
                                             <video src="/local_assets/wp-content/uploads/2025/09/devoilement-logo-loop-1.mp4" muted playsInline loop></video>
                                         </div>
                                     </div>
-                                    <Link className="work__link" to="/portfolio/elegy/" aria-label="Elegy">
+                                    <Link className="work__link" to="/juju-commercials/elegy/" aria-label="Elegy">
                                         <h3 className="work__title">Élégy</h3>
                                         <span className="work__sector">Culture</span>
                                     </Link>
@@ -288,7 +288,7 @@ const Portfolio = () => {
                                             <video src="/local_assets/wp-content/uploads/2024/09/tanjazz-logo.mp4" muted playsInline loop></video>
                                         </div>
                                     </div>
-                                    <Link className="work__link" to="/portfolio/tanjazz-festival-jazz-maroc-identite-visuelle/" aria-label="Tanjazz">
+                                    <Link className="work__link" to="/juju-commercials/tanjazz-festival-jazz-maroc-identite-visuelle/" aria-label="Tanjazz">
                                         <h3 className="work__title">Tanjazz</h3>
                                         <span className="work__sector">Culture</span>
                                     </Link>
@@ -306,4 +306,4 @@ const Portfolio = () => {
     );
 };
 
-export default Portfolio;
+export default JujuCommercial;

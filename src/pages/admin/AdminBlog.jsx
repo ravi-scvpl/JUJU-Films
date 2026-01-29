@@ -1,5 +1,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 import { supabase } from '../../supabaseClient';
 
 const AdminBlog = () => {
@@ -18,6 +20,7 @@ const AdminBlog = () => {
     });
     const [imageFile, setImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
+    const [viewMode, setViewMode] = useState('visual');
     const fileInputRef = useRef(null);
 
     useEffect(() => {
@@ -36,12 +39,44 @@ const AdminBlog = () => {
         setLoading(false);
     };
 
+    const generateSlug = (text) => {
+        return text
+            .toString()
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, '-')        // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')    // Remove all non-word chars
+            .replace(/\-\-+/g, '-');     // Replace multiple - with single -
+    };
+
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
+
+        setFormData(prev => {
+            const newData = {
+                ...prev,
+                [name]: type === 'checkbox' ? checked : value
+            };
+
+            // Auto-generate slug if title changes and we are not in edit mode (or specific logic)
+            // Or simple logic: if title changes, update slug ONLY IF slug was previously empty or matching the old auto-generated title
+            if (name === 'title') {
+                // If user hasn't manually set a divergent slug, keep syncing it
+                const currentSlug = prev.slug;
+                const expectedSlug = generateSlug(prev.title);
+
+                // If slug matches the "old" title slug (or is empty), update it to new title slug
+                if (!currentSlug || currentSlug === expectedSlug) {
+                    newData.slug = generateSlug(value);
+                }
+            }
+
+            return newData;
+        });
+    };
+
+    const handleContentChange = (content) => {
+        setFormData(prev => ({ ...prev, content }));
     };
 
     const handleFileChange = (e) => {
@@ -151,73 +186,165 @@ const AdminBlog = () => {
 
     return (
         <div>
-            <h1>Blog Management</h1>
+            <div className="admin-header">
+                <h1 className="page-title">Blog Management</h1>
+            </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '40px', marginTop: '20px' }}>
-                {/* Form */}
-                <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px' }}>
-                    <h2>{isEditing ? 'Edit Post' : 'Create New Post'}</h2>
-                    <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '15px' }}>
-                        <div>
-                            <label>Title</label>
-                            <input name="title" value={formData.title} onChange={handleInputChange} required style={{ width: '100%', padding: '8px' }} />
+            <div className="editor-layout">
+                {/* Editor Column */}
+                <div className="card">
+                    <h2 className="card-title">{isEditing ? 'Edit Post' : 'Create New Post'}</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label className="form-label">Title</label>
+                            <input
+                                className="form-control"
+                                name="title"
+                                value={formData.title}
+                                onChange={handleInputChange}
+                                required
+                                placeholder="Enter post title"
+                            />
                         </div>
-                        <div>
-                            <label>Slug</label>
-                            <input name="slug" value={formData.slug} onChange={handleInputChange} required style={{ width: '100%', padding: '8px' }} />
+
+                        <div className="form-group">
+                            <label className="form-label">Content</label>
+
+                            <div className="rich-text-container">
+                                <div className="editor-header">
+                                    <span style={{ fontSize: '12px', fontWeight: 600, color: '#6b7280' }}>
+                                        {viewMode === 'visual' ? 'Visual Editor' : 'HTML Source'}
+                                    </span>
+                                    <div style={{ display: 'flex', gap: '8px' }}>
+                                        <button
+                                            type="button"
+                                            onClick={() => setViewMode('visual')}
+                                            className={`view-toggle-btn ${viewMode === 'visual' ? 'active' : ''}`}
+                                        >
+                                            Visual
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setViewMode('html')}
+                                            className={`view-toggle-btn ${viewMode === 'html' ? 'active' : ''}`}
+                                        >
+                                            &lt;&gt; HTML
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {viewMode === 'visual' ? (
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={formData.content}
+                                        onChange={handleContentChange}
+                                        style={{ height: 'auto' }}
+                                    />
+                                ) : (
+                                    <textarea
+                                        className="code-editor"
+                                        value={formData.content}
+                                        onChange={(e) => handleContentChange(e.target.value)}
+                                        placeholder="Enter raw HTML here..."
+                                    />
+                                )}
+                            </div>
                         </div>
-                        <div>
-                            <label>Content</label>
-                            <textarea name="content" value={formData.content} onChange={handleInputChange} rows="10" style={{ width: '100%', padding: '8px' }}></textarea>
-                        </div>
-                        <div>
-                            <label>Image</label>
-                            <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
-                            {formData.image_url && <img src={formData.image_url} alt="Current" style={{ width: '100px', display: 'block', marginTop: '10px' }} />}
-                        </div>
-                        <div>
-                            <label>Meta Title</label>
-                            <input name="meta_title" value={formData.meta_title} onChange={handleInputChange} style={{ width: '100%', padding: '8px' }} />
-                        </div>
-                        <div>
-                            <label>Meta Description</label>
-                            <textarea name="meta_desc" value={formData.meta_desc} onChange={handleInputChange} style={{ width: '100%', padding: '8px' }}></textarea>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="checkbox" name="published" checked={formData.published} onChange={handleInputChange} /> Published
-                            </label>
-                        </div>
-                        <div style={{ display: 'flex', gap: '10px' }}>
-                            <button type="submit" disabled={uploading} style={{ padding: '10px 20px', backgroundColor: '#E52323', color: '#fff', border: 'none', cursor: 'pointer' }}>
-                                {uploading ? 'Saving...' : (isEditing ? 'Update Post' : 'Create Post')}
-                            </button>
-                            {isEditing && <button type="button" onClick={resetForm} style={{ padding: '10px', cursor: 'pointer' }}>Cancel</button>}
+
+                        <div className="form-group">
+                            <label className="form-label">SEO Meta Description</label>
+                            <textarea
+                                className="form-control"
+                                name="meta_desc"
+                                value={formData.meta_desc}
+                                onChange={handleInputChange}
+                                rows="3"
+                            ></textarea>
                         </div>
                     </form>
                 </div>
 
-                {/* List */}
-                <div>
-                    <h2>All Posts</h2>
-                    {loading ? <p>Loading...</p> : (
-                        <div style={{ display: 'grid', gap: '15px' }}>
-                            {posts.map(post => (
-                                <div key={post.id} style={{ backgroundColor: '#fff', padding: '15px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <div>
-                                        <h3 style={{ margin: '0 0 5px 0' }}>{post.title}</h3>
-                                        <span style={{ fontSize: '12px', color: post.published ? 'green' : 'orange' }}>{post.published ? 'Published' : 'Draft'} </span>
-                                        <span style={{ fontSize: '12px', color: '#666' }}>({new Date(post.created_at).toLocaleDateString()})</span>
-                                    </div>
-                                    <div style={{ display: 'flex', gap: '10px' }}>
-                                        <button onClick={() => handleEdit(post)}>Edit</button>
-                                        <button onClick={() => handleDelete(post.id)} style={{ color: 'red' }}>Delete</button>
+                {/* Sidebar Column */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    <div className="card">
+                        <h3 className="form-label" style={{ fontSize: '16px', marginBottom: '16px' }}>Publishing</h3>
+
+                        <div className="form-group">
+                            <label className="form-label">URL Slug</label>
+                            <input
+                                className="form-control"
+                                name="slug"
+                                value={formData.slug}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Meta Title</label>
+                            <input
+                                className="form-control"
+                                name="meta_title"
+                                value={formData.meta_title}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                                <input
+                                    type="checkbox"
+                                    name="published"
+                                    checked={formData.published}
+                                    onChange={handleInputChange}
+                                    style={{ width: '18px', height: '18px', marginRight: '10px' }}
+                                />
+                                <span style={{ fontWeight: 500 }}>Published</span>
+                            </label>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+                            <button type="button" onClick={handleSubmit} disabled={uploading} className="btn btn-primary" style={{ flex: 1 }}>
+                                {uploading ? 'Saving...' : (isEditing ? 'Update' : 'Publish')}
+                            </button>
+                            <button type="button" onClick={resetForm} className="btn btn-secondary">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="card">
+                        <h3 className="form-label" style={{ fontSize: '16px', marginBottom: '16px' }}>Featured Image</h3>
+                        <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
+                        {formData.image_url && <img src={formData.image_url} alt="Current" className="image-preview" />}
+                    </div>
+                </div>
+            </div>
+
+            {/* List */}
+            <div className="card" style={{ marginTop: '32px' }}>
+                <h2 style={{ marginBottom: '24px', fontSize: '20px' }}>All Posts</h2>
+                {loading ? <p>Loading...</p> : (
+                    <div className="post-list">
+                        {posts.map(post => (
+                            <div key={post.id} className="post-item">
+                                <div>
+                                    <h3 className="post-title">{post.title}</h3>
+                                    <div className="post-meta">
+                                        <span className={`status-badge ${post.published ? 'status-published' : 'status-draft'}`}>
+                                            {post.published ? 'Published' : 'Draft'}
+                                        </span>
+                                        <span>Last modified: {new Date(post.created_at).toLocaleDateString()}</span>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
+                                <div style={{ display: 'flex', gap: '10px' }}>
+                                    <button onClick={() => handleEdit(post)} className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '13px' }}>Edit</button>
+                                    <button onClick={() => handleDelete(post.id)} className="btn btn-danger" style={{ padding: '8px 16px', fontSize: '13px' }}>Delete</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

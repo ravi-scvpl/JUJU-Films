@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 import '../styles/homepage2.css';
 
 const Homepage2 = () => {
@@ -47,14 +48,35 @@ const Homepage2 = () => {
 
     // Fetch Blogs
     useEffect(() => {
-        fetch('/blog/blogs.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data.articles) {
-                    setBlogs(data.articles);
+        const fetchBlogs = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('blog_posts')
+                    .select('*')
+                    .eq('published', true)
+                    .order('created_at', { ascending: false })
+                    .limit(4);
+
+                if (error) throw error;
+
+                if (data) {
+                    const mappedBlogs = data.map(post => ({
+                        id: post.id,
+                        slug: post.slug,
+                        title: post.title,
+                        intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
+                        date: new Date(post.created_at).toLocaleDateString('en-GB'),
+                        category: 'Thought Leadership',
+                        image: post.image_url
+                    }));
+                    setBlogs(mappedBlogs);
                 }
-            })
-            .catch(err => console.error("Error fetching homepage blogs:", err));
+            } catch (err) {
+                console.error("Error fetching homepage blogs:", err);
+            }
+        };
+
+        fetchBlogs();
     }, []);
 
     // Observer for Sectors (Active Red Text)
@@ -329,9 +351,9 @@ const Homepage2 = () => {
                     {/* Row 1, Item 1: 1-8 (7 cols) */}
                     {blogs[0] && (
                         <div style={{ gridColumn: '1 / 8' }}>
-                            <Link to={`/blog/${blogs[0].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <Link to={`/blog/${blogs[0].slug || blogs[0].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div className="h2-mag-media-placeholder" style={{ aspectRatio: '16/9' }}>
-                                    <img src={`https://placehold.co/1200x800/111/fff?text=${encodeURIComponent(blogs[0].title)}`}
+                                    <img src={blogs[0].image || `https://placehold.co/1200x800/111/fff?text=${encodeURIComponent(blogs[0].title)}`}
                                         alt={blogs[0].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
@@ -349,9 +371,9 @@ const Homepage2 = () => {
                     {/* Row 1, Item 2: 8-13 (5 cols) */}
                     {blogs[1] && (
                         <div style={{ gridColumn: '8 / 13' }}>
-                            <Link to={`/blog/${blogs[1].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <Link to={`/blog/${blogs[1].slug || blogs[1].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div className="h2-mag-media-placeholder" style={{ aspectRatio: '4/3' }}>
-                                    <img src={`https://placehold.co/800x600/222/fff?text=${encodeURIComponent(blogs[1].title)}`}
+                                    <img src={blogs[1].image || `https://placehold.co/800x600/222/fff?text=${encodeURIComponent(blogs[1].title)}`}
                                         alt={blogs[1].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </div>
                                 <span className="h2-mag-date" style={{ marginTop: '20px' }}>{blogs[1].date || '06.01.2026'}</span>
@@ -364,9 +386,9 @@ const Homepage2 = () => {
                     {/* Row 2, Item 3: 1-5 (4 cols) */}
                     {blogs[2] && (
                         <div style={{ gridColumn: '1 / 5', marginTop: '80px' }}>
-                            <Link to={`/blog/${blogs[2].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <Link to={`/blog/${blogs[2].slug || blogs[2].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div className="h2-mag-media-placeholder" style={{ aspectRatio: '3/4' }}>
-                                    <img src={`https://placehold.co/600x800/333/fff?text=${encodeURIComponent(blogs[2].title)}`}
+                                    <img src={blogs[2].image || `https://placehold.co/600x800/333/fff?text=${encodeURIComponent(blogs[2].title)}`}
                                         alt={blogs[2].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </div>
                                 <span className="h2-mag-date" style={{ marginTop: '20px' }}>{blogs[2].date || '06.01.2026'}</span>
@@ -378,9 +400,9 @@ const Homepage2 = () => {
                     {/* Row 2, Item 4: 5-13 (8 cols) */}
                     {blogs[3] && (
                         <div style={{ gridColumn: '5 / 13', marginTop: '80px' }}>
-                            <Link to={`/blog/${blogs[3].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <Link to={`/blog/${blogs[3].slug || blogs[3].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div className="h2-mag-media-placeholder" style={{ aspectRatio: '21/9' }}>
-                                    <img src={`https://placehold.co/1200x500/444/fff?text=${encodeURIComponent(blogs[3].title)}`}
+                                    <img src={blogs[3].image || `https://placehold.co/1200x500/444/fff?text=${encodeURIComponent(blogs[3].title)}`}
                                         alt={blogs[3].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
@@ -404,7 +426,7 @@ const Homepage2 = () => {
             {/* 4. FOOTER */}
             {/* < footer className="h2-footer" >
                 <nav className="h2-big-nav">
-                    <Link to="/portfolio" className="h2-nav-link">Projets</Link>
+                    <Link to="/juju-commercials" className="h2-nav-link">Projets</Link>
                     <Link to="/magazine" className="h2-nav-link">Magazine</Link>
                     <Link to="/agence" className="h2-nav-link">Agence</Link>
                     <Link to="/contact" className="h2-nav-link">Contact</Link>

@@ -97,7 +97,7 @@ const Layout = ({ children }) => {
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-storytellers" onClick={() => setIsMenuOpen(false)}>Storytellers</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/portfolio" onClick={() => setIsMenuOpen(false)}>Commercials </Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-commercials" onClick={() => setIsMenuOpen(false)}>Commercials </Link>
                             </li>
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>AI Films</Link>
@@ -127,7 +127,7 @@ const Layout = ({ children }) => {
                             <ul className="navigation__list">
 
                                 <li className="navigation__item"><Link className="navigation__link" to="/brand-collabrations">Storytellers</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/portfolio">Commercials</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/juju-commercials">Commercials</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/juju-ai-lab">AI Films</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/contact">Contact</Link></li>
                             </ul>

@@ -5,7 +5,7 @@ import { supabase } from '../../supabaseClient';
 const AdminDashboard = () => {
     const [leads, setLeads] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('brand'); // brand, creator, internship, job
+    const [activeTab, setActiveTab] = useState('brand'); // brand, creators, internships, jobs
 
     useEffect(() => {
         fetchLeads();
@@ -41,7 +41,7 @@ const AdminDashboard = () => {
 
             {/* Tabs */}
             <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-                {['brand', 'creator', 'internship', 'job'].map(tab => (
+                {['brand', 'creators', 'internships', 'jobs'].map(tab => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}

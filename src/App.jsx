@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
-import Portfolio from './pages/Portfolio';
+import JujuCommercial from './pages/JujuCommercial';
 import Homepage2 from './pages/Homepage2';
 import JujuStorytellers from './pages/JujuStorytellers';
 import JujuAIFilms from './pages/JujuAIFilms';
@@ -40,12 +40,12 @@ function App() {
             <Route path="/juju-storytellers" element={<JujuStorytellers />} />
             <Route path="/juju-ai-films" element={<JujuAIFilms />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/juju-commercials" element={<JujuCommercial />} />
             <Route path="/about" element={<About />} />
             <Route path="/team" element={<CollectivePage />} />
             <Route path="/influence" element={<InfluencePage />} />
             <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
           </Route>
 
           {/* Admin Routes */}

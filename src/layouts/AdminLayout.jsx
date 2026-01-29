@@ -2,6 +2,7 @@
 import React from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import '../styles/admin.css';
 
 const AdminLayout = () => {
     const { logout } = useAuth();
@@ -17,62 +18,66 @@ const AdminLayout = () => {
         }
     };
 
+    // Prevent search engine indexing for admin pages
+    React.useEffect(() => {
+        // Create or update robots meta tag
+        let meta = document.querySelector('meta[name="robots"]');
+        const previousContent = meta ? meta.getAttribute('content') : null;
+
+        if (!meta) {
+            meta = document.createElement('meta');
+            meta.name = 'robots';
+            document.head.appendChild(meta);
+        }
+
+        meta.setAttribute('content', 'noindex, nofollow');
+
+        // Cleanup: restore previous state or remove if it didn't exist
+        return () => {
+            if (previousContent) {
+                meta.setAttribute('content', previousContent);
+            } else {
+                // If it didn't exist before, maybe we should remove it? 
+                // Or set it to index, follow default. removing is safer if site-wide default is index.
+                if (meta && meta.parentNode) {
+                    meta.parentNode.removeChild(meta);
+                }
+            }
+        };
+    }, []);
+
     const isActive = (path) => location.pathname === path;
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#f5f5f5', color: '#333' }}>
+        <div className="admin-layout">
             {/* Sidebar */}
-            <aside style={{ width: '250px', backgroundColor: '#111', color: '#fff', padding: '20px', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ marginBottom: '40px' }}>
-                    <h2 style={{ fontSize: '20px', fontWeight: 'bold' }}>JUJU Admin</h2>
+            <aside className="admin-sidebar">
+                <div className="admin-brand">
+                    JUJU Admin
                 </div>
 
-                <nav style={{ flex: 1 }}>
-                    <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        <li>
+                <nav className="admin-nav">
+                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                        <li className="admin-nav-item">
                             <Link
                                 to="/admin/dashboard"
-                                style={{
-                                    textDecoration: 'none',
-                                    color: isActive('/admin/dashboard') ? '#E52323' : '#fff',
-                                    fontWeight: isActive('/admin/dashboard') ? 'bold' : 'normal',
-                                    display: 'block',
-                                    padding: '10px',
-                                    borderRadius: '4px',
-                                    backgroundColor: isActive('/admin/dashboard') ? 'rgba(255,255,255,0.1)' : 'transparent'
-                                }}
+                                className={`admin-nav-link ${isActive('/admin/dashboard') ? 'active' : ''}`}
                             >
                                 Dashboard (Leads)
                             </Link>
                         </li>
-                        <li>
+                        <li className="admin-nav-item">
                             <Link
                                 to="/admin/blog"
-                                style={{
-                                    textDecoration: 'none',
-                                    color: isActive('/admin/blog') ? '#E52323' : '#fff',
-                                    fontWeight: isActive('/admin/blog') ? 'bold' : 'normal',
-                                    display: 'block',
-                                    padding: '10px',
-                                    borderRadius: '4px',
-                                    backgroundColor: isActive('/admin/blog') ? 'rgba(255,255,255,0.1)' : 'transparent'
-                                }}
+                                className={`admin-nav-link ${isActive('/admin/blog') ? 'active' : ''}`}
                             >
                                 Blog Posts
                             </Link>
                         </li>
-                        <li>
+                        <li className="admin-nav-item">
                             <Link
                                 to="/admin/influence"
-                                style={{
-                                    textDecoration: 'none',
-                                    color: isActive('/admin/influence') ? '#E52323' : '#fff',
-                                    fontWeight: isActive('/admin/influence') ? 'bold' : 'normal',
-                                    display: 'block',
-                                    padding: '10px',
-                                    borderRadius: '4px',
-                                    backgroundColor: isActive('/admin/influence') ? 'rgba(255,255,255,0.1)' : 'transparent'
-                                }}
+                                className={`admin-nav-link ${isActive('/admin/influence') ? 'active' : ''}`}
                             >
                                 Influence Posts
                             </Link>
@@ -82,22 +87,14 @@ const AdminLayout = () => {
 
                 <button
                     onClick={handleLogout}
-                    style={{
-                        marginTop: 'auto',
-                        padding: '10px',
-                        backgroundColor: '#E52323',
-                        color: '#fff',
-                        border: 'none',
-                        cursor: 'pointer',
-                        borderRadius: '4px'
-                    }}
+                    className="admin-logout-btn"
                 >
                     Logout
                 </button>
             </aside>
 
             {/* Main Content */}
-            <main style={{ flex: 1, padding: '40px', overflowY: 'auto' }}>
+            <main className="admin-main">
                 <Outlet />
             </main>
         </div>

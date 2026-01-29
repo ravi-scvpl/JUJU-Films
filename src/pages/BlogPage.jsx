@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 import '../styles/homepage2.css';
 
 const BlogPage = () => {
@@ -13,14 +14,36 @@ const BlogPage = () => {
 
     useEffect(() => {
         // Fetch Blogs
-        fetch('/blog/blogs.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data.articles) {
-                    setBlogs(data.articles);
+        const fetchBlogs = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('blog_posts')
+                    .select('*')
+                    .eq('published', true)
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    throw error;
                 }
-            })
-            .catch(err => console.error("Error fetching blogs:", err));
+
+                if (data) {
+                    const mappedBlogs = data.map(post => ({
+                        id: post.id,
+                        slug: post.slug,
+                        title: post.title,
+                        intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
+                        date: new Date(post.created_at).toLocaleDateString('en-GB'),
+                        category: 'Thought Leadership', // Default or add category to DB later
+                        image: post.image_url
+                    }));
+                    setBlogs(mappedBlogs);
+                }
+            } catch (err) {
+                console.error("Error fetching blogs:", err);
+            }
+        };
+
+        fetchBlogs();
 
         document.body.classList.add('switch');
 
@@ -85,9 +108,9 @@ const BlogPage = () => {
 
                     {/* Full Width Image */}
                     <div style={{ width: '100%', aspectRatio: '21/9', marginBottom: '60px', overflow: 'hidden' }}>
-                        <Link to={`/blog/${featuredBlog.id}`}>
+                        <Link to={`/blog/${featuredBlog.slug || featuredBlog.id}`}>
                             <img
-                                src={`https://placehold.co/1200x500/222/fff?text=${encodeURIComponent(featuredBlog.title)}`}
+                                src={featuredBlog.image || `https://placehold.co/1200x500/222/fff?text=${encodeURIComponent(featuredBlog.title)}`}
                                 alt={featuredBlog.title}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                             />
@@ -97,7 +120,7 @@ const BlogPage = () => {
                     {/* Split Layout: Heading Left, Intro Right */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 1fr', gap: '80px', alignItems: 'start' }}>
                         <div>
-                            <Link to={`/blog/${featuredBlog.id}`} style={{ textDecoration: 'none', color: '#fff' }}>
+                            <Link to={`/blog/${featuredBlog.slug || featuredBlog.id}`} style={{ textDecoration: 'none', color: '#fff' }}>
                                 <h2 style={{ fontSize: '64px', lineHeight: '1.0', fontFamily: 'serif', fontWeight: '400', margin: 0, color: '#FFFFFF' }}>
                                     {featuredBlog.title}
                                 </h2>
@@ -107,7 +130,7 @@ const BlogPage = () => {
                             <p style={{ fontSize: '20px', lineHeight: '1.5', color: '#ccc', margin: 0 }}>
                                 {featuredBlog.intro}
                             </p>
-                            <Link to={`/blog/${featuredBlog.id}`} style={{ marginTop: '30px', color: '#E52323', textDecoration: 'none', fontSize: '18px', fontWeight: '500', display: 'inline-block' }}>
+                            <Link to={`/blog/${featuredBlog.slug || featuredBlog.id}`} style={{ marginTop: '30px', color: '#E52323', textDecoration: 'none', fontSize: '18px', fontWeight: '500', display: 'inline-block' }}>
                                 Read Story →
                             </Link>
                         </div>
@@ -158,9 +181,9 @@ const BlogPage = () => {
 
                         return (
                             <div key={blog.id} style={gridStyle} className={`reveal-on-scroll ${delayClass}`}>
-                                <Link to={`/blog/${blog.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <Link to={`/blog/${blog.slug || blog.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                     <div className="h2-mag-media-placeholder" style={{ aspectRatio: aspectRatio }}>
-                                        <img src={`https://placehold.co/1200x800/222/fff?text=${encodeURIComponent(blog.title)}`}
+                                        <img src={blog.image || `https://placehold.co/1200x800/222/fff?text=${encodeURIComponent(blog.title)}`}
                                             alt={blog.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
 
