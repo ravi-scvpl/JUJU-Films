@@ -6,7 +6,7 @@ import img1 from '../assets/1.png';
 import img2 from '../assets/2.png';
 import img3 from '../assets/3.png';
 import img4 from '../assets/4.png';
-import shayarifilms from '../assets/shayari.mp4';
+import shayarifilms from '../assets/Shayari.mp4';
 import outkro from '../assets/outkro.mp4';
 import gamebadalde from '../assets/gamebadalde.mp4';
 import xpert from '../assets/xpertkisuno.mp4';
