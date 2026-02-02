@@ -1,4 +1,9 @@
 import React, { useRef } from 'react';
+import aboutvideo from '../../assets/juju-about.mp4';
+import img1 from '../../assets/400x300.png';
+import img2 from '../../assets/800x500.png';
+import img3 from '../../assets/400x500.png';
+import img4 from '../../assets/700x400.png';
 
 const AboutMediaGrid = () => {
     const videoRef = useRef(null);
@@ -52,7 +57,7 @@ const AboutMediaGrid = () => {
                     {/* Item 1 - Top Left (Wide) */}
                     <div style={{ gridColumn: '1 / 6', alignSelf: 'end', marginBottom: '40px' }}>
                         <img
-                            src="https://placehold.co/800x500"
+                            src={img2}
                             alt="Creative Process"
                             style={imageStyle}
                             onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
@@ -63,7 +68,7 @@ const AboutMediaGrid = () => {
                     {/* Item 2 - Top Right (Small, Offset) */}
                     <div style={{ gridColumn: '8 / 12', alignSelf: 'center', marginTop: '-80px' }}>
                         <img
-                            src="https://placehold.co/400x300"
+                            src={img1}
                             alt="Design Tools"
                             style={imageStyle}
                             onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
@@ -73,7 +78,7 @@ const AboutMediaGrid = () => {
 
                     {/* Item 3 - Center Video (Prominent) */}
                     <div
-                        style={{ gridColumn: '4 / 10', zIndex: 2, margin: '-20px 0' }}
+                        style={{ gridColumn: '4 / 10', zIndex: 0, margin: '-20px 0' }}
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                     >
@@ -86,16 +91,16 @@ const AboutMediaGrid = () => {
                                 muted
                                 playsInline
                             >
-                                <source src="https://videos.pexels.com/video-files/3163534/3163534-hd_1920_1080_30fps.mp4" type="video/mp4" />
+                                <source src={aboutvideo} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         </div>
                     </div>
 
                     {/* Item 4 - Bottom Left (Tall, overlapping) */}
-                    <div style={{ gridColumn: '2 / 5', alignSelf: 'start', marginTop: '-60px', zIndex: 1 }}>
+                    <div style={{ gridColumn: '2 / 5', alignSelf: 'start', marginTop: '-60px', zIndex: 2 }}>
                         <img
-                            src="https://placehold.co/400x500"
+                            src={img3}
                             alt="Brand Strategy"
                             style={imageStyle}
                             onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
@@ -106,7 +111,7 @@ const AboutMediaGrid = () => {
                     {/* Item 5 - Bottom Right (Wide, overlapping) */}
                     <div style={{ gridColumn: '7 / 13', alignSelf: 'start', marginTop: '30px' }}>
                         <img
-                            src="https://placehold.co/700x400"
+                            src={img4}
                             alt="Workshop"
                             style={imageStyle}
                             onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}

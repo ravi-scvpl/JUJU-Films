@@ -6,6 +6,10 @@ import img1 from '../assets/1.png';
 import img2 from '../assets/2.png';
 import img3 from '../assets/3.png';
 import img4 from '../assets/4.png';
+import shayarifilms from '../assets/shayari.mp4';
+import outkro from '../assets/outkro.mp4';
+import gamebadalde from '../assets/gamebadalde.mp4';
+import xpert from '../assets/xpertkisuno.mp4';
 
 const Homepage2 = () => {
     // Dynamic Text State
@@ -236,7 +240,7 @@ const Homepage2 = () => {
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src={img1} alt="Game Badal de" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
-                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
+                                <source src={gamebadalde} type="video/mp4" />
                             </video>
                         </div>
                         <div className="h2-project-info">
@@ -250,7 +254,7 @@ const Homepage2 = () => {
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src={img2} alt="Out Karo" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
-                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
+                                <source src={outkro} type="video/mp4" />
                             </video>
                         </div>
                         <div className="h2-project-info">
@@ -266,11 +270,11 @@ const Homepage2 = () => {
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src={img4} alt="Expert ki Suno" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
-                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
+                                <source src={xpert} type="video/mp4" />
                             </video>
                         </div>
                         <div className="h2-project-info">
-                            <h3 className="h2-project-title">Expert ki Suno</h3>
+                            <h3 className="h2-project-title">Xpert ki Suno</h3>
                             <div className="h2-project-category">AI Films</div>
                         </div>
                     </div>
@@ -280,7 +284,7 @@ const Homepage2 = () => {
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src={img3} alt="Super Shayari" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
-                                <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
+                                <source src={shayarifilms} type="video/mp4" />
                             </video>
                         </div>
                         <div className="h2-project-info">
