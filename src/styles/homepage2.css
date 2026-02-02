@@ -861,7 +861,7 @@
 
     .h2-magazine-title {
         /* font-size handled by global vw */
-        font-size: 29vw;
+        font-size: 35vw !important;
         padding-bottom: 20px;
         letter-spacing: -0.05em;
     }
@@ -923,6 +923,19 @@
     .h2-socials {
         justify-content: center;
         display: flex;
+    }
+
+    .h2-magazine-title-influence {
+        font-size: 24vw !important;
+        /* Smaller size for "Influence" */
+        font-family: serif;
+        font-weight: 400;
+        line-height: 0.9;
+        margin: 0;
+        letter-spacing: -0.05em;
+        color: #fff;
+        display: block;
+        width: 100%;
     }
 }
 

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import '../styles/homepage2.css';
+import img1 from '../assets/1.png';
+import img2 from '../assets/2.png';
 
 const Homepage2 = () => {
     // Dynamic Text State
@@ -230,7 +232,7 @@ const Homepage2 = () => {
                     {/* 5. Baudouin Square */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/10/carre-baudouin-case-study-202507162-2560x1312.webp" alt="Baudouin Square" />
+                            <img className="h2-project-img" src={img1} alt="Baudouin Square" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
                                 <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
                             </video>
@@ -244,7 +246,7 @@ const Homepage2 = () => {
                     {/* 6. The Animal Company */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/09/00-compagne-animaux-logo-vignette-2560x1575.webp" alt="The Animal Company" />
+                            <img className="h2-project-img" src={img2} alt="The Animal Company" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
                                 <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
                             </video>

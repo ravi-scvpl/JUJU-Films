@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 import '../styles/homepage2.css';
 
 const InfluencePage = () => {
@@ -10,17 +11,56 @@ const InfluencePage = () => {
 
     // Data State
     const [articles, setArticles] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [activeCategory, setActiveCategory] = useState("All");
 
     useEffect(() => {
-        // Fetch Influence Data
-        fetch('/influence/influence_data.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data.articles) {
-                    setArticles(data.articles);
+        // Fetch Categories
+        const fetchCategories = async () => {
+            const { data, error } = await supabase
+                .from('categories')
+                .select('*')
+                .eq('type', 'influence')
+                .order('name', { ascending: true });
+            if (!error && data) setCategories(data);
+        };
+
+        // Fetch Influence Data from Supabase
+        const fetchArticles = async () => {
+            try {
+                let query = supabase
+                    .from('influencer_posts')
+                    .select('*')
+                    .eq('published', true)
+                    .order('created_at', { ascending: false });
+
+                if (activeCategory !== 'All') {
+                    query = query.eq('category', activeCategory);
                 }
-            })
-            .catch(err => console.error("Error fetching influence data:", err));
+
+                const { data, error } = await query;
+
+                if (error) throw error;
+
+                if (data) {
+                    const mappedArticles = data.map(post => ({
+                        id: post.id,
+                        title: post.title,
+                        slug: post.slug || post.id, // Use slug if available
+                        intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
+                        date: new Date(post.created_at).getFullYear(), // Just year or full date
+                        category: post.category || 'Campaigns',
+                        image: post.image_url
+                    }));
+                    setArticles(mappedArticles);
+                }
+            } catch (err) {
+                console.error("Error fetching influence data:", err);
+            }
+        };
+
+        fetchCategories();
+        fetchArticles();
 
         document.body.classList.add('switch');
 
@@ -49,7 +89,7 @@ const InfluencePage = () => {
             document.body.classList.remove('switch');
             observer.disconnect();
         };
-    }, []);
+    }, [activeCategory]);
 
     const featuredArticle = articles[0];
     const remainingArticles = articles.slice(1);
@@ -71,11 +111,26 @@ const InfluencePage = () => {
                 </div>
 
                 <ul className="h2-magazine-nav">
-                    <li><button className="h2-magazine-nav-link active" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>All</button></li>
-                    <li><span className="h2-magazine-nav-link">Campaigns</span></li>
-                    <li><span className="h2-magazine-nav-link">Creators</span></li>
-                    <li><span className="h2-magazine-nav-link">ROI</span></li>
-                    <li><span className="h2-magazine-nav-link">Strategy</span></li>
+                    <li>
+                        <button
+                            className={`h2-magazine-nav-link ${activeCategory === 'All' ? 'active' : ''}`}
+                            onClick={() => setActiveCategory('All')}
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit' }}
+                        >
+                            All
+                        </button>
+                    </li>
+                    {categories.map(cat => (
+                        <li key={cat.id}>
+                            <button
+                                className={`h2-magazine-nav-link ${activeCategory === cat.name ? 'active' : ''}`}
+                                onClick={() => setActiveCategory(cat.name)}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit' }}
+                            >
+                                {cat.name}
+                            </button>
+                        </li>
+                    ))}
                 </ul>
             </section>
 
@@ -84,27 +139,31 @@ const InfluencePage = () => {
                 <section className="reveal-on-scroll" style={{ padding: '80px 43px 80px 43px', background: '#000', color: '#fff' }}>
                     {/* Full Width Image */}
                     <div style={{ width: '100%', aspectRatio: '21/9', marginBottom: '60px', overflow: 'hidden' }}>
-                        <img
-                            src={`https://placehold.co/1200x500/111/fff?text=${encodeURIComponent(featuredArticle.title)}`}
-                            alt={featuredArticle.title}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
+                        <Link to={`/influence/${featuredArticle.slug}`}>
+                            <img
+                                src={featuredArticle.image || `https://placehold.co/1200x500/111/fff?text=${encodeURIComponent(featuredArticle.title)}`}
+                                alt={featuredArticle.title}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            />
+                        </Link>
                     </div>
 
                     {/* Split Layout */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 1fr', gap: '80px', alignItems: 'start' }}>
                         <div>
-                            <h2 style={{ fontSize: '64px', lineHeight: '1.0', fontFamily: 'serif', fontWeight: '400', margin: 0, color: '#FFFFFF' }}>
-                                {featuredArticle.title}
-                            </h2>
+                            <Link to={`/influence/${featuredArticle.slug}`} style={{ textDecoration: 'none', color: '#fff' }}>
+                                <h2 style={{ fontSize: '64px', lineHeight: '1.0', fontFamily: 'serif', fontWeight: '400', margin: 0, color: '#FFFFFF' }}>
+                                    {featuredArticle.title}
+                                </h2>
+                            </Link>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                             <p style={{ fontSize: '20px', lineHeight: '1.5', color: '#ccc', margin: 0 }}>
                                 {featuredArticle.intro}
                             </p>
-                            <span style={{ marginTop: '30px', color: '#E52323', fontSize: '18px', fontWeight: '500', display: 'inline-block', cursor: 'pointer' }}>
+                            <Link to={`/influence/${featuredArticle.slug}`} style={{ marginTop: '30px', color: '#E52323', fontSize: '18px', fontWeight: '500', display: 'inline-block', cursor: 'pointer', textDecoration: 'none' }}>
                                 View Case Study →
-                            </span>
+                            </Link>
                         </div>
                     </div>
                 </section>
@@ -145,31 +204,33 @@ const InfluencePage = () => {
 
                         return (
                             <div key={article.id} style={gridStyle} className={`reveal-on-scroll ${delayClass}`}>
-                                <div className="h2-mag-media-placeholder" style={{ aspectRatio: aspectRatio }}>
-                                    <img src={`https://placehold.co/1200x800/111/fff?text=${encodeURIComponent(article.title)}`}
-                                        alt={article.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                </div>
-
-                                {isLarge ? (
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
-                                        <h3 className={titleClass} style={{ fontSize: titleFontSize, width: '70%', color: '#FFFFFF' }}>{article.title}</h3>
-                                        <div style={{ textAlign: 'right' }}>
-                                            <span className="h2-mag-date" style={{ color: '#ccc' }}>{article.date}</span>
-                                            <span style={{ display: 'block', color: '#E52323', textTransform: 'uppercase', fontSize: '14px', marginTop: '10px' }}>{article.category}</span>
-                                        </div>
+                                <Link to={`/influence/${article.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <div className="h2-mag-media-placeholder" style={{ aspectRatio: aspectRatio }}>
+                                        <img src={article.image || `https://placehold.co/1200x800/111/fff?text=${encodeURIComponent(article.title)}`}
+                                            alt={article.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
-                                ) : (
-                                    <>
-                                        <span className="h2-mag-date" style={{ marginTop: '20px', display: 'block', color: '#ccc' }}>{article.date}</span>
-                                        <h3 className={titleClass} style={{ fontSize: titleFontSize, marginTop: '10px', color: '#FFFFFF' }}>{article.title}</h3>
-                                    </>
-                                )}
 
-                                {isLarge ? (
-                                    <p className="h2-mag-desc" style={{ marginTop: '20px', maxWidth: '80%', color: '#ccc' }}>{article.intro.substring(0, 150)}...</p>
-                                ) : (
-                                    <p className="h2-mag-desc" style={{ marginTop: '10px', color: '#ccc' }}>{article.intro.substring(0, 100)}...</p>
-                                )}
+                                    {isLarge ? (
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
+                                            <h3 className={titleClass} style={{ fontSize: titleFontSize, width: '70%', color: '#FFFFFF' }}>{article.title}</h3>
+                                            <div style={{ textAlign: 'right' }}>
+                                                <span className="h2-mag-date" style={{ color: '#ccc' }}>{article.date}</span>
+                                                <span style={{ display: 'block', color: '#E52323', textTransform: 'uppercase', fontSize: '14px', marginTop: '10px' }}>{article.category}</span>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <span className="h2-mag-date" style={{ marginTop: '20px', display: 'block', color: '#ccc' }}>{article.date}</span>
+                                            <h3 className={titleClass} style={{ fontSize: titleFontSize, marginTop: '10px', color: '#FFFFFF' }}>{article.title}</h3>
+                                        </>
+                                    )}
+
+                                    {isLarge ? (
+                                        <p className="h2-mag-desc" style={{ marginTop: '20px', maxWidth: '80%', color: '#ccc' }}>{article.intro.substring(0, 150)}...</p>
+                                    ) : (
+                                        <p className="h2-mag-desc" style={{ marginTop: '10px', color: '#ccc' }}>{article.intro.substring(0, 100)}...</p>
+                                    )}
+                                </Link>
                             </div>
                         );
                     })}

@@ -6,6 +6,7 @@ import { supabase } from '../../supabaseClient';
 
 const AdminBlog = () => {
     const [posts, setPosts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [currentPost, setCurrentPost] = useState(null);
@@ -16,6 +17,7 @@ const AdminBlog = () => {
         image_url: '',
         meta_title: '',
         meta_desc: '',
+        category: '',
         published: false
     });
     const [imageFile, setImageFile] = useState(null);
@@ -25,7 +27,20 @@ const AdminBlog = () => {
 
     useEffect(() => {
         fetchPosts();
+        fetchCategories();
     }, []);
+
+    const fetchCategories = async () => {
+        const { data, error } = await supabase
+            .from('categories')
+            .select('*')
+            .eq('type', 'blog')
+            .order('name', { ascending: true });
+
+        if (!error && data) {
+            setCategories(data);
+        }
+    };
 
     const fetchPosts = async () => {
         setLoading(true);
@@ -151,6 +166,7 @@ const AdminBlog = () => {
             image_url: post.image_url,
             meta_title: post.meta_title || '',
             meta_desc: post.meta_desc || '',
+            category: post.category || '',
             published: post.published
         });
         setImageFile(null);
@@ -178,6 +194,7 @@ const AdminBlog = () => {
             image_url: '',
             meta_title: '',
             meta_desc: '',
+            category: '',
             published: false
         });
         setImageFile(null);
@@ -278,6 +295,21 @@ const AdminBlog = () => {
                                 onChange={handleInputChange}
                                 required
                             />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Category</label>
+                            <select
+                                className="form-control"
+                                name="category"
+                                value={formData.category}
+                                onChange={handleInputChange}
+                            >
+                                <option value="">Select Category...</option>
+                                {categories.map(cat => (
+                                    <option key={cat.id} value={cat.name}>{cat.name}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className="form-group">

@@ -12,6 +12,7 @@ import CollectivePage from './pages/CollectivePage';
 import BlogPage from './pages/BlogPage';
 import BlogPost from './pages/BlogPost';
 import InfluencePage from './pages/InfluencePage';
+import InfluencePost from './pages/InfluencePost';
 
 // Import Styles
 import './styles/home-style.css';
@@ -26,6 +27,7 @@ import AdminLayout from './layouts/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminBlog from './pages/admin/AdminBlog';
 import AdminInfluence from './pages/admin/AdminInfluence';
+import AdminCategories from './pages/admin/AdminCategories';
 import ProtectedRoute from './components/admin/ProtectedRoute';
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
             <Route path="/influence" element={<InfluencePage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/influence/:slug" element={<InfluencePost />} />
           </Route>
 
           {/* Admin Routes */}
@@ -57,6 +60,7 @@ function App() {
           }>
             <Route index element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="categories" element={<AdminCategories />} />
             <Route path="blog" element={<AdminBlog />} />
             <Route path="influence" element={<AdminInfluence />} />
           </Route>

@@ -6,6 +6,7 @@ import { supabase } from '../../supabaseClient';
 
 const AdminInfluence = () => {
     const [posts, setPosts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [currentPost, setCurrentPost] = useState(null);
@@ -15,6 +16,7 @@ const AdminInfluence = () => {
         image_url: '',
         meta_title: '',
         meta_desc: '',
+        category: '',
         published: false
     });
     const [imageFile, setImageFile] = useState(null);
@@ -24,7 +26,20 @@ const AdminInfluence = () => {
 
     useEffect(() => {
         fetchPosts();
+        fetchCategories();
     }, []);
+
+    const fetchCategories = async () => {
+        const { data, error } = await supabase
+            .from('categories')
+            .select('*')
+            .eq('type', 'influence')
+            .order('name', { ascending: true });
+
+        if (!error && data) {
+            setCategories(data);
+        }
+    };
 
     const fetchPosts = async () => {
         setLoading(true);
@@ -121,6 +136,9 @@ const AdminInfluence = () => {
             image_url: post.image_url,
             meta_title: post.meta_title || '',
             meta_desc: post.meta_desc || '',
+            meta_title: post.meta_title || '',
+            meta_desc: post.meta_desc || '',
+            category: post.category || '',
             published: post.published
         });
         setImageFile(null);
@@ -147,6 +165,7 @@ const AdminInfluence = () => {
             image_url: '',
             meta_title: '',
             meta_desc: '',
+            category: '',
             published: false
         });
         setImageFile(null);

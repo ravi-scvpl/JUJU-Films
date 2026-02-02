@@ -68,6 +68,14 @@ const AdminLayout = () => {
                         </li>
                         <li className="admin-nav-item">
                             <Link
+                                to="/admin/categories"
+                                className={`admin-nav-link ${isActive('/admin/categories') ? 'active' : ''}`}
+                            >
+                                Categories
+                            </Link>
+                        </li>
+                        <li className="admin-nav-item">
+                            <Link
                                 to="/admin/blog"
                                 className={`admin-nav-link ${isActive('/admin/blog') ? 'active' : ''}`}
                             >

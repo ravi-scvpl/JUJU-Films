@@ -11,16 +11,35 @@ const BlogPage = () => {
 
     // Blogs Data State
     const [blogs, setBlogs] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [activeCategory, setActiveCategory] = useState("All");
 
     useEffect(() => {
         // Fetch Blogs
+        // Fetch Categories
+        const fetchCategories = async () => {
+            const { data, error } = await supabase
+                .from('categories')
+                .select('*')
+                .eq('type', 'blog')
+                .order('name', { ascending: true });
+            if (!error && data) setCategories(data);
+        };
+
+        // Fetch Blogs
         const fetchBlogs = async () => {
             try {
-                const { data, error } = await supabase
+                let query = supabase
                     .from('blog_posts')
                     .select('*')
                     .eq('published', true)
                     .order('created_at', { ascending: false });
+
+                if (activeCategory !== 'All') {
+                    query = query.eq('category', activeCategory);
+                }
+
+                const { data, error } = await query;
 
                 if (error) {
                     throw error;
@@ -33,7 +52,7 @@ const BlogPage = () => {
                         title: post.title,
                         intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
                         date: new Date(post.created_at).toLocaleDateString('en-GB'),
-                        category: 'Thought Leadership', // Default or add category to DB later
+                        category: post.category || 'Thought Leadership',
                         image: post.image_url
                     }));
                     setBlogs(mappedBlogs);
@@ -43,6 +62,7 @@ const BlogPage = () => {
             }
         };
 
+        fetchCategories();
         fetchBlogs();
 
         document.body.classList.add('switch');
@@ -72,7 +92,7 @@ const BlogPage = () => {
             document.body.classList.remove('switch');
             observer.disconnect();
         };
-    }, []);
+    }, [activeCategory]);
 
     const featuredBlog = blogs[0];
     const remainingBlogs = blogs.slice(1);
@@ -94,11 +114,26 @@ const BlogPage = () => {
                 </div>
 
                 <ul className="h2-magazine-nav">
-                    <li><Link to="/blog" className="h2-magazine-nav-link active">All</Link></li>
-                    <li><span className="h2-magazine-nav-link">Directors</span></li>
-                    <li><span className="h2-magazine-nav-link">Cinematographers</span></li>
-                    <li><span className="h2-magazine-nav-link">Music Directors</span></li>
-                    <li><span className="h2-magazine-nav-link">Casting Directors</span></li>
+                    <li>
+                        <button
+                            className={`h2-magazine-nav-link ${activeCategory === 'All' ? 'active' : ''}`}
+                            onClick={() => setActiveCategory('All')}
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit' }}
+                        >
+                            All
+                        </button>
+                    </li>
+                    {categories.map(cat => (
+                        <li key={cat.id}>
+                            <button
+                                className={`h2-magazine-nav-link ${activeCategory === cat.name ? 'active' : ''}`}
+                                onClick={() => setActiveCategory(cat.name)}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit' }}
+                            >
+                                {cat.name}
+                            </button>
+                        </li>
+                    ))}
                 </ul>
             </section>
 
