@@ -51,7 +51,7 @@ const AboutMediaGrid = () => {
     };
 
     return (
-        <div className="about-media-grid">
+        <div className="about-media-grid" style={{ background: "#000" }}>
             <div className="grid">
                 <div pos="row" style={gridStyle}>
                     {/* Item 1 - Top Left (Wide) */}
@@ -85,7 +85,7 @@ const AboutMediaGrid = () => {
                         <div style={videoContainerStyle}>
                             <video
                                 ref={videoRef}
-                                poster="https://placehold.co/900x506/black/white?text=Video+Poster"
+                                poster="https://placehold.co/900x506/black"
                                 style={videoStyle}
                                 loop
                                 muted

@@ -268,7 +268,7 @@ const Homepage2 = () => {
 
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img4} alt="Expert ki Suno" />
+                            <img className="h2-project-img" src={img3} alt="Expert ki Suno" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
                                 <source src={xpert} type="video/mp4" />
                             </video>
@@ -282,7 +282,7 @@ const Homepage2 = () => {
                     {/* 6. The Animal Company */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img3} alt="Super Shayari" />
+                            <img className="h2-project-img" src={img4} alt="Super Shayari" />
                             <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
                                 <source src={shayarifilms} type="video/mp4" />
                             </video>

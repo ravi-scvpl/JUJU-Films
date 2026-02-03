@@ -1,4 +1,5 @@
 import React from 'react';
+import aboutvideo from '../../assets/juju-about.mp4';
 
 const AboutDetailedContent = () => {
 
@@ -68,7 +69,7 @@ const AboutDetailedContent = () => {
                                 color: '#111'
                             }}>
                                 <div style={{ gridColumn: '2 / 3', fontSize: '64px', fontWeight: '300', lineHeight: 1, marginTop: '10px' }}>{item.number}</div>
-                                <div style={{ gridColumn: '4 / 10' }}>
+                                <div style={{ gridColumn: '4 / 12' }}>
                                     <h3 style={{ fontSize: '24px', fontWeight: '400', marginBottom: '10px', marginTop: 0 }}>{item.title}</h3>
                                     <p style={{ fontSize: '18px' }}>{item.desc}</p>
                                 </div>
@@ -82,7 +83,16 @@ const AboutDetailedContent = () => {
             <section className="section reveal-on-scroll" style={{ marginBottom: '100px' }}>
                 <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px' }}>
                     <div className="office-image-container" style={{ gridColumn: '5 / 13' }}>
-                        <img src="https://placehold.co/800x500" alt="Office Space" style={{ width: '100%', display: 'block' }} />
+                        <video
+                            height={500}
+                            width={800}
+                            loop
+                            muted
+                            playsInline
+                        >
+                            <source src={aboutvideo} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </div>
             </section>
