@@ -10,13 +10,13 @@ const videos2025 = [
         sector: 'Consulting & Services',
         desc: 'A visual identity to make veterinary advice accessible; a logo embodying expertise, proximity, and animal well-being.'
     },
-    // {
-    //     type: 'youtube',
-    //     id: 'YJBpPx3-ntM',
-    //     title: 'La Compagnie des Animaux',
-    //     sector: 'Consulting & Services',
-    //     desc: 'A visual identity to make veterinary advice accessible; a logo embodying expertise, proximity, and animal well-being.'
-    // },
+    {
+        type: 'youtube',
+        id: 'YJBpPx3-ntM',
+        title: 'La Compagnie des Animaux',
+        sector: 'Consulting & Services',
+        desc: 'A visual identity to make veterinary advice accessible; a logo embodying expertise, proximity, and animal well-being.'
+    },
     {
         type: 'youtube',
         id: 'V4Z0G3Kwnc8',

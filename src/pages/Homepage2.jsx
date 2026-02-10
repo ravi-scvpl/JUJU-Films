@@ -10,6 +10,7 @@ import shayarifilms from '../assets/Shayari.mp4';
 import outkro from '../assets/outkro.mp4';
 import gamebadalde from '../assets/gamebadalde.mp4';
 import xpert from '../assets/xpertkisuno.mp4';
+import jujuFilms from '../assets/jujuFilms.mp4';
 
 const Homepage2 = () => {
     // Dynamic Text State
@@ -143,7 +144,7 @@ const Homepage2 = () => {
                 {/* Hero Media Block (Below Text) */}
                 <div className="h2-hero-media">
                     <video autoPlay muted loop playsInline>
-                        <source src="https://grapheine.com/wp-content/uploads/2025/10/showreel_grapheine_27_octobre.mp4" type="video/mp4" />
+                        <source src={jujuFilms} type="video/mp4" />
                     </video>
                 </div>
 
@@ -184,7 +185,7 @@ const Homepage2 = () => {
             <section className="h2-sectors-container">
                 {/* Left Side: Static/Sticky Video */}
                 <div className="h2-sectors-media">
-                    <video autoPlay muted loop playsInline src="https://grapheine.com/wp-content/uploads/2025/10/showreel_grapheine_27_octobre.mp4"></video>
+                    <video autoPlay muted loop playsInline src={jujuFilms}></video>
                 </div>
 
                 {/* Right Side: Scrollable Text */}
