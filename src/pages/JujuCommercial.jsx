@@ -123,6 +123,246 @@ const videos2025 = [
         desc: ''
     },
     {
+        type: 'youtube',
+        id: 'wq2KjP5QCk8',
+        title: 'Celeb - Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'Gxon0EKK9go',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'Q_uknieIwf4',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'PiOQwKAAbn8',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: '89Ci5qAVfVY',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'YBghJkyU938',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'L7p9E-ZdR1Q',
+        title: 'TV Ad - Bumrah',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'playlist',
+        id: 'PLKvLlzKDgCirI5JMdCy8RPgH9QDX0Gyql',
+        title: 'JK Super Series',
+        sector: 'TV Ad Series',
+        desc: '',
+        thumbId: 'vW2xnWs_kmw'
+    },
+    {
+        type: 'youtube',
+        id: 'CJVECSrHeSM',
+        title: 'JKC WallMaxx',
+        sector: 'TV Ad Series',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: '2L9tPbbV5GU',
+        title: 'JKC WallMaxx',
+        sector: 'TV Ad Series',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'vXoDDQXbcfQ',
+        title: 'JKC WallMaxx',
+        sector: 'TV Ad Series',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: '_XgGuHhuYd8',
+        title: 'JKC WallMaxx',
+        sector: 'TV Ad Series',
+        desc: ''
+    },
+    {
+        type: 'playlist',
+        id: 'PL4Pr7GpGLlWOhhU0WpkUYpa9wqYfOerKe',
+        title: 'Sunrooof',
+        sector: 'Commercial Series',
+        desc: '',
+        thumbId: 'JusWq4P8Qvs'
+    },
+    {
+        type: 'youtube',
+        id: '9tU0-qx-DHg',
+        title: 'Sunrooof',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'tE9ZWNRDH8I',
+        title: 'Celeb',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'dMpTFXKBWzI',
+        title: 'India Gate Basmati',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'EK0jT9JCACQ',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'vimeo',
+        id: '729945070',
+        title: 'Biryani By Kilo',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'wPPv4QCTCTE',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'hcHk_EvKEQo',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'HlIx0_OojO4',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'HlT_IjnsBkY',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'QnGob2Ss3pw',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'VIvleyU2mpY',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'U3VjsW9g6ik',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'aiT2FazV4vg',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'uHTGf034sRU',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'rDl6Fe0nTAg',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'qe2Mt5K85aI',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: '6N45mZsgjp4',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'ZVR1-345PEI',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: '6eLVK_uttmc',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'fe4Wq5jw8Dc',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'St1x3EjrpM0',
+        title: 'Commercial',
+        sector: 'TV Commercial',
+        desc: ''
+    },
+    {
         type: 'local',
         src: '/local_assets/wp-content/uploads/2025/09/devoilement-logo-loop-1.mp4',
         thumb: '/local_assets/wp-content/uploads/2025/09/cs_elegy-gallimard-jeunesse-2560x1313.webp',
@@ -145,50 +385,69 @@ const videos2024 = [
     }
 ];
 
-const VideoItem = ({ video }) => (
-    <li className="work">
-        <div className="work__container grid">
-            <div className="work__thumbnail">
-                <div className="media">
-                    <img
-                        width="2560"
-                        height="1575"
-                        src={video.type === 'youtube' ? `https://img.youtube.com/vi/${video.id}/hqdefault.jpg` : video.thumb}
-                        className=""
-                        alt=""
-                        loading="lazy"
-                        sizes="auto"
-                        decoding="async"
-                    />
+const VideoItem = ({ video }) => {
+    let src;
+    let thumbSrc;
+
+    if (video.type === 'youtube') {
+        src = `https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.id}`;
+        thumbSrc = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
+    } else if (video.type === 'playlist') {
+        src = `https://www.youtube.com/embed/videoseries?list=${video.id}`;
+        thumbSrc = video.thumbId ? `https://img.youtube.com/vi/${video.thumbId}/hqdefault.jpg` : '/thumbnails/video_thumb.jpg';
+    } else if (video.type === 'vimeo') {
+        src = `https://player.vimeo.com/video/${video.id}?autoplay=1&muted=1&background=1`;
+        thumbSrc = '/thumbnails/video_thumb.jpg'; // Pending better placeholder
+    } else {
+        src = video.src;
+        thumbSrc = video.thumb;
+    }
+
+    return (
+        <li className="work">
+            <div className="work__container grid">
+                <div className="work__thumbnail">
+                    <div className="media">
+                        <img
+                            width="2560"
+                            height="1575"
+                            src={thumbSrc}
+                            className=""
+                            alt=""
+                            loading="lazy"
+                            sizes="auto"
+                            decoding="async"
+                        />
+                    </div>
+                    <div className="work__thumbnail-over" aria-hidden="true">
+                        {video.type === 'local' ? (
+                            <video src={src} muted playsInline loop></video>
+                        ) : (
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src={src}
+                                title={video.title}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                allowFullScreen
+                                style={{ pointerEvents: 'none' }}
+                            ></iframe>
+                        )}
+                    </div>
                 </div>
-                <div className="work__thumbnail-over" aria-hidden="true">
-                    {video.type === 'youtube' ? (
-                        <iframe
-                            width="100%"
-                            height="100%"
-                            src={`https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.id}`}
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin"
-                            allowFullScreen
-                            style={{ pointerEvents: 'none' }}
-                        ></iframe>
-                    ) : (
-                        <video src={video.src} muted playsInline loop></video>
-                    )}
+                <Link className="work__link" to={video.link || "#"} aria-label={video.title}>
+                    <h3 className="work__title">{video.title}</h3>
+                    <span className="work__sector">{video.sector}</span>
+                </Link>
+                <div className="work__excerpt">
+                    <p>{video.desc}</p>
                 </div>
             </div>
-            <Link className="work__link" to={video.link || "#"} aria-label={video.title}>
-                <h3 className="work__title">{video.title}</h3>
-                <span className="work__sector">{video.sector}</span>
-            </Link>
-            <div className="work__excerpt">
-                <p>{video.desc}</p>
-            </div>
-        </div>
-    </li>
-);
+        </li>
+    );
+};
 
 const JujuCommercial = () => {
     React.useEffect(() => {
