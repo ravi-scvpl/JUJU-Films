@@ -10,7 +10,7 @@ import shayarifilms from '../assets/Shayari.mp4';
 import outkro from '../assets/outkro.mp4';
 import gamebadalde from '../assets/gamebadalde.mp4';
 import xpert from '../assets/xpertkisuno.mp4';
-import jujuFilms from '../assets/jujuFilms.mp4';
+import jujuFilms from '../assets/JujuFilms.mp4';
 
 const Homepage2 = () => {
     // Dynamic Text State
