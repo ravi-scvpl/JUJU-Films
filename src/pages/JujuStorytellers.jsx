@@ -85,6 +85,7 @@ const videos2024 = [
 ];
 
 const VideoItem = ({ video }) => {
+    const [isHovered, setIsHovered] = React.useState(false);
     let src;
     let thumbSrc;
 
@@ -104,7 +105,11 @@ const VideoItem = ({ video }) => {
 
     return (
         <li className="work">
-            <div className="work__container grid">
+            <div
+                className="work__container grid"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
                 <div className="work__thumbnail">
                     <div className="media">
                         <img
@@ -119,20 +124,22 @@ const VideoItem = ({ video }) => {
                         />
                     </div>
                     <div className="work__thumbnail-over" aria-hidden="true">
-                        {video.type === 'local' ? (
-                            <video src={src} muted playsInline loop></video>
-                        ) : (
-                            <iframe
-                                width="100%"
-                                height="100%"
-                                src={src}
-                                title={video.title}
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerPolicy="strict-origin-when-cross-origin"
-                                allowFullScreen
-                                style={{ pointerEvents: 'none' }}
-                            ></iframe>
+                        {isHovered && (
+                            video.type === 'local' ? (
+                                <video src={src} muted playsInline autoPlay loop></video>
+                            ) : (
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src={src}
+                                    title={video.title}
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerPolicy="strict-origin-when-cross-origin"
+                                    allowFullScreen
+                                    style={{ pointerEvents: 'none' }}
+                                ></iframe>
+                            )
                         )}
                     </div>
                 </div>

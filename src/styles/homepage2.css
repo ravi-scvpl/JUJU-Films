@@ -414,6 +414,11 @@
     padding: 120px 43px;
     color: #fff;
     border-top: 1px solid #222;
+    position: relative;
+    z-index: 5;
+    /* Slides OVER the sticky Agency */
+    box-shadow: 0px -10px 30px rgba(0, 0, 0, 0.5);
+    /* separation shadow */
 }
 
 .h2-magazine-header {
@@ -595,6 +600,10 @@
     padding: 15vh 5vw;
     background-color: #000;
     color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    /* Stays at back */
 }
 
 .h2-agency-info-header {
@@ -687,6 +696,9 @@
     padding: 100px 43px;
     background: #000;
     border-top: 1px solid #222;
+    position: relative;
+    z-index: 10;
+    /* Ensure footer slides OVER the sticky magazine */
 }
 
 .h2-big-nav {

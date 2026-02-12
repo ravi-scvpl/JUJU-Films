@@ -432,35 +432,7 @@ const Homepage2 = () => {
                 </div>
             </section>
 
-            {/* 4. FOOTER */}
-            {/* < footer className="h2-footer" >
-                <nav className="h2-big-nav">
-                    <Link to="/juju-commercials" className="h2-nav-link">Projets</Link>
-                    <Link to="/magazine" className="h2-nav-link">Magazine</Link>
-                    <Link to="/agence" className="h2-nav-link">Agence</Link>
-                    <Link to="/contact" className="h2-nav-link">Contact</Link>
-                </nav>
 
-                <div className="h2-agency-statement" style={{ fontSize: '24px', maxWidth: '800px', marginBottom: '60px', color: '#888' }}>
-                    <p>Graphéine accompagne les marques qui veulent faire du design un levier de transformation sociale et économique, pour relever les défis de demain.</p>
-                </div>
-
-                <div className="h2-footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', color: '#666' }}>
-                    <div className="h2-socials">
-                        <a href="#" style={{ color: '#fff', marginRight: '20px' }}>Instagram</a>
-                        <a href="#" style={{ color: '#fff', marginRight: '20px' }}>LinkedIn</a>
-                        <a href="#" style={{ color: '#fff' }}>Behance</a>
-                    </div>
-                    <div className="h2-meta">
-                        <span>© 2002 — 2026</span>
-                        <span style={{ marginLeft: '20px' }}>Paris & Lyon</span>
-                    </div>
-                </div>
-
-                <div className="h2-footer-logo">
-                    graphéine
-                </div>
-            </footer > */}
 
         </div >
     );
