@@ -1,0 +1,29 @@
+.about-media-grid {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.about-video-container {
+    width: 100%;
+    position: relative;
+    /* Default for mobile: 1/3 viewport height approximately */
+    height: 33vh;
+}
+
+.about-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* PC / Desktop styles */
+@media (min-width: 768px) {
+    .about-video-container {
+        /* Full screen height for PC */
+        height: 100vh;
+    }
+}

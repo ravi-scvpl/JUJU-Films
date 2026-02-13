@@ -1,127 +1,28 @@
 import React, { useRef } from 'react';
 import aboutvideo from '../../assets/juju-about.mp4';
-import img1 from '../../assets/400x300.png';
-import img2 from '../../assets/800x500.png';
-import img3 from '../../assets/400x500.png';
-import img4 from '../../assets/700x400.png';
+import './AboutMediaGrid.css';
 
 const AboutMediaGrid = () => {
     const videoRef = useRef(null);
 
-    const handleMouseEnter = () => {
-        if (videoRef.current) {
-            videoRef.current.play();
-        }
-    };
-
-    const handleMouseLeave = () => {
-        if (videoRef.current) {
-            videoRef.current.pause();
-            videoRef.current.currentTime = 0; // Optional: Reset to start
-        }
-    };
-
-    const gridStyle = {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(12, 1fr)',
-        gap: '20px',
-        padding: '60px 0',
-        alignItems: 'center',
-    };
-
-    const imageStyle = {
-        width: '100%',
-        height: 'auto',
-        display: 'block',
-        transition: 'transform 0.3s ease',
-    };
-
-    const videoContainerStyle = {
-        width: '100%',
-        height: '100%',
-        position: 'relative',
-        overflow: 'hidden',
-    };
-
-    const videoStyle = {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        display: 'block',
-    };
-
     return (
-        <div className="about-media-grid" style={{ background: "#000" }}>
-            <div className="grid">
-                <div pos="row" style={gridStyle}>
-                    {/* Item 1 - Top Left (Wide) */}
-                    <div style={{ gridColumn: '1 / 6', alignSelf: 'end', marginBottom: '40px' }}>
-                        <img
-                            src={img2}
-                            alt="Creative Process"
-                            style={imageStyle}
-                            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-                            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                        />
-                    </div>
-
-                    {/* Item 2 - Top Right (Small, Offset) */}
-                    <div style={{ gridColumn: '8 / 12', alignSelf: 'center', marginTop: '-80px' }}>
-                        <img
-                            src={img1}
-                            alt="Design Tools"
-                            style={imageStyle}
-                            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-                            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                        />
-                    </div>
-
-                    {/* Item 3 - Center Video (Prominent) */}
-                    <div
-                        style={{ gridColumn: '4 / 10', zIndex: 0, margin: '-20px 0' }}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        <div style={videoContainerStyle}>
-                            <video
-                                ref={videoRef}
-                                poster="https://placehold.co/900x506/black"
-                                style={videoStyle}
-                                loop
-                                muted
-                                playsInline
-                            >
-                                <source src={aboutvideo} type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    </div>
-
-                    {/* Item 4 - Bottom Left (Tall, overlapping) */}
-                    <div style={{ gridColumn: '2 / 5', alignSelf: 'start', marginTop: '-60px', zIndex: 2 }}>
-                        <img
-                            src={img3}
-                            alt="Brand Strategy"
-                            style={imageStyle}
-                            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-                            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                        />
-                    </div>
-
-                    {/* Item 5 - Bottom Right (Wide, overlapping) */}
-                    <div style={{ gridColumn: '7 / 13', alignSelf: 'start', marginTop: '30px' }}>
-                        <img
-                            src={img4}
-                            alt="Workshop"
-                            style={imageStyle}
-                            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-                            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                        />
-                    </div>
-                </div>
+        <div className="about-media-grid">
+            <div className="about-video-container">
+                <video
+                    ref={videoRef}
+                    className="about-video"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                >
+                    <source src={aboutvideo} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     );
 };
 
 export default AboutMediaGrid;
+
