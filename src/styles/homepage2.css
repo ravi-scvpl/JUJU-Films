@@ -873,7 +873,7 @@
 
     .h2-magazine-title {
         /* font-size handled by global vw */
-        font-size: 34vw !important;
+        font-size: 32vw !important;
         padding-bottom: 20px;
         letter-spacing: -0.05em;
     }
