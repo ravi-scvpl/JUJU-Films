@@ -17,6 +17,8 @@ const Homepage2 = () => {
     const words = ["Story first. Always"];
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [blogs, setBlogs] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [activeCategory, setActiveCategory] = useState("All");
 
     // Stories Typing Animation State
     const [storiesTypedText, setStoriesTypedText] = useState("");
@@ -55,16 +57,35 @@ const Homepage2 = () => {
         return () => observer.disconnect();
     }, []);
 
-    // Fetch Blogs
+    // Fetch Categories (Run once)
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const { data, error } = await supabase
+                .from('categories')
+                .select('*')
+                .eq('type', 'blog')
+                .order('name', { ascending: true });
+            if (!error && data) setCategories(data);
+        };
+        fetchCategories();
+    }, []);
+
+    // Fetch Blogs (Run on category change)
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const { data, error } = await supabase
+                let query = supabase
                     .from('blog_posts')
                     .select('*')
                     .eq('published', true)
                     .order('created_at', { ascending: false })
                     .limit(4);
+
+                if (activeCategory !== 'All') {
+                    query = query.eq('category', activeCategory);
+                }
+
+                const { data, error } = await query;
 
                 if (error) throw error;
 
@@ -75,7 +96,7 @@ const Homepage2 = () => {
                         title: post.title,
                         intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
                         date: new Date(post.created_at).toLocaleDateString('en-GB'),
-                        category: 'Thought Leadership',
+                        category: post.category || 'Thought Leadership',
                         image: post.image_url
                     }));
                     setBlogs(mappedBlogs);
@@ -86,7 +107,7 @@ const Homepage2 = () => {
         };
 
         fetchBlogs();
-    }, []);
+    }, [activeCategory]);
 
     // Observer for Sectors (Active Red Text)
     useEffect(() => {
@@ -260,7 +281,7 @@ const Homepage2 = () => {
                         </div>
                         <div className="h2-project-info">
                             <h3 className="h2-project-title">Out Karo</h3>
-                            <div className="h2-project-category">Commercials</div>
+                            <div className="h2-project-category">Music Video</div>
                             {/* <p style={{ fontSize: '18px', marginTop: '10px', color: '#666', lineHeight: '1.4' }}>
                                 A visual identity to make veterinary advice accessible; a logo embodying expertise, proximity and animal welfare.
                             </p> */}
@@ -276,7 +297,7 @@ const Homepage2 = () => {
                         </div>
                         <div className="h2-project-info">
                             <h3 className="h2-project-title">Xpert ki Suno</h3>
-                            <div className="h2-project-category">AI Films</div>
+                            <div className="h2-project-category">IP</div>
                         </div>
                     </div>
 
@@ -348,11 +369,26 @@ const Homepage2 = () => {
                 </div>
 
                 <ul className="h2-magazine-nav">
-                    <li><Link to="/blog" className="h2-magazine-nav-link active">All</Link></li>
-                    <li><span className="h2-magazine-nav-link">Directors</span></li>
-                    <li><span className="h2-magazine-nav-link">Cinematographers</span></li>
-                    <li><span className="h2-magazine-nav-link">Music Directors</span></li>
-                    <li><span className="h2-magazine-nav-link">Casting Directors</span></li>
+                    <li>
+                        <button
+                            className={`h2-magazine-nav-link ${activeCategory === 'All' ? 'active' : ''}`}
+                            onClick={() => setActiveCategory('All')}
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit' }}
+                        >
+                            All
+                        </button>
+                    </li>
+                    {categories.map(cat => (
+                        <li key={cat.id}>
+                            <button
+                                className={`h2-magazine-nav-link ${activeCategory === cat.name ? 'active' : ''}`}
+                                onClick={() => setActiveCategory(cat.name)}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit' }}
+                            >
+                                {cat.name}
+                            </button>
+                        </li>
+                    ))}
                 </ul>
 
                 <div className="h2-magazine-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '40px' }}>

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import aboutvideo from '../../assets/juju-about.mp4';
+import aboutvideo from '../../assets/juju-about1.mp4';
 import './AboutMediaGrid.css';
 
 const AboutMediaGrid = () => {

@@ -45,10 +45,10 @@ function App() {
             <Route path="/juju-commercials" element={<JujuCommercial />} />
             <Route path="/about" element={<About />} />
             <Route path="/team" element={<CollectivePage />} />
-            <Route path="/influence" element={<InfluencePage />} />
+            {/* <Route path="/influence" element={<InfluencePage />} /> */}
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/influence/:slug" element={<InfluencePost />} />
+            {/* <Route path="/influence/:slug" element={<InfluencePost />} /> */}
           </Route>
 
           {/* Admin Routes */}

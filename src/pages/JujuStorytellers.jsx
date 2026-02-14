@@ -12,6 +12,49 @@ const videos2025 = [
     },
     {
         type: 'youtube',
+        id: 'Gxon0EKK9go',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'Q_uknieIwf4',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'PiOQwKAAbn8',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: '89Ci5qAVfVY',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'youtube',
+        id: 'YBghJkyU938',
+        title: 'Super Viral',
+        sector: 'Commercial',
+        desc: ''
+    },
+    {
+        type: 'playlist',
+        id: 'PLKvLlzKDgCirI5JMdCy8RPgH9QDX0Gyql',
+        title: 'JK Super Series',
+        sector: 'TV Ad Series',
+        desc: '',
+        thumbId: 'vW2xnWs_kmw'
+    },
+    {
+        type: 'youtube',
         id: 'IkZn5nRR4yY',
         title: 'Musical',
         sector: 'Music Video',
@@ -84,7 +127,9 @@ const videos2024 = [
     }
 ];
 
-const VideoItem = ({ video }) => {
+import VideoModal from '../components/VideoModal';
+
+const VideoItem = ({ video, onVideoClick }) => {
     const [isHovered, setIsHovered] = React.useState(false);
     let src;
     let thumbSrc;
@@ -110,7 +155,11 @@ const VideoItem = ({ video }) => {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <div className="work__thumbnail">
+                <div
+                    className="work__thumbnail"
+                    onClick={() => onVideoClick(video)}
+                    style={{ cursor: 'pointer' }}
+                >
                     <div className="media">
                         <img
                             width="2560"
@@ -143,7 +192,7 @@ const VideoItem = ({ video }) => {
                         )}
                     </div>
                 </div>
-                <Link className="work__link" to={video.link || "#"} aria-label={video.title}>
+                <Link className="work__link" to={video.link || "#"} aria-label={video.title} onClick={(e) => { e.preventDefault(); onVideoClick(video); }}>
                     <h3 className="work__title">{video.title}</h3>
                     <span className="work__sector">{video.sector}</span>
                 </Link>
@@ -156,6 +205,19 @@ const VideoItem = ({ video }) => {
 };
 
 const JujuStorytellers = () => {
+    const [selectedVideo, setSelectedVideo] = React.useState(null);
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+    const handleVideoClick = (video) => {
+        setSelectedVideo(video);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedVideo(null);
+    };
+
     useEffect(() => {
         document.body.classList.add('switch');
         return () => {
@@ -183,7 +245,7 @@ const JujuStorytellers = () => {
                             <h5 className="works-chronology__title">2025</h5>
                             <ol>
                                 {videos2025.map((video, index) => (
-                                    <VideoItem key={index} video={video} />
+                                    <VideoItem key={index} video={video} onVideoClick={handleVideoClick} />
                                 ))}
                             </ol>
                         </li>
@@ -191,13 +253,14 @@ const JujuStorytellers = () => {
                             <h5 className="works-chronology__title">2024</h5>
                             <ol>
                                 {videos2024.map((video, index) => (
-                                    <VideoItem key={index} video={video} />
+                                    <VideoItem key={index} video={video} onVideoClick={handleVideoClick} />
                                 ))}
                             </ol>
                         </li>
                     </ol>
                 </section>
                 <BrandContactForm />
+                <VideoModal video={selectedVideo} isOpen={isModalOpen} onClose={closeModal} />
             </div>
         </div >
     );
