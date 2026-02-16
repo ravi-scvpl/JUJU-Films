@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     // Fetch all published blog posts
     const { data: posts, error } = await supabase
         .from('blog_posts')
-        .select('slug, updated_at')
+        .select('slug, created_at')
         .eq('published', true);
 
     if (error) {
@@ -49,7 +49,7 @@ export default async function handler(req, res) {
                 return `
   <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>
-    <lastmod>${new Date(post.updated_at).toISOString()}</lastmod>
+    <lastmod>${new Date(post.created_at).toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`;
