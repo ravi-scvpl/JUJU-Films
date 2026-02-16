@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
+import SEO from '../../components/SEO';
 
 const AdminCategories = () => {
     const [categories, setCategories] = useState([]);
@@ -70,6 +71,7 @@ const AdminCategories = () => {
     return (
         <div>
             <div className="admin-header">
+                <SEO title="Category Management" noindex={true} />
                 <h1 className="page-title">Category Management</h1>
             </div>
 

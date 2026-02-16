@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import SEO from '../components/SEO';
 
 const BlogPost = () => {
     const { slug } = useParams();
@@ -42,13 +43,19 @@ const BlogPost = () => {
 
     return (
         <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ minHeight: '100vh', paddingBottom: '100px', paddingTop: '150px', backgroundColor: '#000', color: '#fff' }}>
+            <SEO
+                title={blog.meta_title || blog.title}
+                description={blog.meta_desc || (blog.content ? blog.content.substring(0, 150).replace(/<[^>]*>?/gm, '') : '')}
+                image={blog.image_url}
+                canonical={`/blog/${slug}`}
+            />
 
             {/* Full Width Image (1/13) */}
             <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px', marginBottom: '60px' }}>
                 <div style={{ gridColumn: '1 / 13' }}>
                     <img
                         src={blog.image_url || `https://placehold.co/1920x800/222/fff?text=${encodeURIComponent(blog.title)}`}
-                        alt={blog.title}
+                        alt={blog.alt_text || blog.title}
                         style={{ width: '100%', height: 'auto', display: 'block', maxHeight: '80vh', objectFit: 'cover' }}
                     />
                 </div>

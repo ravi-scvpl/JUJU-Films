@@ -297,7 +297,7 @@ const Homepage2 = () => {
                         </div>
                         <div className="h2-project-info">
                             <h3 className="h2-project-title">Xpert ki Suno</h3>
-                            <div className="h2-project-category">IP</div>
+                            <div className="h2-project-category">Brand IP</div>
                         </div>
                     </div>
 
@@ -311,7 +311,7 @@ const Homepage2 = () => {
                         </div>
                         <div className="h2-project-info">
                             <h3 className="h2-project-title">Super Shayari</h3>
-                            <div className="h2-project-category">AI Films</div>
+                            <div className="h2-project-category">AI Series</div>
                             {/* <p style={{ fontSize: '18px', marginTop: '10px', color: '#666', lineHeight: '1.4' }}>
                                 A visual identity to make veterinary advice accessible; a logo embodying expertise, proximity and animal welfare.
                             </p> */}

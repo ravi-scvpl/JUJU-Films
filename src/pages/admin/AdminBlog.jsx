@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { supabase } from '../../supabaseClient';
+import SEO from '../../components/SEO';
 
 const AdminBlog = () => {
     const [posts, setPosts] = useState([]);
@@ -15,6 +16,7 @@ const AdminBlog = () => {
         slug: '',
         content: '',
         image_url: '',
+        alt_text: '',
         meta_title: '',
         meta_desc: '',
         category: '',
@@ -164,6 +166,7 @@ const AdminBlog = () => {
             slug: post.slug,
             content: post.content,
             image_url: post.image_url,
+            alt_text: post.alt_text || '',
             meta_title: post.meta_title || '',
             meta_desc: post.meta_desc || '',
             category: post.category || '',
@@ -192,6 +195,7 @@ const AdminBlog = () => {
             slug: '',
             content: '',
             image_url: '',
+            alt_text: '',
             meta_title: '',
             meta_desc: '',
             category: '',
@@ -204,6 +208,7 @@ const AdminBlog = () => {
     return (
         <div>
             <div className="admin-header">
+                <SEO title="Admin Blog" noindex={true} />
                 <h1 className="page-title">Blog Management</h1>
             </div>
 
@@ -349,6 +354,17 @@ const AdminBlog = () => {
                         <h3 className="form-label" style={{ fontSize: '16px', marginBottom: '16px' }}>Featured Image</h3>
                         <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
                         {formData.image_url && <img src={formData.image_url} alt="Current" className="image-preview" />}
+
+                        <div className="form-group" style={{ marginTop: '16px' }}>
+                            <label className="form-label">Image Alt Text</label>
+                            <input
+                                className="form-control"
+                                name="alt_text"
+                                value={formData.alt_text}
+                                onChange={handleInputChange}
+                                placeholder="Describe the image for SEO"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

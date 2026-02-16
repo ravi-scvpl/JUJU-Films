@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
+import SEO from '../../components/SEO';
 
 const AdminDashboard = () => {
     const [leads, setLeads] = useState([]);
@@ -37,7 +38,13 @@ const AdminDashboard = () => {
 
     return (
         <div>
-            <h1 style={{ marginBottom: '30px', borderBottom: '1px solid #ddd', paddingBottom: '10px' }}>Dashboard (Leads)</h1>
+            <SEO title="Admin Dashboard" noindex={true} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', borderBottom: '1px solid #ddd', paddingBottom: '10px' }}>
+                <h1 style={{ margin: 0 }}>Dashboard (Leads)</h1>
+                <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#E52323', fontWeight: 'bold' }}>
+                    View Sitemap XML
+                </a>
+            </div>
 
             {/* Tabs */}
             <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>

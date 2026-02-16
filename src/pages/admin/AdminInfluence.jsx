@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { supabase } from '../../supabaseClient';
+import SEO from '../../components/SEO';
 
 const AdminInfluence = () => {
     const [posts, setPosts] = useState([]);
@@ -175,6 +176,7 @@ const AdminInfluence = () => {
     return (
         <div>
             <div className="admin-header">
+                <SEO title="Influence Management" noindex={true} />
                 <h1 className="page-title">Influence Management</h1>
             </div>
 

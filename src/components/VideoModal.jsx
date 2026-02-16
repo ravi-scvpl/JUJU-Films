@@ -26,8 +26,7 @@ const VideoModal = ({ video, isOpen, onClose }) => {
     if (video.type === 'youtube') {
         videoContent = (
             <iframe
-                width="100%"
-                height="100%"
+                style={{ width: '100%', height: '100%' }}
                 src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`}
                 title={video.title}
                 frameBorder="0"
@@ -38,8 +37,7 @@ const VideoModal = ({ video, isOpen, onClose }) => {
     } else if (video.type === 'playlist') {
         videoContent = (
             <iframe
-                width="100%"
-                height="100%"
+                style={{ width: '100%', height: '100%' }}
                 src={`https://www.youtube.com/embed/videoseries?list=${video.id}&autoplay=1&rel=0`}
                 title={video.title}
                 frameBorder="0"
@@ -51,8 +49,7 @@ const VideoModal = ({ video, isOpen, onClose }) => {
         videoContent = (
             <iframe
                 src={`https://player.vimeo.com/video/${video.id}?autoplay=1`}
-                width="100%"
-                height="100%"
+                style={{ width: '100%', height: '100%' }}
                 frameBorder="0"
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
@@ -93,11 +90,14 @@ const VideoModal = ({ video, isOpen, onClose }) => {
             <div
                 style={{
                     position: 'relative',
-                    width: '90%',
-                    maxWidth: '1000px',
+                    width: 'min(90vw, 160vh)', // Ensures ratio-correct size fitting within 90vw and 90vh
                     aspectRatio: '16/9',
+                    maxHeight: '90vh', // Backup constraint
                     backgroundColor: '#000',
-                    boxShadow: '0 0 20px rgba(0,0,0,0.5)'
+                    boxShadow: '0 0 20px rgba(0,0,0,0.5)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
                 }}
                 onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside video area
             >
@@ -105,19 +105,23 @@ const VideoModal = ({ video, isOpen, onClose }) => {
                     onClick={onClose}
                     style={{
                         position: 'absolute',
-                        top: '-40px',
-                        right: '-40px',
-                        background: 'transparent',
+                        top: '0',
+                        right: '0',
+                        background: 'rgba(0,0,0,0.5)',
                         border: 'none',
                         color: 'white',
                         fontSize: '30px',
                         cursor: 'pointer',
-                        zIndex: 2147483647
+                        zIndex: 2,
+                        padding: '5px 15px',
+                        lineHeight: 1
                     }}
                 >
                     &times;
                 </button>
-                {videoContent}
+                <div style={{ flex: 1, width: '100%', height: '100%', position: 'relative' }}>
+                    {videoContent}
+                </div>
             </div>
         </div>,
         document.body

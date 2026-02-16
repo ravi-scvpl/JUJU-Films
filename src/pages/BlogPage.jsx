@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import '../styles/homepage2.css';
+import SEO from '../components/SEO';
 
 const BlogPage = () => {
     // Stories Typing Animation State
@@ -53,7 +54,8 @@ const BlogPage = () => {
                         intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
                         date: new Date(post.created_at).toLocaleDateString('en-GB'),
                         category: post.category || 'Thought Leadership',
-                        image: post.image_url
+                        image: post.image_url,
+                        altText: post.alt_text
                     }));
                     setBlogs(mappedBlogs);
                 }
@@ -99,6 +101,11 @@ const BlogPage = () => {
 
     return (
         <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ marginBottom: 0, paddingBottom: 0, paddingTop: '0px', backgroundColor: '#000' }}>
+            <SEO
+                title="Stories & Insights"
+                description="Insights on brand funded content, AI filmmaking, and modern storytelling."
+                canonical="/blog"
+            />
 
             {/* HEREO SECTION - Matches Homepage2 Stories Section */}
             <section className="h2-magazine" style={{ minHeight: 'auto', paddingTop: '150px', paddingBottom: '80px', borderBottom: '1px solid #222', background: '#000', marginTop: '-1px' }}>
@@ -146,7 +153,7 @@ const BlogPage = () => {
                         <Link to={`/blog/${featuredBlog.slug || featuredBlog.id}`}>
                             <img
                                 src={featuredBlog.image || `https://placehold.co/1200x500/222/fff?text=${encodeURIComponent(featuredBlog.title)}`}
-                                alt={featuredBlog.title}
+                                alt={featuredBlog.altText || featuredBlog.title}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                             />
                         </Link>
@@ -219,7 +226,7 @@ const BlogPage = () => {
                                 <Link to={`/blog/${blog.slug || blog.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                     <div className="h2-mag-media-placeholder" style={{ aspectRatio: aspectRatio }}>
                                         <img src={blog.image || `https://placehold.co/1200x800/222/fff?text=${encodeURIComponent(blog.title)}`}
-                                            alt={blog.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            alt={blog.altText || blog.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
 
                                     {isLarge ? (

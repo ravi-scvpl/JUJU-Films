@@ -1,9 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Home = () => {
     return (
         <div className="page-template-homepage">
+            <SEO
+                title="Home"
+                description="JUJU Films is a creator collective making micro-dramas, series, and films—where brands don’t interrupt stories, they enable them."
+                canonical="/"
+            />
             {/* 1. HERO SECTION */}
             <header className="header-homepage grid">
                 <div className="header-content">
