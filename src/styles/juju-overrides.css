@@ -1,0 +1,191 @@
+/* Overrides for Juju Pages (Storytellers, Commercials) to reduce desktop spacing */
+
+/* Shared Styles for Case Studies, Blog, Influence Pages */
+
+/* Page Container */
+.juju-page-container {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    padding-top: 0px !important;
+    background-color: #000 !important;
+}
+
+/* Hero Section */
+.juju-hero-section {
+    min-height: auto !important;
+    border-bottom: 1px solid #222 !important;
+    background: #000 !important;
+    margin-top: -1px !important;
+    padding-top: 150px;
+    /* Default/Mobile fallback or original large desktop */
+    padding-bottom: 80px;
+}
+
+/* Featured Section */
+.juju-featured-section {
+    background: #000 !important;
+    color: #fff !important;
+    padding: 80px 43px 80px 43px;
+}
+
+/* Featured Image Container */
+.juju-featured-image-container {
+    width: 100% !important;
+    aspect-ratio: 21/9 !important;
+    margin-bottom: 60px !important;
+    overflow: hidden !important;
+}
+
+/* Featured Content Grid */
+.juju-featured-content-grid {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    /* Mobile default */
+    gap: 40px;
+    align-items: start !important;
+}
+
+/* Featured Title */
+.juju-featured-title {
+    font-size: 32px !important;
+    /* Mobile size */
+    line-height: 1.1 !important;
+    font-family: serif !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+    color: #FFFFFF !important;
+}
+
+.juju-featured-intro {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    color: #ccc !important;
+    margin: 0 !important;
+}
+
+.juju-read-more {
+    margin-top: 30px !important;
+    color: #E52323 !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    display: inline-block !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+}
+
+/* Grid Section */
+.juju-grid-section {
+    background: #000 !important;
+    color: #fff !important;
+    padding: 20px 43px 40px;
+    /* Default padding */
+}
+
+/* Grid Container */
+.juju-grid-container {
+    display: grid !important;
+    grid-template-columns: repeat(12, 1fr) !important;
+    gap: 20px;
+    /* Mobile gap */
+    margin-top: 0 !important;
+}
+
+/* MEDIA QUERIES */
+
+/* Mobile / Tablet (up to 1023px) */
+@media only screen and (max-width: 1023px) {
+    .juju-hero-section {
+        padding-top: 120px !important;
+        padding-bottom: 40px !important;
+    }
+
+    .juju-featured-section {
+        padding: 40px 20px 0px 20px !important;
+        /* Reduced bottom padding for gap */
+    }
+
+    .juju-grid-section {
+        padding: 20px 20px 40px !important;
+    }
+
+    .juju-featured-content-grid {
+        gap: 30px;
+    }
+
+    .juju-grid-container {
+        display: flex !important;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .juju-featured-image-container {
+        aspect-ratio: 16/9 !important;
+        margin-bottom: 30px !important;
+    }
+}
+
+/* Desktop (1024px and up) */
+@media screen and (min-width: 1024px) {
+
+    /* Hero Section Overrides */
+    .hero {
+        padding-top: 140px !important;
+        padding-bottom: 20px !important;
+    }
+
+    .hero__content {
+        row-gap: 40px !important;
+    }
+
+    /* Works Chronology Overrides */
+    .works-chronology {
+        padding-top: 20px !important;
+        padding-bottom: 50px !important;
+        margin-top: 0 !important;
+    }
+
+    .works-chronology__list {
+        row-gap: 20px !important;
+    }
+
+    /* Page Specific Overrides */
+    .juju-hero-section {
+        padding-top: 80px !important;
+        /* Reduced from 150px */
+        padding-bottom: 40px !important;
+        /* Reduced from 80px */
+    }
+
+    .juju-featured-section {
+        padding: 40px 43px 0px 43px !important;
+        /* Reduced padding + 0 bottom for gap */
+    }
+
+    .juju-featured-content-grid {
+        grid-template-columns: minmax(300px, 1fr) 1fr !important;
+        gap: 80px;
+    }
+
+    .juju-featured-title {
+        font-size: 64px !important;
+    }
+
+    .juju-featured-intro {
+        font-size: 20px !important;
+    }
+
+    .juju-read-more {
+        font-size: 18px !important;
+    }
+
+    .juju-grid-section {
+        padding: 20px 43px 40px !important;
+        /* Reduced top padding for gap */
+    }
+
+    .juju-grid-container {
+        display: grid !important;
+        grid-template-columns: repeat(12, 1fr) !important;
+        gap: 40px;
+    }
+}

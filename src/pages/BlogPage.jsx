@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import '../styles/homepage2.css';
+import '../styles/juju-overrides.css';
 import SEO from '../components/SEO';
 
 const BlogPage = () => {
@@ -100,7 +101,7 @@ const BlogPage = () => {
     const remainingBlogs = blogs.slice(1);
 
     return (
-        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ marginBottom: 0, paddingBottom: 0, paddingTop: '0px', backgroundColor: '#000' }}>
+        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch juju-page-container">
             <SEO
                 title="Stories & Insights"
                 description="Insights on brand funded content, AI filmmaking, and modern storytelling."
@@ -108,7 +109,7 @@ const BlogPage = () => {
             />
 
             {/* HEREO SECTION - Matches Homepage2 Stories Section */}
-            <section className="h2-magazine" style={{ minHeight: 'auto', paddingTop: '150px', paddingBottom: '80px', borderBottom: '1px solid #222', background: '#000', marginTop: '-1px' }}>
+            <section className="h2-magazine juju-hero-section">
                 <div className="h2-magazine-header">
                     <h2 className="h2-magazine-title" ref={storiesTitleRef}>
                         {storiesTypedText}
@@ -146,10 +147,10 @@ const BlogPage = () => {
 
             {/* FEATURED BLOG SECTION */}
             {featuredBlog && (
-                <section className="reveal-on-scroll" style={{ padding: '80px 43px 80px 43px', background: '#000', color: '#fff' }}>
+                <section className="reveal-on-scroll juju-featured-section">
 
                     {/* Full Width Image */}
-                    <div style={{ width: '100%', aspectRatio: '21/9', marginBottom: '60px', overflow: 'hidden' }}>
+                    <div className="juju-featured-image-container">
                         <Link to={`/blog/${featuredBlog.slug || featuredBlog.id}`}>
                             <img
                                 src={featuredBlog.image || `https://placehold.co/1200x500/222/fff?text=${encodeURIComponent(featuredBlog.title)}`}
@@ -160,19 +161,19 @@ const BlogPage = () => {
                     </div>
 
                     {/* Split Layout: Heading Left, Intro Right */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 1fr', gap: '80px', alignItems: 'start' }}>
+                    <div className="juju-featured-content-grid">
                         <div>
                             <Link to={`/blog/${featuredBlog.slug || featuredBlog.id}`} style={{ textDecoration: 'none', color: '#fff' }}>
-                                <h2 style={{ fontSize: '64px', lineHeight: '1.0', fontFamily: 'serif', fontWeight: '400', margin: 0, color: '#FFFFFF' }}>
+                                <h2 className="juju-featured-title">
                                     {featuredBlog.title}
                                 </h2>
                             </Link>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                            <p style={{ fontSize: '20px', lineHeight: '1.5', color: '#ccc', margin: 0 }}>
+                            <p className="juju-featured-intro">
                                 {featuredBlog.intro}
                             </p>
-                            <Link to={`/blog/${featuredBlog.slug || featuredBlog.id}`} style={{ marginTop: '30px', color: '#E52323', textDecoration: 'none', fontSize: '18px', fontWeight: '500', display: 'inline-block' }}>
+                            <Link to={`/blog/${featuredBlog.slug || featuredBlog.id}`} className="juju-read-more">
                                 Read Story →
                             </Link>
                         </div>
@@ -181,8 +182,8 @@ const BlogPage = () => {
             )}
 
             {/* MAGAZINE GRID SECTION */}
-            <div style={{ background: '#000', padding: '100px 43px 100px', color: '#fff' }}>
-                <div className="h2-magazine-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '40px', marginTop: 0 }}>
+            <div className="juju-grid-section">
+                <div className="h2-magazine-grid juju-grid-container">
                     {remainingBlogs.map((blog, index) => {
                         const patternIndex = index % 4;
                         let gridStyle = {};
