@@ -11,8 +11,8 @@ import About from './pages/About';
 import CollectivePage from './pages/CollectivePage';
 import BlogPage from './pages/BlogPage';
 import BlogPost from './pages/BlogPost';
-import InfluencePage from './pages/InfluencePage';
-import InfluencePost from './pages/InfluencePost';
+import CaseStudiesPage from './pages/CaseStudiesPage';
+import CaseStudyPost from './pages/CaseStudyPost';
 
 // Import Styles
 import './styles/home-style.css';
@@ -45,10 +45,10 @@ function App() {
             <Route path="/juju-commercials" element={<JujuCommercial />} />
             <Route path="/about" element={<About />} />
             <Route path="/team" element={<CollectivePage />} />
-            {/* <Route path="/influence" element={<InfluencePage />} /> */}
+            <Route path="/case-studies" element={<CaseStudiesPage />} />
+            <Route path="/case-studies/:slug" element={<CaseStudyPost />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
-            {/* <Route path="/influence/:slug" element={<InfluencePost />} /> */}
           </Route>
 
           {/* Admin Routes */}
