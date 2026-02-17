@@ -178,7 +178,7 @@ const Layout = ({ children }) => {
                     <div pos="row" className="footer__bottom">
                         <div className="navigation navigation--bottom">
                             <div className="navigation__list">
-                                <span className="footer__copyright">© 2002 — 2026</span>
+                                <span className="footer__copyright">© 2026</span>
                                 <nav className="navigation navigation--bottom">
                                     <ul className="navigation__list footer-inline-list">
                                         <li className="navigation__item "><a className="navigation__link" href="#">Privacy Policy</a></li>
@@ -198,9 +198,10 @@ const Layout = ({ children }) => {
                         <nav className="navigation navigation--bottom">
                             <ul className="navigation__list footer-inline-list">
                                 <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">Newsletter</a></li>
-                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">Behance</a></li>
-                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">LinkedIn</a></li>
-                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://www.instagram.com/JUJUfilms/" rel="noreferrer">Instagram</a></li>
+                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://www.instagram.com/jujufilmsindia?igsh=eTNwcHZrNTR5cXFv" rel="noreferrer">Instagram</a></li>
+                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://www.facebook.com/share/17xYvGRBGJ/" rel="noreferrer">Facebook</a></li>
+                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://x.com/JujuFilmsIndia" rel="noreferrer">X</a></li>
+                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://in.pinterest.com/JujuFilmsIndia/" rel="noreferrer">Pinterest</a></li>
                             </ul>
                         </nav>
                     </div>

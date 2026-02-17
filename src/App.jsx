@@ -13,6 +13,7 @@ import BlogPage from './pages/BlogPage';
 import BlogPost from './pages/BlogPost';
 import CaseStudiesPage from './pages/CaseStudiesPage';
 import CaseStudyPost from './pages/CaseStudyPost';
+import NotFound from './pages/NotFound';
 
 // Import Styles
 import './styles/home-style.css';
@@ -50,6 +51,8 @@ function App() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
           </Route>
+
+          <Route path="*" element={<NotFound />} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<Login />} />

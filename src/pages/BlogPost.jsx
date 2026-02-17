@@ -42,7 +42,7 @@ const BlogPost = () => {
     const formattedDate = new Date(blog.created_at).toLocaleDateString('en-GB');
 
     return (
-        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ minHeight: '100vh', paddingBottom: '100px', paddingTop: '150px', backgroundColor: '#000', color: '#fff' }}>
+        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ minHeight: '100vh', paddingBottom: '100px', paddingTop: '150px', overflowX: 'hidden' }}>
             <SEO
                 title={blog.meta_title || blog.title}
                 description={blog.meta_desc || (blog.content ? blog.content.substring(0, 150).replace(/<[^>]*>?/gm, '') : '')}
@@ -51,8 +51,8 @@ const BlogPost = () => {
             />
 
             {/* Full Width Image (1/13) */}
-            <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px', marginBottom: '60px' }}>
-                <div style={{ gridColumn: '1 / 13' }}>
+            <div className="grid" style={{ marginBottom: '60px' }}>
+                <div pos="1-12" pos-s="row">
                     <img
                         src={blog.image_url || `https://placehold.co/1920x800/222/fff?text=${encodeURIComponent(blog.title)}`}
                         alt={blog.alt_text || blog.title}
@@ -61,20 +61,20 @@ const BlogPost = () => {
                 </div>
             </div>
 
-            {/* Content Area (5/13) */}
-            <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px' }}>
-                <div style={{ gridColumn: '5 / 13' }}>
-                    <div style={{ fontSize: '14px', marginBottom: '20px', color: '#ccc' }}>
+            {/* Content Area (5/12) */}
+            <div className="grid">
+                <div pos="5-12" pos-s="row">
+                    <div style={{ fontSize: '14px', marginBottom: '20px', opacity: 0.7 }}>
                         {formattedDate} • Blog
                     </div>
 
-                    <h1 style={{ fontSize: '48px', lineHeight: '1.2', fontWeight: '400', marginBottom: '40px', fontFamily: 'serif', color: '#fff' }}>
+                    <h1 style={{ fontSize: '48px', lineHeight: '1.2', fontWeight: '400', marginBottom: '40px', fontFamily: 'serif', wordWrap: 'break-word', overflowWrap: 'break-word', whiteSpace: 'normal', maxWidth: '100%' }}>
                         {blog.title}
                     </h1>
 
                     {/* Meta Description / Intro */}
                     {blog.meta_desc && (
-                        <p style={{ fontSize: '24px', lineHeight: '1.5', marginBottom: '60px', color: '#ddd' }}>
+                        <p style={{ fontSize: '24px', lineHeight: '1.5', marginBottom: '60px', opacity: 0.8 }}>
                             {blog.meta_desc}
                         </p>
                     )}
@@ -82,7 +82,7 @@ const BlogPost = () => {
                     {/* Main Content (HTML) */}
                     <div
                         className="blog-content"
-                        style={{ fontSize: '18px', lineHeight: '1.6', color: '#e0e0e0' }}
+                        style={{ fontSize: '18px', lineHeight: '1.6', opacity: 0.85, wordWrap: 'break-word', overflowWrap: 'break-word', maxWidth: '100%' }}
                         dangerouslySetInnerHTML={{ __html: blog.content }}
                     />
                 </div>
