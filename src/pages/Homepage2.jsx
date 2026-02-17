@@ -260,8 +260,8 @@ const Homepage2 = () => {
                     {/* 5. Baudouin Square */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img1} alt="Game Badal de" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                            <img className="h2-project-img" src={img1} alt="Game Badal de" loading="lazy" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none">
                                 <source src={gamebadalde} type="video/mp4" />
                             </video>
                         </div>
@@ -274,8 +274,8 @@ const Homepage2 = () => {
                     {/* 6. The Animal Company */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img2} alt="Out Karo" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                            <img className="h2-project-img" src={img2} alt="Out Karo" loading="lazy" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none">
                                 <source src={outkro} type="video/mp4" />
                             </video>
                         </div>
@@ -290,8 +290,8 @@ const Homepage2 = () => {
 
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img3} alt="Expert ki Suno" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                            <img className="h2-project-img" src={img3} alt="Expert ki Suno" loading="lazy" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none">
                                 <source src={xpert} type="video/mp4" />
                             </video>
                         </div>
@@ -304,8 +304,8 @@ const Homepage2 = () => {
                     {/* 6. The Animal Company */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img4} alt="Super Shayari" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                            <img className="h2-project-img" src={img4} alt="Super Shayari" loading="lazy" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none">
                                 <source src={shayarifilms} type="video/mp4" />
                             </video>
                         </div>
@@ -399,7 +399,7 @@ const Homepage2 = () => {
                             <Link to={`/blog/${blogs[0].slug || blogs[0].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div className="h2-mag-media-placeholder" style={{ aspectRatio: '16/9' }}>
                                     <img src={blogs[0].image || `https://placehold.co/1200x800/111/fff?text=${encodeURIComponent(blogs[0].title)}`}
-                                        alt={blogs[0].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        alt={blogs[0].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
                                     <h3 className="h2-mag-luxury-title" style={{ fontSize: '36px', width: '70%' }}>{blogs[0].title}</h3>
@@ -419,7 +419,7 @@ const Homepage2 = () => {
                             <Link to={`/blog/${blogs[1].slug || blogs[1].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div className="h2-mag-media-placeholder" style={{ aspectRatio: '4/3' }}>
                                     <img src={blogs[1].image || `https://placehold.co/800x600/222/fff?text=${encodeURIComponent(blogs[1].title)}`}
-                                        alt={blogs[1].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        alt={blogs[1].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                                 </div>
                                 <span className="h2-mag-date" style={{ marginTop: '20px' }}>{blogs[1].date || '06.01.2026'}</span>
                                 <h3 className="h2-mag-standard-title" style={{ fontSize: '32px', marginTop: '10px' }}>{blogs[1].title}</h3>
@@ -434,7 +434,7 @@ const Homepage2 = () => {
                             <Link to={`/blog/${blogs[2].slug || blogs[2].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div className="h2-mag-media-placeholder" style={{ aspectRatio: '3/4' }}>
                                     <img src={blogs[2].image || `https://placehold.co/600x800/333/fff?text=${encodeURIComponent(blogs[2].title)}`}
-                                        alt={blogs[2].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        alt={blogs[2].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                                 </div>
                                 <span className="h2-mag-date" style={{ marginTop: '20px' }}>{blogs[2].date || '06.01.2026'}</span>
                                 <h3 className="h2-mag-standard-title" style={{ fontSize: '28px', marginTop: '10px' }}>{blogs[2].title}</h3>
@@ -448,7 +448,7 @@ const Homepage2 = () => {
                             <Link to={`/blog/${blogs[3].slug || blogs[3].id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <div className="h2-mag-media-placeholder" style={{ aspectRatio: '21/9' }}>
                                     <img src={blogs[3].image || `https://placehold.co/1200x500/444/fff?text=${encodeURIComponent(blogs[3].title)}`}
-                                        alt={blogs[3].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        alt={blogs[3].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
                                     <h3 className="h2-mag-standard-title" style={{ fontSize: '48px', width: '70%' }}>{blogs[3].title}</h3>
