@@ -7,17 +7,20 @@
                 {
                     "sr_no": 1,
                     "name": "Abhay Raha",
-                    "profile_url": "https://www.abhayraha.com"
+                    "profile_url": "https://www.abhayraha.com",
+                    "image": "/team/Abhay Raha.png"
                 },
                 {
                     "sr_no": 2,
                     "name": "Samar Gupta",
-                    "profile_url": "https://vimeo.com/showcase/11776023"
+                    "profile_url": "https://vimeo.com/showcase/11776023",
+                    "image": "/team/Samar Gupta.png"
                 },
                 {
                     "sr_no": 3,
                     "name": "Anish Dedhia",
-                    "profile_url": "https://vimeo.com/anishdedhia"
+                    "profile_url": "https://vimeo.com/anishdedhia",
+                    "image": "/team/Anish Dedhia.png"
                 },
                 {
                     "sr_no": 4,
@@ -27,7 +30,8 @@
                 {
                     "sr_no": 5,
                     "name": "Raihan Muhimtule",
-                    "profile_url": "https://vimeo.com/raihanmuhimtule"
+                    "profile_url": "https://vimeo.com/raihanmuhimtule",
+                    "image": "/team/Raihan Muhimtule.png"
                 }
             ]
         },
@@ -37,22 +41,26 @@
                 {
                     "sr_no": 1,
                     "name": "Malay Prakash",
-                    "profile_url": "https://www.malayprakash.com"
+                    "profile_url": "https://www.malayprakash.com",
+                    "image": "/team/malay prakaash.png"
                 },
                 {
                     "sr_no": 2,
                     "name": "Pratik Deora",
-                    "profile_url": "https://www.pratikdeora.com"
+                    "profile_url": "https://www.pratikdeora.com",
+                    "image": "/team/pratik deodra.png"
                 },
                 {
                     "sr_no": 3,
                     "name": "Chinmay Salaskar",
-                    "profile_url": "https://www.chinmaysalaskar.com"
+                    "profile_url": "https://www.chinmaysalaskar.com",
+                    "image": "/team/Chinmay Salaskar.png"
                 },
                 {
                     "sr_no": 4,
                     "name": "Saurabh Waghmare",
-                    "profile_url": "https://sourabhwaghmare.com"
+                    "profile_url": "https://sourabhwaghmare.com",
+                    "image": "/team/sourabh waghmare.png"
                 },
                 {
                     "sr_no": 5,
@@ -77,12 +85,14 @@
                 {
                     "sr_no": 3,
                     "name": "Anand Bajpai",
-                    "profile_url": "https://www.instagram.com/aanandbajpai"
+                    "profile_url": "https://www.instagram.com/aanandbajpai",
+                    "image": "/team/anand bajpai.png"
                 },
                 {
                     "sr_no": 4,
                     "name": "Yash Narvekar",
-                    "profile_url": "https://vimeo.com/yashnarvekar"
+                    "profile_url": "https://vimeo.com/yashnarvekar",
+                    "image": "/team/Yash Narvekar.png"
                 },
                 {
                     "sr_no": 5,
@@ -112,12 +122,14 @@
                 {
                     "sr_no": 4,
                     "name": "Shivam Gupta Casting",
-                    "profile_url": "https://www.instagram.com/sg_casting?igsh=MTZ3bGdvazRkYzd5dA=="
+                    "profile_url": "https://www.instagram.com/sg_casting?igsh=MTZ3bGdvazRkYzd5dA==",
+                    "image": "/team/shivam Gupta.png"
                 },
                 {
                     "sr_no": 5,
                     "name": "Megh Malhar Casting",
-                    "profile_url": "https://www.instagram.com/meghmallharcastting?igsh=ZGpscmZnMm9lZ2I0"
+                    "profile_url": "https://www.instagram.com/meghmallharcastting?igsh=ZGpscmZnMm9lZ2I0",
+                    "image": "/team/megh malhar.png"
                 }
             ]
         }

@@ -72,8 +72,8 @@ const CollectiveContent = () => {
                         >
                             <div style={{ transition: 'opacity 0.3s', cursor: 'pointer' }}>
                                 <img
-                                    src={`https://placehold.co/600x800/222/fff?text=${encodeURIComponent(member.name)}`}
-                                    alt={member.name}
+                                    src={member.image || `https://placehold.co/600x800/222/fff?text=${encodeURIComponent(member.name)}`}
+                                    alt={`${member.name} - ${member.role} - JujuFilms`}
                                     style={{
                                         width: '100%',
                                         aspectRatio: '3/4', // Taller portrait for 3-col
