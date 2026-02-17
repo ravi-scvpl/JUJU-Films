@@ -6,6 +6,35 @@ const Layout = ({ children }) => {
     const [isLightTheme, setIsLightTheme] = React.useState(false);
     const location = useLocation();
 
+    // Inline styles for footer
+    const footerStyles = `
+        ul.footer-inline-list {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            align-items: center !important;
+            gap: 15px !important;
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: auto !important;
+        }
+        
+        ul.footer-inline-list > li {
+            display: inline-flex !important;
+            width: auto !important;
+            flex: 0 0 auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        ul.footer-inline-list > li > a {
+            display: inline-block !important;
+            width: auto !important;
+            white-space: nowrap !important;
+        }
+    `;
+
     React.useEffect(() => {
         // ALWAYS scroll to top on route change
         window.scrollTo(0, 0);
@@ -73,6 +102,7 @@ const Layout = ({ children }) => {
 
     return (
         <div className={`layout-wrapper ${isLightTheme ? 'theme-light' : ''}`}>
+            <style>{footerStyles}</style>
             <header className="header">
                 <div className="header__container">
 
@@ -141,7 +171,7 @@ const Layout = ({ children }) => {
                             <p className="p2">Because culture isn’t built through campaigns alone. It’s shaped through stories people choose to remember. And when brands help make those stories possible, they don’t just show up—they belong.</p>
                         </div>
                         <div pos="3-6" pos-s="row" className="footer__logo" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <img src="/JUJU-6.png" alt="JUJU Films" style={{ maxWidth: '100%', height: '20vh' }} />
+                            <img src="/JUJU-6.png" alt="JUJU Films" style={{ maxWidth: '100%', height: '30vh' }} />
                         </div>
                     </div>
 
@@ -150,7 +180,7 @@ const Layout = ({ children }) => {
                             <div className="navigation__list">
                                 <span className="footer__copyright">© 2002 — 2026</span>
                                 <nav className="navigation navigation--bottom">
-                                    <ul className="navigation__list">
+                                    <ul className="navigation__list footer-inline-list">
                                         <li className="navigation__item "><a className="navigation__link" href="#">Privacy Policy</a></li>
                                         <li className="navigation__item "><a className="navigation__link" href="#">Terms of Use</a></li>
                                         <li className="navigation__item "><a className="navigation__link" href="#cookiesPopin">Disclaimer</a></li>
@@ -166,7 +196,7 @@ const Layout = ({ children }) => {
                             </div>
                         </div>
                         <nav className="navigation navigation--bottom">
-                            <ul className="navigation__list">
+                            <ul className="navigation__list footer-inline-list">
                                 <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">Newsletter</a></li>
                                 <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">Behance</a></li>
                                 <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">LinkedIn</a></li>
