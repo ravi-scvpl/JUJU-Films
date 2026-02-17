@@ -107,7 +107,7 @@ const Layout = ({ children }) => {
                 <div className="header__container">
 
                     <Link className="header__logo" to="/" aria-label="Homepage">
-                        <img src="/JUJU White logo.png" alt="JUJU Films" style={{ height: '25px' }} />
+                        <img src="/JUJU White logo.png" alt="JUJU Films" style={{ height: '25px' }} fetchPriority="high" />
                     </Link>
 
                     <button className="mobile-menu-toggle" onClick={toggleMenu} aria-label="Toggle Navigation">
