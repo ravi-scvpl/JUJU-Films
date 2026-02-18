@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
+import { useLocation } from 'react-router-dom';
 
 const Contact = () => {
+    const location = useLocation();
     const [activeTab, setActiveTab] = useState('brand');
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = React.useRef(null);
@@ -19,6 +21,12 @@ const Contact = () => {
         message: ''
     });
     const [submitting, setSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (location.state?.activeTab) {
+            setActiveTab(location.state.activeTab);
+        }
+    }, [location.state]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

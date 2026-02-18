@@ -211,14 +211,41 @@ const Homepage2 = () => {
 
                 {/* Right Side: Scrollable Text */}
                 <div className="h2-sectors-list">
-                    {["Juju Storyteller", "Juju Commercials", "Juju AI Films", "Collective", "Stories", " ", " ", "Brand Collabration", "Creators Connect", "Internship", "Job"].map((sector, index) => (
-                        < div
-                            key={index}
-                            className="h2-sector-item"
-                            id={`sector-${index}`}
-                        >
-                            {sector}
-                        </div>
+                    {[
+                        { name: "Juju Storyteller", path: "/juju-storytellers" },
+                        { name: "Juju Commercials", path: "/juju-commercials" },
+                        { name: "Juju AI Films", path: "/juju-ai-films" },
+                        { name: "Collective", path: "/team" },
+                        { name: "Stories", path: "/blog" },
+                        { name: "Case Studies", path: "/case-studies" },
+                        { name: " ", path: null },
+                        { name: " ", path: null },
+                        { name: "Brand Collabration", path: "/contact", state: { activeTab: 'brand' } },
+                        { name: "Creators Connect", path: "/contact", state: { activeTab: 'creators' } },
+                        { name: "Internship", path: "/contact", state: { activeTab: 'internships' } },
+                        { name: "Job", path: "/contact", state: { activeTab: 'jobs' } }
+                    ].map((item, index) => (
+                        item.path ? (
+                            <Link
+                                key={index}
+                                to={item.path}
+                                state={item.state}
+                                className="h2-sector-item"
+                                id={`sector-${index}`}
+                                style={{ textDecoration: 'none', display: 'block' }}
+                            >
+                                {item.name}
+                            </Link>
+                        ) : (
+                            <div
+                                key={index}
+                                className="h2-sector-item"
+                                id={`sector-${index}`}
+                                style={{ pointerEvents: 'none' }}
+                            >
+                                {item.name}
+                            </div>
+                        )
                     ))}
                     <div className="spacerForPc"></div>
                 </div>
