@@ -16,6 +16,21 @@ const About = () => {
                 title="About Us"
                 description="Learn about JUJU Films, a collective of storytellers building cultural IP powered by brands."
                 canonical="/about"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "AboutPage",
+                    "name": "About JUJU Films",
+                    "description": "JUJU Films is a creator collective building original stories, under one JUJU philosophy.",
+                    "url": "https://jujufilms.com/about",
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "JUJU Films",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://jujufilms.com/JUJU White logo.png"
+                        }
+                    }
+                }}
             />
             <div>
                 <div style={{ minHeight: '50vh', padding: '0' }}>

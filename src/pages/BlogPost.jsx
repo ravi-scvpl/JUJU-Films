@@ -48,6 +48,28 @@ const BlogPost = () => {
                 description={blog.meta_desc || (blog.content ? blog.content.substring(0, 150).replace(/<[^>]*>?/gm, '') : '')}
                 image={blog.image_url}
                 canonical={`/blog/${slug}`}
+                type="article"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "BlogPosting",
+                    "headline": blog.title,
+                    "image": blog.image_url,
+                    "datePublished": blog.created_at,
+                    "dateModified": blog.updated_at || blog.created_at,
+                    "author": {
+                        "@type": "Organization",
+                        "name": "JUJU Films"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "JUJU Films",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://jujufilms.com/JUJU White logo.png"
+                        }
+                    },
+                    "description": blog.meta_desc || (blog.content ? blog.content.substring(0, 150).replace(/<[^>]*>?/gm, '') : '')
+                }}
             />
 
             {/* Full Width Image (1/13) */}

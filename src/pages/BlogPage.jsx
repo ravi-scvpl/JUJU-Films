@@ -106,6 +106,21 @@ const BlogPage = () => {
                 title="Stories & Insights"
                 description="Insights on brand funded content, AI filmmaking, and modern storytelling."
                 canonical="/blog"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "Blog",
+                    "name": "JUJU Films Stories",
+                    "description": "Insights on brand funded content, AI filmmaking, and modern storytelling.",
+                    "url": "https://jujufilms.com/blog",
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "JUJU Films",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://jujufilms.com/JUJU White logo.png"
+                        }
+                    }
+                }}
             />
 
             {/* HEREO SECTION - Matches Homepage2 Stories Section */}

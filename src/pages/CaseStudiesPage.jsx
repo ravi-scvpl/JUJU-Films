@@ -102,6 +102,13 @@ const CaseStudiesPage = () => {
                 title="Case Studies"
                 description="Explore our latest campaigns and influencer collaborations."
                 canonical="/case-studies"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "CollectionPage",
+                    "name": "Case Studies - JUJU Films",
+                    "description": "Explore our latest campaigns and influencer collaborations.",
+                    "url": "https://jujufilms.com/case-studies"
+                }}
             />
 
             {/* HERO SECTION */}

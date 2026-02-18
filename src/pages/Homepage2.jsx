@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import SEO from '../components/SEO';
 import '../styles/homepage2.css';
 import img1 from '../assets/1.png';
 import img2 from '../assets/2.png';
@@ -142,6 +142,36 @@ const Homepage2 = () => {
 
     return (
         <div className="page-template-homepage2">
+            <SEO
+                title="Home"
+                description="JUJU Films is a creator collective building original stories, under one JUJU philosophy."
+                schema={[
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "Organization",
+                        "name": "JUJU Films",
+                        "url": "https://jujufilms.com",
+                        "logo": "https://jujufilms.com/JUJU White logo.png",
+                        "sameAs": [
+                            "https://www.instagram.com/jujufilmsindia",
+                            "https://www.facebook.com/share/17xYvGRBGJ/",
+                            "https://x.com/JujuFilmsIndia",
+                            "https://in.pinterest.com/JujuFilmsIndia/"
+                        ]
+                    },
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "WebSite",
+                        "name": "JUJU Films",
+                        "url": "https://jujufilms.com",
+                        "potentialAction": {
+                            "@type": "SearchAction",
+                            "target": "https://jujufilms.com/search?q={search_term_string}",
+                            "query-input": "required name=search_term_string"
+                        }
+                    }
+                ]}
+            />
 
             {/* 1. HERO SECTION */}
             <header className="h2-hero">

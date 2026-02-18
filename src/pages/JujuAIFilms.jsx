@@ -123,6 +123,13 @@ const JujuAIFilms = () => {
                 title="AI Films"
                 description="Cost-controlled, full-service brand IP—created entirely with AI."
                 canonical="/juju-ai-films"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "CollectionPage",
+                    "name": "Juju AI Films",
+                    "description": "Cost-controlled, full-service brand IP—created entirely with AI.",
+                    "url": "https://jujufilms.com/juju-ai-films"
+                }}
             />
             <div>
                 <header className="hero">

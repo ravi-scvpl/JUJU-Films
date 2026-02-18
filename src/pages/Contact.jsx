@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { useLocation } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Contact = () => {
     const location = useLocation();
@@ -133,6 +134,18 @@ const Contact = () => {
 
     return (
         <div className="wp-singular page-template-default page page-parent wp-theme-grapheine">
+            <SEO
+                title="Contact Us"
+                description="Get in touch with JUJU Films for brand collaborations, creator connections, internships, and job opportunities."
+                type="website"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "ContactPage",
+                    "name": "Contact JUJU Films",
+                    "description": "Contact page for JUJU Films including options for Brand Collaborations, Creators Connect, Internships, and Jobs.",
+                    "url": "https://jujufilms.com/contact"
+                }}
+            />
             <div>
                 <header className="hero  ">
                     <div className="hero__tabs">

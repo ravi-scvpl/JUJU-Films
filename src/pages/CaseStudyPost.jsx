@@ -47,6 +47,27 @@ const CaseStudyPost = () => {
                 description={post.meta_desc || post.intro}
                 image={post.image_url}
                 canonical={`/case-studies/${slug}`}
+                type="article"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": post.title,
+                    "image": post.image_url,
+                    "datePublished": post.created_at,
+                    "author": {
+                        "@type": "Organization",
+                        "name": "JUJU Films"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "JUJU Films",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://jujufilms.com/JUJU White logo.png"
+                        }
+                    },
+                    "description": post.meta_desc || post.intro
+                }}
             />
             <div className="grid">
                 <div pos="3-10" pos-s="row">

@@ -451,6 +451,13 @@ const JujuCommercial = () => {
                 title="Commercials"
                 description="High-impact film craft across TVC, DVC, vertical and digital—built to command attention, not interrupt it."
                 canonical="/juju-commercials"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "CollectionPage",
+                    "name": "Juju Commercials",
+                    "description": "High-impact film craft across TVC, DVC, vertical and digital.",
+                    "url": "https://jujufilms.com/juju-commercials"
+                }}
             />
             <header className="hero">
                 <div className="grid hero__content reveal-on-scroll">

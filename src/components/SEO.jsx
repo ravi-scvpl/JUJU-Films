@@ -1,32 +1,38 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ title, description, canonical, type = 'website', image, noindex = false }) => {
-    const siteUrl = 'https://jujufilms.com'; // Replace with actual domain
-    const fullCanonical = canonical ? (canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`) : siteUrl;
-    const fullImage = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : `${siteUrl}/og-image.jpg`;
+const SEO = ({ title, description, canonical, type, schema }) => {
+    const siteTitle = 'JUJU Films';
+    const metaTitle = title ? `${title} | ${siteTitle}` : siteTitle;
+    const metaDescription = description || 'JUJU Films is a creator collective building original stories, under one JUJU philosophy.';
+    const metaUrl = canonical || window.location.href;
+    const metaType = type || 'website';
 
     return (
         <Helmet>
-            {/* Standard metadata */}
-            <title>{title ? `${title} | Juju Films` : 'Juju Films'}</title>
-            <meta name="description" content={description} />
-            {noindex && <meta name="robots" content="noindex, nofollow" />}
-            <link rel="canonical" href={fullCanonical} />
+            {/* Standard Meta Tags */}
+            <title>{metaTitle}</title>
+            <meta name="description" content={metaDescription} />
+            <link rel="canonical" href={metaUrl} />
 
-            {/* Open Graph / Facebook */}
-            <meta property="og:type" content={type} />
-            <meta property="og:url" content={fullCanonical} />
-            <meta property="og:title" content={title} />
-            <meta property="og:description" content={description} />
-            <meta property="og:image" content={fullImage} />
+            {/* Open Graph Tags */}
+            <meta property="og:type" content={metaType} />
+            <meta property="og:title" content={metaTitle} />
+            <meta property="og:description" content={metaDescription} />
+            <meta property="og:url" content={metaUrl} />
+            <meta property="og:site_name" content={siteTitle} />
 
-            {/* Twitter */}
-            <meta property="twitter:card" content="summary_large_image" />
-            <meta property="twitter:url" content={fullCanonical} />
-            <meta property="twitter:title" content={title} />
-            <meta property="twitter:description" content={description} />
-            <meta property="twitter:image" content={fullImage} />
+            {/* Twitter Card Tags */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={metaTitle} />
+            <meta name="twitter:description" content={metaDescription} />
+
+            {/* Structured Data (JSON-LD) */}
+            {schema && (
+                <script type="application/ld+json">
+                    {JSON.stringify(schema)}
+                </script>
+            )}
         </Helmet>
     );
 };

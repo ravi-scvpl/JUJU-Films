@@ -162,6 +162,13 @@ const JujuStorytellers = () => {
                 title="Storytellers"
                 description="Brand-funded original stories built as cultural IP—with distribution baked in."
                 canonical="/juju-storytellers"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "CollectionPage",
+                    "name": "Juju Storytellers",
+                    "description": "Brand-funded original stories built as cultural IP—with distribution baked in.",
+                    "url": "https://jujufilms.com/juju-storytellers"
+                }}
             />
             <div>
                 <header className="hero">
