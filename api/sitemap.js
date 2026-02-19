@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         return res.status(500).send('Error generating sitemap');
     }
 
-    const baseUrl = 'https://jujufilms.com'; // Replace with your actual domain
+    const baseUrl = 'https://www.jujuindia.com'; // Replace with your actual domain
 
     // Static routes
     const staticPages = [

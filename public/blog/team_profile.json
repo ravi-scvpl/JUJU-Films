@@ -1,5 +1,5 @@
 {
-    "title": "Technicians and Work Profile",
+    "title": "The Collectives",
     "categories": [
         {
             "category": "Director",
@@ -8,19 +8,19 @@
                     "sr_no": 1,
                     "name": "Abhay Raha",
                     "profile_url": "https://www.abhayraha.com",
-                    "image": "/team/Abhay Raha.png"
+                    "image": "/team/abhay-raha.webp"
                 },
                 {
                     "sr_no": 2,
                     "name": "Samar Gupta",
                     "profile_url": "https://vimeo.com/showcase/11776023",
-                    "image": "/team/Samar Gupta.png"
+                    "image": "/team/samar-gupta.webp"
                 },
                 {
                     "sr_no": 3,
                     "name": "Anish Dedhia",
                     "profile_url": "https://vimeo.com/anishdedhia",
-                    "image": "/team/Anish Dedhia.png"
+                    "image": "/team/anish-dedhia.webp"
                 },
                 {
                     "sr_no": 4,
@@ -31,7 +31,7 @@
                     "sr_no": 5,
                     "name": "Raihan Muhimtule",
                     "profile_url": "https://vimeo.com/raihanmuhimtule",
-                    "image": "/team/Raihan Muhimtule.png"
+                    "image": "/team/raihan-muhimtule.webp"
                 }
             ]
         },
@@ -42,25 +42,25 @@
                     "sr_no": 1,
                     "name": "Malay Prakash",
                     "profile_url": "https://www.malayprakash.com",
-                    "image": "/team/malay prakaash.png"
+                    "image": "/team/malay-prakaash.webp"
                 },
                 {
                     "sr_no": 2,
                     "name": "Pratik Deora",
                     "profile_url": "https://www.pratikdeora.com",
-                    "image": "/team/pratik deodra.png"
+                    "image": "/team/pratik-deodra.webp"
                 },
                 {
                     "sr_no": 3,
                     "name": "Chinmay Salaskar",
                     "profile_url": "https://www.chinmaysalaskar.com",
-                    "image": "/team/Chinmay Salaskar.png"
+                    "image": "/team/chinmay-salaskar.webp"
                 },
                 {
                     "sr_no": 4,
                     "name": "Saurabh Waghmare",
                     "profile_url": "https://sourabhwaghmare.com",
-                    "image": "/team/sourabh waghmare.png"
+                    "image": "/team/sourabh-waghmare.webp"
                 },
                 {
                     "sr_no": 5,
@@ -86,13 +86,13 @@
                     "sr_no": 3,
                     "name": "Anand Bajpai",
                     "profile_url": "https://www.instagram.com/aanandbajpai",
-                    "image": "/team/anand bajpai.png"
+                    "image": "/team/anand-bajpai.webp"
                 },
                 {
                     "sr_no": 4,
                     "name": "Yash Narvekar",
                     "profile_url": "https://vimeo.com/yashnarvekar",
-                    "image": "/team/Yash Narvekar.png"
+                    "image": "/team/yash-narvekar.webp"
                 },
                 {
                     "sr_no": 5,
@@ -123,13 +123,13 @@
                     "sr_no": 4,
                     "name": "Shivam Gupta Casting",
                     "profile_url": "https://www.instagram.com/sg_casting?igsh=MTZ3bGdvazRkYzd5dA==",
-                    "image": "/team/shivam Gupta.png"
+                    "image": "/team/shivam-gupta.webp"
                 },
                 {
                     "sr_no": 5,
                     "name": "Megh Malhar Casting",
                     "profile_url": "https://www.instagram.com/meghmallharcastting?igsh=ZGpscmZnMm9lZ2I0",
-                    "image": "/team/megh malhar.png"
+                    "image": "/team/megh-malhar.webp"
                 }
             ]
         }

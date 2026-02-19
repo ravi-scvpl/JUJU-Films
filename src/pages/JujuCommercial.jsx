@@ -456,7 +456,7 @@ const JujuCommercial = () => {
                     "@type": "CollectionPage",
                     "name": "Juju Commercials",
                     "description": "High-impact film craft across TVC, DVC, vertical and digital.",
-                    "url": "https://jujufilms.com/juju-commercials"
+                    "url": "https://www.jujuindia.com/juju-commercials"
                 }}
             />
             <header className="hero">

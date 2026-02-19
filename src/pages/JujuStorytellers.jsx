@@ -167,7 +167,7 @@ const JujuStorytellers = () => {
                     "@type": "CollectionPage",
                     "name": "Juju Storytellers",
                     "description": "Brand-funded original stories built as cultural IP—with distribution baked in.",
-                    "url": "https://jujufilms.com/juju-storytellers"
+                    "url": "https://www.jujuindia.com/juju-storytellers"
                 }}
             />
             <div>

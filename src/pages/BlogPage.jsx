@@ -111,13 +111,13 @@ const BlogPage = () => {
                     "@type": "Blog",
                     "name": "JUJU Films Stories",
                     "description": "Insights on brand funded content, AI filmmaking, and modern storytelling.",
-                    "url": "https://jujufilms.com/blog",
+                    "url": "https://www.jujuindia.com/blog",
                     "publisher": {
                         "@type": "Organization",
                         "name": "JUJU Films",
                         "logo": {
                             "@type": "ImageObject",
-                            "url": "https://jujufilms.com/JUJU White logo.png"
+                            "url": "https://www.jujuindia.com/juju-white-logo.webp"
                         }
                     }
                 }}
@@ -126,10 +126,10 @@ const BlogPage = () => {
             {/* HEREO SECTION - Matches Homepage2 Stories Section */}
             <section className="h2-magazine juju-hero-section">
                 <div className="h2-magazine-header">
-                    <h2 className="h2-magazine-title" ref={storiesTitleRef}>
+                    <h1 className="h2-magazine-title" ref={storiesTitleRef}>
                         {storiesTypedText}
                         <span className="h2-cursor-blink"></span>
-                    </h2>
+                    </h1>
                     <div className="h2-magazine-meta">
                         <span className="h2-mag-clock"></span>
                         <span className="h2-mag-count">JUJU Films</span>

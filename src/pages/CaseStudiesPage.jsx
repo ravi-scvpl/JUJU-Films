@@ -107,17 +107,17 @@ const CaseStudiesPage = () => {
                     "@type": "CollectionPage",
                     "name": "Case Studies - JUJU Films",
                     "description": "Explore our latest campaigns and influencer collaborations.",
-                    "url": "https://jujufilms.com/case-studies"
+                    "url": "https://www.jujuindia.com/case-studies"
                 }}
             />
 
             {/* HERO SECTION */}
             <section className="h2-magazine juju-hero-section">
                 <div className="h2-magazine-header">
-                    <h2 className="h2-magazine-title-influence" ref={titleRef}>
+                    <h1 className="h2-magazine-title-influence" ref={titleRef}>
                         {typedText}
                         <span className="h2-cursor-blink"></span>
-                    </h2>
+                    </h1>
                     <div className="h2-magazine-meta">
                         <span className="h2-mag-clock"></span>
                         <span className="h2-mag-count">JUJU Case Studies</span>

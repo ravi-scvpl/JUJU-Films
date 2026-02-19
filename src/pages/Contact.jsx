@@ -107,7 +107,7 @@ const Contact = () => {
         brand: {
             title: "We are always <br />ready to listen.",
             introHeading: "Brand Collaborations",
-            introText: "Do you want to request a quote for the creation of a logo, a visual identity or a graphic design project? Feel free to fill out the form below. You can also write to us directly at devis@grapheine.com.",
+            introText: "Do you want to request a quote for the creation of a logo, a visual identity or a graphic design project? Feel free to fill out the form below. You can also write to us directly at info@jujuindia.com.",
             buttonText: "Send my quote request"
         },
         creators: {
@@ -119,7 +119,7 @@ const Contact = () => {
         internships: {
             title: "Learning and <br />Growing together.",
             introHeading: "Internships",
-            introText: "Joining Graphéine means joining a team where passion and sharing are synonymous with fulfillment and success. Apply for an internship via our dedicated form.",
+            introText: "Joining JUJU Films means joining a team where passion and sharing are synonymous with fulfillment and success. Apply for an internship via our dedicated form.",
             buttonText: "Submit my application"
         },
         jobs: {
@@ -143,7 +143,7 @@ const Contact = () => {
                     "@type": "ContactPage",
                     "name": "Contact JUJU Films",
                     "description": "Contact page for JUJU Films including options for Brand Collaborations, Creators Connect, Internships, and Jobs.",
-                    "url": "https://jujufilms.com/contact"
+                    "url": "https://www.jujuindia.com/contact"
                 }}
             />
             <div>

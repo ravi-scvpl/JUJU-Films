@@ -107,7 +107,7 @@ const Layout = ({ children }) => {
                 <div className="header__container">
 
                     <Link className="header__logo" to="/" aria-label="Homepage">
-                        <img src="/JUJU White logo.png" alt="JUJU Films" style={{ height: '25px' }} fetchPriority="high" />
+                        <img src="/juju-white-logo.webp" alt="JUJU Films" style={{ height: '25px' }} fetchPriority="high" />
                     </Link>
 
                     <button className="mobile-menu-toggle" onClick={toggleMenu} aria-label="Toggle Navigation">
@@ -171,7 +171,7 @@ const Layout = ({ children }) => {
                             <p className="p2">Because culture isn’t built through campaigns alone. It’s shaped through stories people choose to remember. And when brands help make those stories possible, they don’t just show up—they belong.</p>
                         </div>
                         <div pos="3-6" pos-s="row" className="footer__logo" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <img src="/JUJU-6.png" alt="JUJU Films" style={{ maxWidth: '100%', height: '30vh' }} loading="lazy" />
+                            <img src="/juju-6.webp" alt="JUJU Films" style={{ maxWidth: '100%', height: '30vh' }} loading="lazy" />
                         </div>
                     </div>
 

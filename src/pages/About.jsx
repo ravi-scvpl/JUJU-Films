@@ -21,13 +21,13 @@ const About = () => {
                     "@type": "AboutPage",
                     "name": "About JUJU Films",
                     "description": "JUJU Films is a creator collective building original stories, under one JUJU philosophy.",
-                    "url": "https://jujufilms.com/about",
+                    "url": "https://www.jujuindia.com/about",
                     "publisher": {
                         "@type": "Organization",
                         "name": "JUJU Films",
                         "logo": {
                             "@type": "ImageObject",
-                            "url": "https://jujufilms.com/JUJU White logo.png"
+                            "url": "https://www.jujuindia.com/juju-white-logo.webp"
                         }
                     }
                 }}

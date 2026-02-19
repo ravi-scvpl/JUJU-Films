@@ -65,7 +65,7 @@ const BlogPost = () => {
                         "name": "JUJU Films",
                         "logo": {
                             "@type": "ImageObject",
-                            "url": "https://jujufilms.com/JUJU White logo.png"
+                            "url": "https://www.jujuindia.com/juju-white-logo.webp"
                         }
                     },
                     "description": blog.meta_desc || (blog.content ? blog.content.substring(0, 150).replace(/<[^>]*>?/gm, '') : '')

@@ -53,9 +53,9 @@ const CollectiveContent = () => {
 
                 {/* Title */}
                 <div className="grid hero__content reveal-on-scroll" style={{ paddingTop: '80px', position: 'relative', zIndex: 2 }}>
-                    <p pos="row" pos-s="row" className="hero__title" style={{ marginTop: 0, paddingBottom: 0, fontSize: '32px' }}>
+                    <h1 pos="row" pos-s="row" className="hero__title" style={{ marginTop: 0, paddingBottom: 0, fontSize: '32px' }}>
                         {teamData.title}
-                    </p>
+                    </h1>
                 </div>
             </header>
 

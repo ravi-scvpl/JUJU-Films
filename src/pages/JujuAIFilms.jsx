@@ -128,7 +128,7 @@ const JujuAIFilms = () => {
                     "@type": "CollectionPage",
                     "name": "Juju AI Films",
                     "description": "Cost-controlled, full-service brand IP—created entirely with AI.",
-                    "url": "https://jujufilms.com/juju-ai-films"
+                    "url": "https://www.jujuindia.com/juju-ai-films"
                 }}
             />
             <div>

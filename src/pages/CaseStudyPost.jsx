@@ -63,7 +63,7 @@ const CaseStudyPost = () => {
                         "name": "JUJU Films",
                         "logo": {
                             "@type": "ImageObject",
-                            "url": "https://jujufilms.com/JUJU White logo.png"
+                            "url": "https://www.jujuindia.com/juju-white-logo.webp"
                         }
                     },
                     "description": post.meta_desc || post.intro

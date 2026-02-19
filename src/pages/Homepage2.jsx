@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import SEO from '../components/SEO';
 import '../styles/homepage2.css';
-import img1 from '../assets/1.png';
-import img2 from '../assets/2.png';
-import img3 from '../assets/3.png';
-import img4 from '../assets/4.png';
+import img1 from '../assets/1.webp';
+import img2 from '../assets/2.webp';
+import img3 from '../assets/3.webp';
+import img4 from '../assets/4.webp';
 import shayarifilms from '../assets/Shayari.mp4';
 import outkro from '../assets/outkro.mp4';
 import gamebadalde from '../assets/gamebadalde.mp4';
@@ -151,8 +151,8 @@ const Homepage2 = () => {
                         "@context": "https://schema.org",
                         "@type": "Organization",
                         "name": "JUJU Films",
-                        "url": "https://jujufilms.com",
-                        "logo": "https://jujufilms.com/JUJU White logo.png",
+                        "url": "https://www.jujuindia.com",
+                        "logo": "https://www.jujuindia.com/juju-white-logo.webp",
                         "sameAs": [
                             "https://www.instagram.com/jujufilmsindia",
                             "https://www.facebook.com/share/17xYvGRBGJ/",
@@ -164,10 +164,10 @@ const Homepage2 = () => {
                         "@context": "https://schema.org",
                         "@type": "WebSite",
                         "name": "JUJU Films",
-                        "url": "https://jujufilms.com",
+                        "url": "https://www.jujuindia.com",
                         "potentialAction": {
                             "@type": "SearchAction",
-                            "target": "https://jujufilms.com/search?q={search_term_string}",
+                            "target": "https://www.jujuindia.com/search?q={search_term_string}",
                             "query-input": "required name=search_term_string"
                         }
                     }
