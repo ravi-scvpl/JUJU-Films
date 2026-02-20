@@ -7,21 +7,19 @@ import showreelVideo from '../assets/juju-showreel-small-size.mp4';
 import { Link } from 'react-router-dom';
 
 const formOptions = [
-    { value: "Product TVC", label: "Product TVC - Most look good; ours actually sells." },
-    { value: "Brand TVC", label: "Brand TVC - Stop buying airtime – buy a spot in their memory." },
-    { value: "Social Media Videos", label: "Social Media Videos - Don't just fill the feed; freeze it." },
-    { value: "AI Films", label: "AI Films - The Physics of production just changed" },
-    { value: "10-Second Bumpers", label: "10-Second Bumpers - Give them a 10-second reason to obsess." },
-    { value: "Brand Celebrity Ambassador", label: "Brand Celebrity Ambassador - Star power is wasted without stellar vision" },
-    { value: "UGC Content", label: "UGC Content - The best ads don’t get skipped – they get absorbed" },
-    { value: "Brand IP", label: "Brand IP - Build worlds your audience wants to live in." },
-    { value: "Web Series", label: "Web Series - A story that isn’t a binge-worthy hit is JUST a story." },
-    { value: "In-Movie Branding", label: "In-Movie Branding - Sell where the market is buzzing." },
-    { value: "Vertical Series", label: "Vertical Series - The 9:16 view they’ll never get enough of" },
-    { value: "Corporate Films", label: "Corporate Films - If your vision is bold, your film shouldn’t whisper." },
-    { value: "Influencer Marketing", label: "Influencer Marketing - When the creator meets the filmmaker." },
-    { value: "JUJU Films", label: "JUJU Films - The creative edge for those who hate average." },
-    { value: "The JUJU Team", label: "The JUJU Team - The gear is expensive – the minds are the real luxury" }
+    { value: "Product TVC" },
+    { value: "Brand TVC" },
+    { value: "Social Media Videos" },
+    { value: "AI Films" },
+    { value: "10-Second Bumpers" },
+    { value: "Brand Celebrity Ambassador" },
+    { value: "UGC Content" },
+    { value: "Brand IP" },
+    { value: "Web Series" },
+    { value: "In-Movie Branding" },
+    { value: "Vertical Series" },
+    { value: "Corporate Films" },
+    { value: "Influencer Marketing" },
 ];
 
 const MetaAdLanding = () => {
@@ -165,7 +163,6 @@ const MetaAdLanding = () => {
                     ref={videoRef}
                     autoPlay
                     loop
-                    muted
                     playsInline
                     style={{
                         position: 'absolute',
@@ -306,7 +303,7 @@ const MetaAdLanding = () => {
                     opacity: 0.4
                 }}
             >
-                <source src={bgVideo} type="video/mp4" />
+                <source src={showreelVideo} type="video/mp4" />
             </video>
 
             <div style={{
