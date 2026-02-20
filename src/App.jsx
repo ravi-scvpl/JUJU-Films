@@ -23,6 +23,8 @@ const CaseStudyPost = lazy(() => import('./pages/CaseStudyPost'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Contact = lazy(() => import('./pages/Contact'));
+
+const MetaAdLanding = lazy(() => import('./pages/MetaAdLanding'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Admin Pages (Lazy Loaded)
@@ -71,6 +73,11 @@ function App() {
               <Route path="/blog/:slug" element={<BlogPost />} />
             </Route>
 
+
+
+            {/* Standalone Landing Page (No Header/Footer) */}
+            <Route path="/start-project" element={<MetaAdLanding />} />
+
             <Route path="*" element={<NotFound />} />
 
             {/* Admin Routes */}
@@ -89,7 +96,7 @@ function App() {
           </Routes>
         </Suspense>
       </AuthProvider>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 

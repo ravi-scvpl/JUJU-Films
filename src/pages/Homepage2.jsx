@@ -146,6 +146,7 @@ const Homepage2 = () => {
             <SEO
                 title="Home"
                 description="JUJU Films is a creator collective building original stories, under one JUJU philosophy."
+                canonical="/"
                 schema={[
                     {
                         "@context": "https://schema.org",
