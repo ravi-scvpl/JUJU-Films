@@ -346,7 +346,7 @@ const MetaAdLanding = () => {
                         {step === 1 && (
                             <div className="form-step-1">
                                 <div style={{ marginBottom: '20px' }}>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Full Name *</label>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Your Name *</label>
                                     <input
                                         type="text"
                                         name="name"
@@ -362,11 +362,11 @@ const MetaAdLanding = () => {
                                             fontSize: '16px',
                                             outline: 'none'
                                         }}
-                                        placeholder="John Doe"
+                                        placeholder="Full Name"
                                     />
                                 </div>
                                 <div style={{ marginBottom: '20px' }}>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Phone Number *</label>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>WhatsApp Number *</label>
                                     <input
                                         type="tel"
                                         name="phone"
@@ -382,7 +382,7 @@ const MetaAdLanding = () => {
                                             fontSize: '16px',
                                             outline: 'none'
                                         }}
-                                        placeholder="+91..."
+                                        placeholder="10 digit mobile number"
                                     />
                                 </div>
                                 <div style={{ marginBottom: '20px' }}>
@@ -422,15 +422,15 @@ const MetaAdLanding = () => {
                                             fontSize: '16px',
                                             outline: 'none'
                                         }}
-                                        placeholder="Mumbai, Delhi..."
+                                        placeholder="Mumbai, Delhi, Bangalore"
                                     />
                                 </div>
                                 <div style={{ marginBottom: '20px' }}>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Company Website</label>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Company Name</label>
                                     <input
-                                        type="url"
-                                        name="website"
-                                        value={formData.website}
+                                        type="text"
+                                        name="company"
+                                        value={formData.company}
                                         onChange={handleChange}
                                         style={{
                                             width: '100%',
@@ -558,7 +558,7 @@ const MetaAdLanding = () => {
                                     transition: 'all 0.3s ease'
                                 }}
                             >
-                                {submitting ? 'Processing...' : (step === 1 ? 'Next' : 'Submit Request')}
+                                {submitting ? 'Processing...' : (step === 1 ? 'Submit' : 'Submit Request')}
                             </button>
                         </div>
                     </form>
