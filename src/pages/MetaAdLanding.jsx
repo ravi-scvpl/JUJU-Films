@@ -52,10 +52,14 @@ const MetaAdLanding = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const [leadId, setLeadId] = useState(null);
+
+    // ... (existing code)
+
     const capturePartialLead = async () => {
         try {
             // Attempt to save partial data
-            const { error: supabaseError } = await supabase
+            const { data, error: supabaseError } = await supabase
                 .from('contacts')
                 .insert([{
                     first_name: formData.name.split(' ')[0],
@@ -66,8 +70,13 @@ const MetaAdLanding = () => {
                     company: formData.website,
                     type: 'ad_lead_partial', // Mark as partial
                     status: 'new'
-                }]);
-            if (supabaseError) console.error("Partial lead capture error", supabaseError);
+                }])
+                .select()
+                .single();
+
+            if (supabaseError) throw supabaseError;
+            if (data) setLeadId(data.id);
+
         } catch (err) {
             console.error("Partial lead capture exception", err);
         }
@@ -98,20 +107,35 @@ const MetaAdLanding = () => {
         setError('');
 
         try {
-            const { error: supabaseError } = await supabase
-                .from('contacts')
-                .insert([{
-                    first_name: formData.name.split(' ')[0],
-                    last_name: formData.name.split(' ').slice(1).join(' ') || '',
-                    email: formData.email,
-                    phone: formData.phone,
-                    company: formData.website, // Using company field for website
-                    address: formData.city, // Using address field for city
-                    budget: formData.budget,
-                    message: `Service: ${formData.service}\nTurnover: ${formData.turnover}`,
-                    type: 'ad_lead',
-                    status: 'new'
-                }]);
+            const leadData = {
+                first_name: formData.name.split(' ')[0],
+                last_name: formData.name.split(' ').slice(1).join(' ') || '',
+                email: formData.email,
+                phone: formData.phone,
+                company: formData.website, // Using company field for website
+                address: formData.city, // Using address field for city
+                budget: formData.budget,
+                message: `Service: ${formData.service}\nTurnover: ${formData.turnover}`,
+                type: 'ad_lead', // Upgrade to full lead
+                status: 'new'
+            };
+
+            let supabaseError;
+
+            if (leadId) {
+                // Update existing partial lead
+                const { error } = await supabase
+                    .from('contacts')
+                    .update(leadData)
+                    .eq('id', leadId);
+                supabaseError = error;
+            } else {
+                // Fallback: Insert new if no partial ID (shouldn't happen normally)
+                const { error } = await supabase
+                    .from('contacts')
+                    .insert([leadData]);
+                supabaseError = error;
+            }
 
             if (supabaseError) throw supabaseError;
 
