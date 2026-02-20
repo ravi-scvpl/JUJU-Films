@@ -3,7 +3,7 @@ import { supabase } from '../supabaseClient';
 import SEO from '../components/SEO';
 import '../styles/juju-overrides.css';
 import bgVideo from '../assets/bg-ad-landing-jujufilms.mp4';
-import showreelVideo from '../assets/juju-showreel.mp4';
+import showreelVideo from '../assets/juju-showreel-small-size.mp4';
 import { Link } from 'react-router-dom';
 
 const formOptions = [
