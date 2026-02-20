@@ -323,7 +323,7 @@ const MetaAdLanding = () => {
                     width: '100%',
                     maxWidth: '500px', // Slightly narrower for cleaner look
                     padding: '30px',
-                    backgroundColor: 'rgba(10, 10, 10, 0.85)', // Glassy dark bg
+                    backgroundColor: 'rgba(10, 10, 10, 0.6)', // Glassy dark bg
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255, 255, 255, 0.1)',
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
