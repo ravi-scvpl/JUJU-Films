@@ -243,7 +243,7 @@ const MetaAdLanding = () => {
                                 transition: 'all 0.3s'
                             }}
                         >
-                            <span>Follow on Instagram</span>
+                            <span>Follow Juju on Instagram</span>
                         </a>
                         <Link
                             to="/"
@@ -263,7 +263,7 @@ const MetaAdLanding = () => {
                                 transition: 'all 0.3s'
                             }}
                         >
-                            Back to Homepage
+                            Take me to Homepage
                         </Link>
                     </div>
                 </div>
@@ -441,7 +441,7 @@ const MetaAdLanding = () => {
                                             fontSize: '16px',
                                             outline: 'none'
                                         }}
-                                        placeholder="https://..."
+                                        placeholder="Company Name"
                                     />
                                 </div>
                             </div>
@@ -466,10 +466,10 @@ const MetaAdLanding = () => {
                                         }}
                                     >
                                         <option value="">Select Turnover Range</option>
-                                        <option value="<1Cr">Less than 1 Cr</option>
-                                        <option value="1Cr-10Cr">1 Cr - 10 Cr</option>
-                                        <option value="10Cr-50Cr">10 Cr - 50 Cr</option>
-                                        <option value="50Cr+">50 Cr +</option>
+                                        <option value="<1Cr">Less than 10 Cr</option>
+                                        <option value="1Cr-10Cr">10 Cr - 100 Cr</option>
+                                        <option value="10Cr-50Cr">100 Cr - 500 Cr</option>
+                                        <option value="50Cr+">500 Cr +</option>
                                     </select>
                                 </div>
                                 <div style={{ marginBottom: '20px' }}>
