@@ -540,7 +540,7 @@ const MetaAdLanding = () => {
                         {step === 1 && (
                             <div className="form-step-1">
                                 <div style={{ marginBottom: '20px' }}>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Your Name *</label>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Full Name *</label>
                                     <input
                                         type="text"
                                         name="name"
@@ -556,7 +556,7 @@ const MetaAdLanding = () => {
                                             fontSize: '16px',
                                             outline: 'none'
                                         }}
-                                        placeholder="Full Name"
+                                        placeholder="Your Name"
                                     />
                                 </div>
                                 <div style={{ marginBottom: '20px' }}>
@@ -576,7 +576,7 @@ const MetaAdLanding = () => {
                                             fontSize: '16px',
                                             outline: 'none'
                                         }}
-                                        placeholder="10 digit mobile number"
+                                        placeholder="`{+91}`10 digit mobile number"
                                     />
                                 </div>
                                 <div style={{ marginBottom: '20px' }}>
@@ -617,6 +617,26 @@ const MetaAdLanding = () => {
                                             outline: 'none'
                                         }}
                                         placeholder="Mumbai, Delhi, Bangalore"
+                                    />
+                                </div>
+                                <div style={{ marginBottom: '20px' }}>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Company Name *</label>
+                                    <input
+                                        type="text"
+                                        name="company"
+                                        value={formData.company}
+                                        onChange={handleChange}
+                                        required
+                                        style={{
+                                            width: '100%',
+                                            padding: '15px',
+                                            backgroundColor: '#000',
+                                            border: '1px solid #333',
+                                            color: '#fff',
+                                            fontSize: '16px',
+                                            outline: 'none'
+                                        }}
+                                        placeholder="Your Company Name"
                                     />
                                 </div>
                             </div>
@@ -672,26 +692,7 @@ const MetaAdLanding = () => {
                                         )}
                                     </div>
                                 </div>
-                                <div style={{ marginBottom: '20px' }}>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Company Name *</label>
-                                    <input
-                                        type="text"
-                                        name="company"
-                                        value={formData.company}
-                                        onChange={handleChange}
-                                        required
-                                        style={{
-                                            width: '100%',
-                                            padding: '15px',
-                                            backgroundColor: '#000',
-                                            border: '1px solid #333',
-                                            color: '#fff',
-                                            fontSize: '16px',
-                                            outline: 'none'
-                                        }}
-                                        placeholder="Your Organization"
-                                    />
-                                </div>
+
                                 <div style={{ marginBottom: '20px' }}>
                                     <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Company Turnover</label>
                                     <select
@@ -810,7 +811,7 @@ const MetaAdLanding = () => {
                                     transition: 'all 0.3s ease'
                                 }}
                             >
-                                {submitting ? 'Processing...' : (step === 1 ? 'Verify Email' : (verifyingOtp ? 'Verifying...' : 'Submit Request'))}
+                                {submitting ? 'Processing...' : (step === 1 ? 'Submit' : (verifyingOtp ? 'Verifying...' : 'Submit Request'))}
                             </button>
                         </div>
                     </form>
