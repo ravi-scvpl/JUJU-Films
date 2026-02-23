@@ -16,18 +16,28 @@ const AdminDashboard = () => {
         fetchLeads();
     }, [activeTab]);
 
-    const updateLeadStatus = async (id, newStatus) => {
+    const updateLeadField = async (id, field, value) => {
         try {
+            const updateData = { [field]: value };
+
+            // Add automatic timestamps for status and action
+            if (field === 'lead_status') updateData.status_updated_at = new Date().toISOString();
+            if (field === 'lead_action') updateData.action_updated_at = new Date().toISOString();
+
             const { error } = await supabase
                 .from('contacts')
-                .update({ status: newStatus })
+                .update(updateData)
                 .eq('id', id);
 
             if (error) throw error;
-            setLeads(leads.map(lead => lead.id === id ? { ...lead, status: newStatus } : lead));
+
+            // Update local state including timestamps
+            setLeads(leads.map(lead =>
+                lead.id === id ? { ...lead, ...updateData } : lead
+            ));
         } catch (error) {
-            console.error('Error updating status:', error);
-            alert('Error updating status. Make sure the column exists.');
+            console.error(`Error updating ${field}:`, error);
+            alert(`Error updating ${field}. Make sure the column exists.`);
         }
     };
 
@@ -48,6 +58,33 @@ const AdminDashboard = () => {
             } else {
                 alert('Error saving notes.');
             }
+        }
+    };
+
+    const addFeedback = async (contactId, content, bdaName) => {
+        if (!content.trim()) return;
+        try {
+            const { data, error } = await supabase
+                .from('lead_feedbacks')
+                .insert([{ contact_id: contactId, content, bda_name: bdaName || 'BDA' }])
+                .select()
+                .single();
+
+            if (error) throw error;
+
+            // Update local state
+            setLeads(leads.map(lead => {
+                if (lead.id === contactId) {
+                    return {
+                        ...lead,
+                        lead_feedbacks: [data, ...(lead.lead_feedbacks || [])]
+                    };
+                }
+                return lead;
+            }));
+        } catch (error) {
+            console.error('Error adding feedback:', error);
+            alert('Error adding feedback. Make sure the lead_feedbacks table exists.');
         }
     };
 
@@ -72,7 +109,7 @@ const AdminDashboard = () => {
         const dataToExport = filteredLeads; // Export filtered results
         if (dataToExport.length === 0) return;
 
-        const headers = ["Date", "Type", "Name", "Email", "Phone", "City", "Company/Website", "Budget", "Status", "Notes", "Details"];
+        const headers = ["Date", "Type", "Name", "Email", "Phone", "City", "Company/Website", "Budget", "Status", "Tag", "Action", "Notes", "Details"];
         const rows = dataToExport.map(lead => [
             formatDate(lead.created_at),
             lead.type,
@@ -82,7 +119,9 @@ const AdminDashboard = () => {
             lead.address || '',
             lead.company || '',
             lead.budget || '',
-            lead.status || 'New',
+            lead.lead_status || lead.status || 'New',
+            lead.lead_tag || '',
+            lead.lead_action || '',
             lead.notes || '',
             lead.message ? lead.message.replace(/\n/g, ' ') : ''
         ]);
@@ -99,7 +138,6 @@ const AdminDashboard = () => {
         link.setAttribute("download", `juju_leads_${activeTab}_${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
-        document.body.removeChild(link);
     };
 
     const fetchLeads = async () => {
@@ -107,7 +145,7 @@ const AdminDashboard = () => {
         try {
             let query = supabase
                 .from('contacts')
-                .select('*')
+                .select('*, lead_feedbacks(*)')
                 .order('created_at', { ascending: false });
 
             if (activeTab === 'meta_ads') {
@@ -119,7 +157,14 @@ const AdminDashboard = () => {
             const { data, error } = await query;
 
             if (error) throw error;
-            setLeads(data);
+
+            // Sort inner feedbacks by date descending
+            const enrichedData = data.map(lead => ({
+                ...lead,
+                lead_feedbacks: (lead.lead_feedbacks || []).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+            }));
+
+            setLeads(enrichedData);
         } catch (error) {
             console.error('Error fetching leads:', error);
         } finally {
@@ -149,6 +194,53 @@ const AdminDashboard = () => {
         return new Date(dateString).toLocaleDateString('en-US', {
             year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
         });
+    };
+
+    const getLeadAge = (dateString) => {
+        const now = new Date();
+        const past = new Date(dateString);
+        const diffInMs = now - past;
+        const diffInMins = Math.floor(diffInMs / (1000 * 60));
+        const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+        const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+        if (diffInMins < 60) return `${diffInMins}m ago`;
+        if (diffInHours < 24) return `${diffInHours}h ago`;
+        return `${diffInDays}d ago`;
+    };
+
+    const renderServiceTags = (message, type) => {
+        if (!message) return null;
+
+        // Extract services part: "Services: Commercial, AI Films"
+        const serviceMatch = message.match(/Services:\s*(.*)/i);
+        if (!serviceMatch) return null;
+
+        const services = serviceMatch[1].split(',').map(s => s.trim()).filter(s => s);
+
+        return (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '10px' }}>
+                {services.map((service, idx) => (
+                    <span key={idx} style={{
+                        fontSize: '11px',
+                        backgroundColor: '#f0f0f0',
+                        color: '#444',
+                        padding: '4px 10px',
+                        borderRadius: '4px',
+                        border: '1px solid #ddd',
+                        fontWeight: '500'
+                    }}>
+                        {service}
+                    </span>
+                ))}
+            </div>
+        );
+    };
+
+    const getCleanMessage = (message) => {
+        if (!message) return '';
+        // Remove the "Services: ..." block to avoid redundancy
+        return message.replace(/Services:\s*.*($|\n)/i, '').trim();
     };
 
     return (
@@ -246,10 +338,24 @@ const AdminDashboard = () => {
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', paddingRight: '80px' }}>
                                 <h3 style={{ margin: 0 }}>
                                     {lead.first_name || 'Unknown'} {lead.last_name || ''}
-                                    {lead.type === 'ad_lead_partial' && <span style={{ fontSize: '11px', backgroundColor: '#ffd700', padding: '2px 6px', borderRadius: '4px', marginLeft: '10px', verticalAlign: 'middle', color: '#000' }}>Partial</span>}
+                                    {lead.lead_tag && (
+                                        <span style={{
+                                            fontSize: '10px',
+                                            backgroundColor: lead.lead_tag === 'complete' ? '#4caf50' : lead.lead_tag === 'verified' ? '#2196f3' : '#ffd700',
+                                            color: lead.lead_tag === 'partial' ? '#000' : '#fff',
+                                            padding: '2px 8px',
+                                            borderRadius: '4px',
+                                            marginLeft: '10px',
+                                            verticalAlign: 'middle',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 'bold'
+                                        }}>
+                                            {lead.lead_tag}
+                                        </span>
+                                    )}
                                     <span style={{
                                         fontSize: '11px',
-                                        backgroundColor: lead.status === 'Interested' ? '#4caf50' : lead.status === 'Not Interested' ? '#f44336' : '#888',
+                                        backgroundColor: '#888',
                                         color: '#fff',
                                         padding: '2px 8px',
                                         borderRadius: '12px',
@@ -257,10 +363,13 @@ const AdminDashboard = () => {
                                         verticalAlign: 'middle',
                                         textTransform: 'uppercase'
                                     }}>
-                                        {lead.status || 'New'}
+                                        {lead.lead_status || lead.status || 'New'}
                                     </span>
                                 </h3>
-                                <span style={{ fontSize: '14px', color: '#666' }}>{formatDate(lead.created_at)}</span>
+                                <div style={{ textAlign: 'right' }}>
+                                    <div style={{ fontSize: '14px', color: '#333', fontWeight: 'bold' }}>{getLeadAge(lead.created_at)}</div>
+                                    <div style={{ fontSize: '11px', color: '#999' }}>{formatDate(lead.created_at)}</div>
+                                </div>
                             </div>
 
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px', fontSize: '14px' }}>
@@ -280,66 +389,142 @@ const AdminDashboard = () => {
                                 {/* Meta Ads Specifics */}
                                 {activeTab === 'meta_ads' && (
                                     <>
-                                        {lead.company && <p><strong>Company/Website:</strong> {lead.company}</p>}
-                                        {lead.budget && <p><strong>Budget:</strong> {lead.budget}</p>}
+                                        {lead.company && <p><strong>Company:</strong> {lead.company}</p>}
+                                        {lead.website_url && <p><strong>Website:</strong> <a href={lead.website_url} target="_blank" rel="noopener noreferrer">{lead.website_url}</a></p>}
+                                        {lead.start_timeline && <p><strong>Timeline:</strong> {lead.start_timeline}</p>}
+                                        {lead.brand_type && <p><strong>Brand Type:</strong> {lead.brand_type}</p>}
+                                        {lead.has_ambassador && <p><strong>Ambassador:</strong> {lead.has_ambassador}</p>}
                                     </>
                                 )}
 
                                 {/* Creator Specifics */}
                                 {lead.portfolio_url && <p><strong>Portfolio:</strong> <a href={lead.portfolio_url} target="_blank" rel="noopener noreferrer">{lead.portfolio_url}</a></p>}
 
-                                {/* Uploaded File */}
-                                {lead.file_url && <p><strong>Attachement:</strong> <a href={lead.file_url} target="_blank" rel="noopener noreferrer">View File</a></p>}
+                                {/* Uploaded Files */}
+                                {lead.file_url && <p><strong>Attachment:</strong> <a href={lead.file_url} target="_blank" rel="noopener noreferrer">View File</a></p>}
+                                {lead.brief_url && <p><strong>Project Brief:</strong> <a href={lead.brief_url} target="_blank" rel="noopener noreferrer" style={{ color: '#E52323', fontWeight: 'bold' }}>View Brief</a></p>}
+
+                                <div style={{ gridColumn: '1 / -1' }}>
+                                    <strong style={{ fontSize: '13px' }}>Requested Services:</strong>
+                                    {renderServiceTags(lead.message)}
+                                </div>
                             </div>
 
-                            {lead.message && (
+                            {getCleanMessage(lead.message) && (
                                 <div style={{ marginTop: '15px', padding: '10px', backgroundColor: '#f9f9f9', borderRadius: '4px' }}>
-                                    <strong>Details:</strong>
-                                    <pre style={{ marginTop: '5px', whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '13px', color: '#333' }}>{lead.message}</pre>
+                                    <strong>Additional Details:</strong>
+                                    <pre style={{ marginTop: '5px', whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '13px', color: '#333' }}>{getCleanMessage(lead.message)}</pre>
                                 </div>
                             )}
 
                             {/* Actions and Notes - Enhanced for Meta Ads */}
-                            <div style={{ marginTop: '20px', paddingTop: '15px', borderTop: '1px solid #efefef', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                            <div style={{ marginTop: '20px', paddingTop: '15px', borderTop: '1px solid #efefef', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px' }}>
                                 <div>
-                                    <strong style={{ display: 'block', marginBottom: '10px', fontSize: '13px' }}>Actions:</strong>
-                                    <div style={{ display: 'flex', gap: '8px' }}>
-                                        {['No Action', 'Interested', 'Not Interested'].map(status => (
-                                            <button
-                                                key={status}
-                                                onClick={() => updateLeadStatus(lead.id, status)}
-                                                style={{
-                                                    padding: '6px 12px',
-                                                    fontSize: '12px',
-                                                    backgroundColor: lead.status === status ? '#333' : '#fff',
-                                                    color: lead.status === status ? '#fff' : '#333',
-                                                    border: '1px solid #ddd',
-                                                    borderRadius: '4px',
-                                                    cursor: 'pointer'
-                                                }}
-                                            >
-                                                {status}
-                                            </button>
-                                        ))}
-                                    </div>
+                                    <strong style={{ display: 'block', marginBottom: '10px', fontSize: '13px' }}>
+                                        Status:
+                                        <span style={{ fontWeight: 'normal', color: '#999', fontSize: '11px', marginLeft: '8px' }}>
+                                            {lead.status_updated_at ? `(Updated ${getLeadAge(lead.status_updated_at)})` : ''}
+                                        </span>
+                                    </strong>
+                                    <select
+                                        value={lead.lead_status || '🔵 Cold – Passive'}
+                                        onChange={(e) => updateLeadField(lead.id, 'lead_status', e.target.value)}
+                                        style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '4px', border: '1px solid #ddd' }}
+                                    >
+                                        <option value="🔥 Hot – Ready">🔥 Hot – Ready</option>
+                                        <option value="🟢 Warm – Nurture">🟢 Warm – Nurture</option>
+                                        <option value="🔵 Cold – Passive">🔵 Cold – Passive</option>
+                                        <option value="⚫ Not Interested – Closed">⚫ Not Interested – Closed</option>
+                                    </select>
                                 </div>
                                 <div>
-                                    <strong style={{ display: 'block', marginBottom: '5px', fontSize: '13px' }}>Admin Notes:</strong>
-                                    <textarea
-                                        placeholder="Add private notes here..."
-                                        defaultValue={lead.notes || ''}
-                                        onBlur={(e) => updateLeadNotes(lead.id, e.target.value)}
-                                        style={{
-                                            width: '100%',
-                                            height: '60px',
-                                            padding: '8px',
-                                            fontSize: '13px',
-                                            border: '1px solid #ddd',
-                                            borderRadius: '4px',
-                                            resize: 'vertical'
-                                        }}
+                                    <strong style={{ display: 'block', marginBottom: '10px', fontSize: '13px' }}>
+                                        Action:
+                                        <span style={{ fontWeight: 'normal', color: '#999', fontSize: '11px', marginLeft: '8px' }}>
+                                            {lead.action_updated_at ? `(Updated ${getLeadAge(lead.action_updated_at)})` : ''}
+                                        </span>
+                                    </strong>
+                                    <select
+                                        value={lead.lead_action || 'No Action Taken'}
+                                        onChange={(e) => updateLeadField(lead.id, 'lead_action', e.target.value)}
+                                        style={{ width: '100%', padding: '8px', fontSize: '13px', borderRadius: '4px', border: '1px solid #ddd' }}
+                                    >
+                                        <option value="No Action Taken">No Action Taken</option>
+                                        <option value="With Calling Team">With Calling Team</option>
+                                        <option value="Handed over to Sales Director">Handed over to Sales Director</option>
+                                        <option value="Sales Close handed over to production">Sales Close handed over to production</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <span style={{ fontSize: '10px', color: '#999' }}>Auto-saves</span>
+                                </div>
+                            </div>
+
+                            {/* BDA Feedback Timeline */}
+                            <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid #efefef' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+                                    <strong style={{ fontSize: '14px', color: '#333' }}>BDA Feedback Timeline ({lead.lead_feedbacks?.length || 0})</strong>
+                                </div>
+
+                                {/* Add Feedback Form */}
+                                <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+                                    <input
+                                        type="text"
+                                        placeholder="BDA Name"
+                                        id={`bda-name-${lead.id}`}
+                                        style={{ width: '100px', padding: '8px', fontSize: '12px', border: '1px solid #ddd', borderRadius: '4px' }}
                                     />
-                                    <span style={{ fontSize: '10px', color: '#999' }}>Auto-saves on leave</span>
+                                    <input
+                                        type="text"
+                                        placeholder="Add new call feedback..."
+                                        id={`bda-feedback-${lead.id}`}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                const content = e.target.value;
+                                                const bdaName = document.getElementById(`bda-name-${lead.id}`).value;
+                                                addFeedback(lead.id, content, bdaName);
+                                                e.target.value = '';
+                                            }
+                                        }}
+                                        style={{ flexGrow: 1, padding: '8px', fontSize: '13px', border: '1px solid #ddd', borderRadius: '4px' }}
+                                    />
+                                    <button
+                                        onClick={() => {
+                                            const content = document.getElementById(`bda-feedback-${lead.id}`).value;
+                                            const bdaName = document.getElementById(`bda-name-${lead.id}`).value;
+                                            addFeedback(lead.id, content, bdaName);
+                                            document.getElementById(`bda-feedback-${lead.id}`).value = '';
+                                        }}
+                                        style={{ padding: '8px 15px', backgroundColor: '#333', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}
+                                    >
+                                        Add
+                                    </button>
+                                </div>
+
+                                {/* Timeline List */}
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                                    {lead.lead_feedbacks?.map((f, i) => (
+                                        <div key={f.id} style={{ display: 'flex', gap: '15px', position: 'relative', paddingBottom: '15px' }}>
+                                            {/* Dot and Line */}
+                                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '20px' }}>
+                                                <div style={{ width: '8px', height: '8px', backgroundColor: '#E52323', borderRadius: '50%', zIndex: 1 }}></div>
+                                                {i !== lead.lead_feedbacks.length - 1 && (
+                                                    <div style={{ width: '2px', flexGrow: 1, backgroundColor: '#eee', position: 'absolute', top: '8px', bottom: '-8px' }}></div>
+                                                )}
+                                            </div>
+                                            {/* Content */}
+                                            <div style={{ flexGrow: 1, fontSize: '13px', backgroundColor: '#fdfdfd', padding: '8px 12px', borderRadius: '4px', borderLeft: '3px solid #E52323' }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                                                    <span style={{ fontWeight: 'bold', color: '#333' }}>{f.bda_name || 'BDA'}</span>
+                                                    <span style={{ fontSize: '11px', color: '#999' }}>{getLeadAge(f.created_at)}</span>
+                                                </div>
+                                                <p style={{ margin: 0, color: '#555', lineHeight: '1.4' }}>{f.content}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {(!lead.lead_feedbacks || lead.lead_feedbacks.length === 0) && (
+                                        <p style={{ fontSize: '12px', color: '#999', fontStyle: 'italic', textAlign: 'center', margin: '10px 0' }}>No feedback recorded yet.</p>
+                                    )}
                                 </div>
                             </div>
                         </div>

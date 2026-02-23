@@ -28,13 +28,15 @@ const MetaAdLanding = () => {
         name: '',
         phone: '',
         email: '',
-        website: '',
-        company: '', // Added to fix uncontrolled warning
         city: '',
-        turnover: '',
-        budget: '',
-        service: [] // Changed to array for multi-select
+        company: '',
+        start_timeline: 'Immediately',
+        website_url: '',
+        service: [],
+        brand_type: 'Startup/ D2C Brand',
+        has_ambassador: 'No'
     });
+    const [briefFile, setBriefFile] = useState(null);
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState('');
@@ -65,7 +67,16 @@ const MetaAdLanding = () => {
     }, [resendTimer]);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        let { name, value } = e.target;
+        if (name === 'phone') {
+            // Auto prefix +91
+            const cleaned = value.replace(/\D/g, '');
+            // If they enter 10 digits and it doesn't have +91, add it
+            if (cleaned.length === 10 && !value.startsWith('+91')) {
+                value = '+91' + cleaned;
+            }
+        }
+        setFormData({ ...formData, [name]: value });
     };
 
     const toggleService = (serviceValue) => {
@@ -97,7 +108,8 @@ const MetaAdLanding = () => {
                     address: formData.city,
                     company: formData.company || '', // Unified to use company
                     type: 'ad_lead_partial', // Mark as partial
-                    status: 'new'
+                    status: 'new',
+                    lead_tag: 'partial'
                 }])
                 .select()
                 .single();
@@ -121,7 +133,7 @@ const MetaAdLanding = () => {
     const handleNext = async (e) => {
         e.preventDefault();
         if (step === 1) {
-            if (!formData.name || !formData.phone || !formData.email || !formData.city) {
+            if (!formData.name || !formData.phone || !formData.email || !formData.city || !formData.company) {
                 setError('Please fill in all required fields.');
                 return;
             }
@@ -156,8 +168,10 @@ const MetaAdLanding = () => {
             } finally {
                 setSubmitting(false);
             }
+        } else if (step === 2) {
+            await handleVerifyOtp();
         } else {
-            handleSubmit(e);
+            await handleSubmit(e);
         }
     };
 
@@ -183,35 +197,23 @@ const MetaAdLanding = () => {
         }
     };
 
-    const handleBack = () => {
-        setStep(1);
-    };
+    const handleVerifyOtp = async () => {
+        if (!otp) {
+            setError('Please enter the verification code sent to your email.');
+            return;
+        }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setSubmitting(true);
+        setVerifyingOtp(true);
         setError('');
 
         try {
-            // Verify OTP first
-            if (!otp) {
-                setError('Please enter the verification code sent to your email.');
-                setSubmitting(false);
-                return;
-            }
-
-            setVerifyingOtp(true);
-
             const cleanEmail = formData.email.trim();
             const cleanOtp = otp.trim();
             const verificationTypes = ['signup', 'magiclink', 'email'];
             let lastError = null;
             let success = false;
 
-            console.log("Starting verification for:", cleanEmail);
-
             for (const type of verificationTypes) {
-                console.log(`Attempting verification with type: ${type}...`);
                 const { error: verifyError } = await supabase.auth.verifyOtp({
                     email: cleanEmail,
                     token: cleanOtp,
@@ -219,21 +221,83 @@ const MetaAdLanding = () => {
                 });
 
                 if (!verifyError) {
-                    console.log(`Verification successful with type: ${type}`);
                     success = true;
                     break;
                 } else {
-                    console.warn(`${type} verification failed:`, verifyError.message);
                     lastError = verifyError;
                 }
             }
 
-            if (!success) {
-                console.error("All verification attempts failed.");
-                setError(`Verification failed: ${lastError?.message || 'Invalid or expired code'}. Please try requesting a new code.`);
-                setVerifyingOtp(false);
-                setSubmitting(false);
-                return;
+            if (success) {
+                // Update lead to 'verified' status in Supabase if leadId exists
+                if (leadId) {
+                    await supabase
+                        .from('contacts')
+                        .update({ lead_tag: 'verified' })
+                        .eq('id', leadId);
+                }
+                setStep(3);
+            } else {
+                setError(`Verification failed: ${lastError?.message || 'Invalid or expired code'}`);
+            }
+        } catch (err) {
+            console.error("OTP verification error", err);
+            setError('Something went wrong during verification.');
+        } finally {
+            setVerifyingOtp(false);
+        }
+    };
+
+    const handleBack = () => {
+        setStep(prev => prev - 1);
+    };
+
+    const handleUrlBlur = (e) => {
+        let { name, value } = e.target;
+        if (name === 'website_url' && value.trim() !== '') {
+            if (!/^https?:\/\//i.test(value)) {
+                setFormData(prev => ({ ...prev, [name]: 'https://' + value }));
+            }
+        }
+    };
+
+    const handleFileChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setBriefFile(e.target.files[0]);
+        }
+    };
+
+    const uploadBrief = async (file) => {
+        if (!file) return null;
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        const { error: uploadError, data } = await supabase.storage
+            .from('briefs')
+            .upload(filePath, file);
+
+        if (uploadError) {
+            console.error("Upload error:", uploadError);
+            throw new Error("Failed to upload brief. Please try again.");
+        }
+
+        const { data: { publicUrl } } = supabase.storage
+            .from('briefs')
+            .getPublicUrl(filePath);
+
+        return publicUrl;
+    };
+
+    const handleSubmit = async (e) => {
+        if (e) e.preventDefault();
+        setSubmitting(true);
+        setError('');
+
+        try {
+            let briefUrl = null;
+            if (briefFile) {
+                briefUrl = await uploadBrief(briefFile);
             }
 
             const leadData = {
@@ -241,12 +305,18 @@ const MetaAdLanding = () => {
                 last_name: formData.name.split(' ').slice(1).join(' ') || '',
                 email: formData.email,
                 phone: formData.phone,
-                company: formData.company, // Using company field
-                address: formData.city, // Using address field for city
-                budget: formData.budget,
-                message: `Services: ${Array.isArray(formData.service) ? formData.service.join(', ') : formData.service}\nTurnover: ${formData.turnover}`,
-                type: 'ad_lead', // Upgrade to full lead
-                status: 'new'
+                company: formData.company,
+                address: formData.city,
+                budget: '',
+                message: `Services: ${Array.isArray(formData.service) ? formData.service.join(', ') : formData.service}`,
+                type: 'ad_lead',
+                status: 'new',
+                start_timeline: formData.start_timeline,
+                website_url: formData.website_url,
+                brand_type: formData.brand_type,
+                has_ambassador: formData.has_ambassador,
+                brief_url: briefUrl,
+                lead_tag: 'complete'
             };
 
             console.log("Lead data prepared for full submission:", leadData);
@@ -366,27 +436,20 @@ const MetaAdLanding = () => {
                     width: '100%',
                     animation: 'fadeIn 1s ease-out'
                 }}>
-                    <h1 style={{
-                        fontSize: '2.5rem',
-                        marginBottom: '0.5rem',
-                        color: '#fff',
-                        textTransform: 'uppercase',
-                        letterSpacing: '4px',
-                        textShadow: '0 2px 10px rgba(0,0,0,0.5)'
-                    }}>
-                        Thank You
-                    </h1>
+
                     <div style={{ width: '60px', height: '2px', background: '#E52323', margin: '0 auto 1.5rem' }}></div>
 
                     <p style={{
-                        fontSize: '1.1rem',
+                        fontSize: '0.8rem',
                         marginBottom: '2rem',
                         lineHeight: '1.6',
                         opacity: 0.9,
                         textShadow: '0 1px 4px rgba(0,0,0,0.5)'
                     }}>
-                        Thank you for reaching out. Our GTM Expert will connect with you shortly.
-                        Till then… JUJU
+                        Thank you for filling out the form!
+                        Our GTM Expert will connect with you shortly.
+
+                        Till then… JUJU ✨
                     </p>
 
                     <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
@@ -399,7 +462,7 @@ const MetaAdLanding = () => {
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: '10px',
-                                padding: '12px 25px',
+                                padding: '10px 20px',
                                 backgroundColor: 'rgba(255,255,255,0.1)',
                                 backdropFilter: 'blur(5px)',
                                 border: '1px solid rgba(255,255,255,0.2)',
@@ -407,7 +470,7 @@ const MetaAdLanding = () => {
                                 textDecoration: 'none',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '14px',
+                                fontSize: '12px',
                                 borderRadius: '50px',
                                 transition: 'all 0.3s'
                             }}
@@ -424,19 +487,20 @@ const MetaAdLanding = () => {
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: '10px',
-                                padding: '12px 25px',
-                                backgroundColor: '#25D366',
-                                border: '1px solid #25D366',
+                                padding: '10px 20px',
+                                backgroundColor: 'rgba(255,255,255,0.1)',
+                                backdropFilter: 'blur(5px)',
+                                border: '1px solid rgba(255,255,255,0.2)',
                                 color: '#fff',
                                 textDecoration: 'none',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '14px',
+                                fontSize: '12px',
                                 borderRadius: '50px',
                                 transition: 'all 0.3s'
                             }}
                         >
-                            <span>Contact on WhatsApp</span>
+                            <span>WhatsApp</span>
                         </a>
                         <Link
                             to="/"
@@ -444,19 +508,21 @@ const MetaAdLanding = () => {
                             style={{
                                 display: 'inline-flex',
                                 alignItems: 'center',
-                                padding: '12px 25px',
-                                backgroundColor: '#E52323',
-                                border: '1px solid #E52323',
+                                gap: '10px',
+                                padding: '10px 20px',
+                                backgroundColor: 'rgba(255,255,255,0.1)',
+                                backdropFilter: 'blur(5px)',
+                                border: '1px solid rgba(255,255,255,0.2)',
                                 color: '#fff',
                                 textDecoration: 'none',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '14px',
+                                fontSize: '12px',
                                 borderRadius: '50px',
                                 transition: 'all 0.3s'
                             }}
                         >
-                            Take me to Homepage
+                            Homepage
                         </Link>
 
                     </div>
@@ -522,11 +588,12 @@ const MetaAdLanding = () => {
                     <div style={{ textAlign: 'center', marginBottom: '40px' }}>
                         <img src="/juju-white-logo.webp" alt="JUJU Films" style={{ height: '40px', marginBottom: '20px' }} />
                         <h1 style={{ fontSize: '24px', fontWeight: '300', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                            {step === 1 ? 'Let\'s connect' : 'Project Details'}
+                            {step === 1 ? 'Let\'s connect' : step === 2 ? 'Verification' : 'Share Your Requirements'}
                         </h1>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-                            <div style={{ width: '40px', height: '2px', backgroundColor: step === 1 ? '#E52323' : '#333', marginRight: '5px' }}></div>
-                            <div style={{ width: '40px', height: '2px', backgroundColor: step === 2 ? '#E52323' : '#333' }}></div>
+                            <div style={{ width: '30px', height: '2px', backgroundColor: step === 1 ? '#E52323' : '#333', marginRight: '5px' }}></div>
+                            <div style={{ width: '30px', height: '2px', backgroundColor: step === 2 ? '#E52323' : '#333', marginRight: '5px' }}></div>
+                            <div style={{ width: '30px', height: '2px', backgroundColor: step === 3 ? '#E52323' : '#333' }}></div>
                         </div>
                     </div>
 
@@ -576,7 +643,7 @@ const MetaAdLanding = () => {
                                             fontSize: '16px',
                                             outline: 'none'
                                         }}
-                                        placeholder="`{+91}`10 digit mobile number"
+                                        placeholder="10 digit mobile number"
                                     />
                                 </div>
                                 <div style={{ marginBottom: '20px' }}>
@@ -692,49 +759,12 @@ const MetaAdLanding = () => {
                                         )}
                                     </div>
                                 </div>
+                            </div>
+                        )}
 
-                                <div style={{ marginBottom: '20px' }}>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Company Turnover</label>
-                                    <select
-                                        name="turnover"
-                                        value={formData.turnover}
-                                        onChange={handleChange}
-                                        style={{
-                                            width: '100%',
-                                            padding: '15px',
-                                            backgroundColor: '#000',
-                                            border: '1px solid #333',
-                                            color: '#fff',
-                                            fontSize: '16px',
-                                            outline: 'none'
-                                        }}
-                                    >
-                                        <option value="">Select Turnover Range</option>
-                                        <option value="<1Cr">Less than 10 Cr</option>
-                                        <option value="1Cr-10Cr">10 Cr - 100 Cr</option>
-                                        <option value="10Cr-50Cr">100 Cr - 500 Cr</option>
-                                        <option value="50Cr+">500 Cr +</option>
-                                    </select>
-                                </div>
-                                <div style={{ marginBottom: '20px' }}>
-                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Budget</label>
-                                    <input
-                                        type="text"
-                                        name="budget"
-                                        value={formData.budget}
-                                        onChange={handleChange}
-                                        style={{
-                                            width: '100%',
-                                            padding: '15px',
-                                            backgroundColor: '#000',
-                                            border: '1px solid #333',
-                                            color: '#fff',
-                                            fontSize: '16px',
-                                            outline: 'none'
-                                        }}
-                                        placeholder="Approx. Budget"
-                                    />
-                                </div>
+                        {step === 3 && (
+                            <div className="form-step-3">
+
                                 <div style={{ marginBottom: '30px' }}>
                                     <label style={{ display: 'block', marginBottom: '15px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Services / Interests * (Select Multiple)</label>
                                     <div style={{
@@ -754,8 +784,8 @@ const MetaAdLanding = () => {
                                                     onClick={() => toggleService(opt.value)}
                                                     style={{
                                                         padding: '10px 15px',
-                                                        backgroundColor: isSelected ? '#E52323' : 'rgba(255,255,255,0.05)',
-                                                        border: `1px solid ${isSelected ? '#E52323' : '#333'}`,
+                                                        backgroundColor: isSelected ? '#4CBF64' : 'rgba(255,255,255,0.05)',
+                                                        border: `1px solid ${isSelected ? '#4CBF64' : '#333'}`,
                                                         color: isSelected ? '#fff' : '#ccc',
                                                         borderRadius: '4px',
                                                         fontSize: '13px',
@@ -770,11 +800,121 @@ const MetaAdLanding = () => {
                                         })}
                                     </div>
                                 </div>
+                                <div style={{ marginBottom: '20px' }}>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>How Soon You want to start.</label>
+                                    <select
+                                        name="start_timeline"
+                                        value={formData.start_timeline}
+                                        onChange={handleChange}
+                                        style={{
+                                            width: '100%',
+                                            padding: '15px',
+                                            backgroundColor: '#000',
+                                            border: '1px solid #333',
+                                            color: '#fff',
+                                            fontSize: '16px',
+                                            outline: 'none'
+                                        }}
+                                    >
+                                        <option value="Immediately">Immediately</option>
+                                        <option value="Just looking">Just looking</option>
+                                        <option value="within this week">within this week</option>
+                                        <option value="within this month">within this month</option>
+                                        <option value="next 3 months">next 3 months</option>
+                                    </select>
+                                </div>
+                                <div style={{ marginBottom: '20px' }}>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>website</label>
+                                    <input
+                                        type="text"
+                                        name="website_url"
+                                        value={formData.website_url}
+                                        onChange={handleChange}
+                                        onBlur={handleUrlBlur}
+                                        style={{
+                                            width: '100%',
+                                            padding: '15px',
+                                            backgroundColor: '#000',
+                                            border: '1px solid #333',
+                                            color: '#fff',
+                                            fontSize: '16px',
+                                            outline: 'none'
+                                        }}
+                                        placeholder="Your Website Url"
+                                    />
+                                </div>
+                                <div style={{ marginBottom: '20px' }}>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>You are a</label>
+                                    <select
+                                        name="brand_type"
+                                        value={formData.brand_type}
+                                        onChange={handleChange}
+                                        style={{
+                                            width: '100%',
+                                            padding: '15px',
+                                            backgroundColor: '#000',
+                                            border: '1px solid #333',
+                                            color: '#fff',
+                                            fontSize: '16px',
+                                            outline: 'none'
+                                        }}
+                                    >
+                                        <option value="Startup/ D2C Brand">Startup/ D2C Brand</option>
+                                        <option value="Legacy Brand">Legacy Brand</option>
+                                        <option value="SME / MSME / Manufacturing">SME / MSME / Manufacturing</option>
+                                        <option value="Ad / Digital / Influencer / PR Agency">Ad / Digital / Influencer / PR Agency</option>
+                                        <option value="Large Enterprise / Corporation">Large Enterprise / Corporation</option>
+                                        <option value="Government / PSU">Government / PSU</option>
+                                        <option value="Individual / Freelancer">Individual / Freelancer</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div style={{ marginBottom: '20px' }}>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Do you have brand ambassador</label>
+                                    <select
+                                        name="has_ambassador"
+                                        value={formData.has_ambassador}
+                                        onChange={handleChange}
+                                        style={{
+                                            width: '100%',
+                                            padding: '15px',
+                                            backgroundColor: '#000',
+                                            border: '1px solid #333',
+                                            color: '#fff',
+                                            fontSize: '16px',
+                                            outline: 'none'
+                                        }}
+                                    >
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                        <option value="Need help with Brand Ambassador">Need help with Brand Ambassador</option>
+                                    </select>
+                                </div>
+                                <div style={{ marginBottom: '20px' }}>
+                                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Upload Brief / Planning File (PDF, PPT, DOCS)</label>
+                                    <input
+                                        type="file"
+                                        onChange={handleFileChange}
+                                        accept=".pdf,.ppt,.pptx,.doc,.docx"
+                                        style={{
+                                            width: '100%',
+                                            padding: '15px',
+                                            backgroundColor: '#111',
+                                            border: '1px dashed #444',
+                                            color: '#fff',
+                                            fontSize: '14px',
+                                            outline: 'none',
+                                            cursor: 'pointer'
+                                        }}
+                                    />
+                                    {briefFile && <p style={{ fontSize: '12px', color: '#4CBF64', marginTop: '5px' }}>Selected: {briefFile.name}</p>}
+                                </div>
+
                             </div>
                         )}
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '20px' }}>
-                            {step === 2 && (
+                            {step > 1 && (
                                 <button
                                     type="button"
                                     onClick={handleBack}
@@ -798,7 +938,7 @@ const MetaAdLanding = () => {
                                 type="submit"
                                 disabled={submitting}
                                 style={{
-                                    flex: 1,
+                                    flex: step > 1 ? 2 : 1,
                                     padding: '15px',
                                     backgroundColor: '#E52323',
                                     border: 'none',
@@ -811,7 +951,7 @@ const MetaAdLanding = () => {
                                     transition: 'all 0.3s ease'
                                 }}
                             >
-                                {submitting ? 'Processing...' : (step === 1 ? 'Submit' : (verifyingOtp ? 'Verifying...' : 'Submit Request'))}
+                                {submitting ? 'Processing...' : (step === 1 ? 'Next' : step === 2 ? (verifyingOtp ? 'Verifying...' : 'Verify Email') : 'Submit')}
                             </button>
                         </div>
                     </form>
