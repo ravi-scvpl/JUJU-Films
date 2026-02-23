@@ -17,7 +17,7 @@ import VideoModal from '../components/VideoModal';
 
 const Homepage2 = () => {
     // Dynamic Text State
-    const words = ["Story first. Always"];
+    const words = ["GOOD JUJU, GREAT FILMS"];
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [blogs, setBlogs] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -195,8 +195,9 @@ const Homepage2 = () => {
             <header className="h2-hero">
                 <div className="h2-hero-content">
                     <h1>
-                        <span className="h2-static-text">JUJU Films is a creator collective building original stories,
-                            under one <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> philosophy.</span>
+                        <span className="h2-static-text">From 10 seconds to full universes —
+                            we craft what people remember,
+                            under one <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> philosophy..</span>
                         <div className="h2-dynamic-text-wrapper">
                             {words.map((word, index) => (
                                 <span
