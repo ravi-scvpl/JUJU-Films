@@ -181,7 +181,7 @@ const Layout = ({ children }) => {
                                 <span className="footer__copyright">© 2026</span>
                                 <nav className="navigation navigation--bottom">
                                     <ul className="navigation__list footer-inline-list">
-                                        <li className="navigation__item "><a className="navigation__link" href="#">Privacy Policy</a></li>
+                                        <li className="navigation__item "><Link className="navigation__link" to="/privacy-policy">Privacy Policy</Link></li>
                                         <li className="navigation__item "><a className="navigation__link" href="#">Terms of Use</a></li>
                                         <li className="navigation__item "><a className="navigation__link" href="#cookiesPopin">Disclaimer</a></li>
                                     </ul>
@@ -189,7 +189,7 @@ const Layout = ({ children }) => {
                                 <div className="navigation navigation--bottom">
                                     <div className="navigation__list">
                                         <div className="navigation__item">
-                                            <a className="navigation__link" href="https://socialcloudventures.com/" target="_blank">Site by <span style={{ color: '#E52323' }}>SocialCloudVentures</span></a>
+                                            <a className="navigation__link" href="https://socialcloudventures.com/" target="_blank"> <span style={{ color: '#E52323' }}>Social Cloud Ventures</span> Company </a>
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +197,7 @@ const Layout = ({ children }) => {
                         </div>
                         <nav className="navigation navigation--bottom">
                             <ul className="navigation__list footer-inline-list">
-                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="#" rel="noreferrer">Newsletter</a></li>
+                                <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://www.youtube.com/@jujufilmsindia" rel="noreferrer">Youtube</a></li>
                                 <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://www.instagram.com/jujufilmsindia?igsh=eTNwcHZrNTR5cXFv" rel="noreferrer">Instagram</a></li>
                                 <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://www.facebook.com/share/17xYvGRBGJ/" rel="noreferrer">Facebook</a></li>
                                 <li className="navigation__item "><a className="navigation__link" target="_blank" href="https://x.com/JujuFilmsIndia" rel="noreferrer">X</a></li>

@@ -16,7 +16,7 @@ const BrandContactForm = () => {
                 <div pos="5-12" pos-s="row">
                     <div className="text" style={{ marginBottom: '40px' }}>
                         <h2 style={{ color: '#ffffff' }}>Brand Collaborations</h2>
-                        <p style={{ color: '#dddddd' }}>We are always ready to listen. Do you want to request a quote for the creation of a logo, a visual identity or a graphic design project? Feel free to fill out the form below. You can also write to us directly at devis@grapheine.com.</p>
+                        <p style={{ color: '#dddddd' }}>We are always ready to listen. Do you want to request a quote for the creation of a logo, a visual identity or a graphic design project? Feel free to fill out the form below. You can also write to us directly at info@jujuindia.com.</p>
                     </div>
 
                     <div className="frm_forms with_frm_style frm_style_formidable-style" id="frm_form_2_container" style={{

@@ -288,7 +288,7 @@ const AdminDashboard = () => {
 
             {/* Tabs */}
             <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
-                {['brand', 'meta_ads', 'creators', 'internships', 'jobs'].map(tab => (
+                {['organic_website', 'paid_ads', 'creators', 'internships', 'jobs'].map(tab => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}

@@ -23,6 +23,7 @@ const CaseStudyPost = lazy(() => import('./pages/CaseStudyPost'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Contact = lazy(() => import('./pages/Contact'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 
 const MetaAdLanding = lazy(() => import('./pages/MetaAdLanding'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -71,6 +72,7 @@ function App() {
               <Route path="/case-studies/:slug" element={<CaseStudyPost />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Route>
 
 

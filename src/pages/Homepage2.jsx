@@ -438,7 +438,7 @@ const Homepage2 = () => {
                     </div>
                     <div className="h2-agency-info-col-2">
                         <p className="h2-agency-info-p">
-                            From short-form micro-dramas to original series and films,
+                            From short-form micro-dramas to original series and ad films,
                             we create stories designed to travel—across formats, languages, and time.
 
                             Our work includes brand-enabled content where the brand lives inside the world, silently and authentically, supported by AI-powered storytelling that allows faster creation, regional scale, and future-ready formats.
