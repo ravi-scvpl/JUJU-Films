@@ -244,10 +244,12 @@
     /* Slightly narrower column */
     height: 100vh;
     position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     top: 0;
-    padding-top: 25vh;
     padding-left: 5vw;
-    align-items: start;
+    align-items: center;
     overflow: hidden;
     background: #fff;
 }
@@ -255,10 +257,14 @@
 /* Video Size: User asked for ~40% of container visually */
 .h2-sectors-media video {
     width: 90%;
-    max-width: 300px;
+    max-width: 500px;
     /* Constraint */
     height: auto;
     object-fit: contain;
+}
+
+.h2-sectors-media a {
+    padding-top: 15px;
 }
 
 .h2-sectors-list {

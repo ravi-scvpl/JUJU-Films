@@ -66,7 +66,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/juju-commercials" element={<JujuCommercial />} />
               <Route path="/about" element={<About />} />
-              <Route path="/team" element={<CollectivePage />} />
+              {/* <Route path="/team" element={<CollectivePage />} /> */}
               <Route path="/case-studies" element={<CaseStudiesPage />} />
               <Route path="/case-studies/:slug" element={<CaseStudyPost />} />
               <Route path="/blog" element={<BlogPage />} />

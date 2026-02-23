@@ -11,7 +11,9 @@ import shayarifilms from '../assets/Shayari.mp4';
 import outkro from '../assets/outkro.mp4';
 import gamebadalde from '../assets/gamebadalde.mp4';
 import xpert from '../assets/xpertkisuno.mp4';
-import jujuFilms from '../assets/JujuFilms.mp4';
+import jujuFilms from '../assets/juju-showreel.mp4';
+import jujuFilms2 from '../assets/jujuFilms.mp4';
+import VideoModal from '../components/VideoModal';
 
 const Homepage2 = () => {
     // Dynamic Text State
@@ -25,6 +27,10 @@ const Homepage2 = () => {
     const [storiesTypedText, setStoriesTypedText] = useState("");
     const storiesTitleRef = React.useRef(null);
     const storiesTargetText = "Stories";
+
+    // Video Modal State
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedVideo, setSelectedVideo] = useState(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -141,6 +147,16 @@ const Homepage2 = () => {
         return () => observer.disconnect();
     }, []);
 
+    const handleOpenShowreel = (e) => {
+        if (e) e.preventDefault();
+        setSelectedVideo({
+            type: 'local',
+            src: jujuFilms,
+            title: 'JUJU Films Showreel'
+        });
+        setIsModalOpen(true);
+    };
+
     return (
         <div className="page-template-homepage2">
             <SEO
@@ -238,8 +254,17 @@ const Homepage2 = () => {
             <section className="h2-sectors-container">
                 {/* Left Side: Static/Sticky Video */}
                 <div className="h2-sectors-media">
-                    <video autoPlay muted loop playsInline src={jujuFilms}></video>
+                    <video autoPlay muted loop playsInline src={jujuFilms2}></video>
+                    <a
+                        href="#"
+                        className="h2-magazine-nav-link"
+                        style={{ fontSize: '32px', borderBottom: '2px solid #ff8a8a', cursor: 'pointer' }}
+                        onClick={handleOpenShowreel}
+                    >
+                        Watch Showreel
+                    </a>
                 </div>
+
 
                 {/* Right Side: Scrollable Text */}
                 <div className="h2-sectors-list">
@@ -247,7 +272,7 @@ const Homepage2 = () => {
                         { name: "Juju Storyteller", path: "/juju-storytellers" },
                         { name: "Juju Commercials", path: "/juju-commercials" },
                         { name: "Juju AI Films", path: "/juju-ai-films" },
-                        { name: "Collective", path: "/team" },
+                        // { name: "Collective", path: "/team" },
                         { name: "Stories", path: "/blog" },
                         { name: "Case Studies", path: "/case-studies" },
                         { name: " ", path: null },
@@ -527,9 +552,12 @@ const Homepage2 = () => {
                 </div>
             </section>
 
-
-
-        </div >
+            <VideoModal
+                isOpen={isModalOpen}
+                video={selectedVideo}
+                onClose={() => setIsModalOpen(false)}
+            />
+        </div>
     );
 };
 

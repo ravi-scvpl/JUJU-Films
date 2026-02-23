@@ -120,9 +120,9 @@ const Layout = ({ children }) => {
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
                             </li>
-                            <li className="navigation__item">
+                            {/* <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/team" onClick={() => setIsMenuOpen(false)}>Collective</Link>
-                            </li>
+                            </li> */}
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-storytellers" onClick={() => setIsMenuOpen(false)}>Storytellers</Link>
                             </li>
