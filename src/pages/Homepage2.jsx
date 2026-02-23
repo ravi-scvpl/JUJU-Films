@@ -197,8 +197,8 @@ const Homepage2 = () => {
                     <h1>
                         <span className="h2-static-text">From 10 seconds to full universes —
                             we craft what people remember,
-                            under one <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> philosophy..</span>
-                        <div className="h2-dynamic-text-wrapper">
+                            under one <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> philosophy.</span> <span><span style={{ fontWeight: 'bold', color: '#e52323' }}>GOOD </span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>JUJU. </span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>GREAT </span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>FILMS.</span></span>
+                        {/* <div className="h2-dynamic-text-wrapper">
                             {words.map((word, index) => (
                                 <span
                                     key={index}
@@ -207,8 +207,16 @@ const Homepage2 = () => {
                                     {word}
                                 </span>
                             ))}
-                        </div>
+                        </div> */}
                     </h1>
+                    <a
+                        href="#"
+                        className="h2-magazine-nav-link"
+                        style={{ fontSize: '32px', borderBottom: '2px solid #ff8a8a', cursor: 'pointer' }}
+                        onClick={handleOpenShowreel}
+                    >
+                        Watch Showreel
+                    </a>
                 </div>
 
                 {/* Hero Media Block (Below Text) */}
