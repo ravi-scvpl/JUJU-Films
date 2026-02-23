@@ -29,6 +29,7 @@ const MetaAdLanding = () => {
         phone: '',
         email: '',
         website: '',
+        company: '', // Added to fix uncontrolled warning
         city: '',
         turnover: '',
         budget: '',
@@ -39,6 +40,8 @@ const MetaAdLanding = () => {
     const [error, setError] = useState('');
     const [otp, setOtp] = useState('');
     const [verifyingOtp, setVerifyingOtp] = useState(false);
+    const [resendTimer, setResendTimer] = useState(0);
+    const [resendDisabled, setResendDisabled] = useState(false);
     const videoRef = useRef(null);
 
     // Auto-play video on mount/success if needed
@@ -47,6 +50,19 @@ const MetaAdLanding = () => {
             videoRef.current.play().catch(e => console.log("Autoplay blocked", e));
         }
     }, [submitted]);
+
+    // Timer logic for OTP resend
+    useEffect(() => {
+        let interval;
+        if (resendTimer > 0) {
+            interval = setInterval(() => {
+                setResendTimer((prev) => prev - 1);
+            }, 1000);
+        } else if (resendTimer === 0) {
+            setResendDisabled(false);
+        }
+        return () => clearInterval(interval);
+    }, [resendTimer]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -67,8 +83,10 @@ const MetaAdLanding = () => {
     // ... (existing code)
 
     const capturePartialLead = async () => {
+        if (!formData.email || !formData.name) return null;
+
         try {
-            // Attempt to save partial data
+            console.log("Capturing partial lead...");
             const { data, error: supabaseError } = await supabase
                 .from('contacts')
                 .insert([{
@@ -77,19 +95,27 @@ const MetaAdLanding = () => {
                     email: formData.email,
                     phone: formData.phone,
                     address: formData.city,
-                    company: formData.website,
+                    company: formData.company || '', // Unified to use company
                     type: 'ad_lead_partial', // Mark as partial
                     status: 'new'
                 }])
                 .select()
                 .single();
 
-            if (supabaseError) throw supabaseError;
-            if (data) setLeadId(data.id);
+            if (supabaseError) {
+                console.warn("Partial lead capture Supabase error:", supabaseError.message);
+                return null;
+            }
 
+            if (data) {
+                console.log("Partial lead captured with ID:", data.id);
+                setLeadId(data.id);
+                return data.id;
+            }
         } catch (err) {
-            console.error("Partial lead capture exception", err);
+            console.error("Partial lead capture exception:", err);
         }
+        return null;
     };
 
     const handleNext = async (e) => {
@@ -107,22 +133,53 @@ const MetaAdLanding = () => {
                 const { error: otpError } = await supabase.auth.signInWithOtp({
                     email: formData.email,
                     options: {
-                        shouldCreateUser: false,
+                        shouldCreateUser: true,
                     }
                 });
 
                 if (otpError) throw otpError;
 
-                capturePartialLead(); // Capture partial lead
+                setResendTimer(120); // Start 2 minute timer
+                setResendDisabled(true);
+
+                // Await partial lead capture to ensure leadId is set
+                await capturePartialLead();
+
                 setStep(2);
             } catch (err) {
                 console.error("OTP send error", err);
-                setError('Failed to send verification code. Please check your email.');
+                if (err.status === 422 || err.message?.includes('Signups not allowed')) {
+                    setError('Verification failed: New signups are disabled in Supabase. Please enable "Allow new users to sign up" in your Supabase Dashboard.');
+                } else {
+                    setError('Failed to send verification code. Please check your email.');
+                }
             } finally {
                 setSubmitting(false);
             }
         } else {
             handleSubmit(e);
+        }
+    };
+
+    const handleResend = async () => {
+        setError('');
+        setResendDisabled(true);
+        try {
+            const { error: otpError } = await supabase.auth.signInWithOtp({
+                email: formData.email,
+                options: {
+                    shouldCreateUser: true,
+                }
+            });
+
+            if (otpError) throw otpError;
+
+            setResendTimer(120); // Reset timer to 2 minutes
+            alert("Verification code resent successfully!");
+        } catch (err) {
+            console.error("OTP resend error", err);
+            setError('Failed to resend code. Please try again later.');
+            setResendDisabled(false);
         }
     };
 
@@ -144,14 +201,36 @@ const MetaAdLanding = () => {
             }
 
             setVerifyingOtp(true);
-            const { error: verifyError } = await supabase.auth.verifyOtp({
-                email: formData.email,
-                token: otp,
-                type: 'email'
-            });
 
-            if (verifyError) {
-                setError('Invalid or expired verification code.');
+            const cleanEmail = formData.email.trim();
+            const cleanOtp = otp.trim();
+            const verificationTypes = ['signup', 'magiclink', 'email'];
+            let lastError = null;
+            let success = false;
+
+            console.log("Starting verification for:", cleanEmail);
+
+            for (const type of verificationTypes) {
+                console.log(`Attempting verification with type: ${type}...`);
+                const { error: verifyError } = await supabase.auth.verifyOtp({
+                    email: cleanEmail,
+                    token: cleanOtp,
+                    type: type
+                });
+
+                if (!verifyError) {
+                    console.log(`Verification successful with type: ${type}`);
+                    success = true;
+                    break;
+                } else {
+                    console.warn(`${type} verification failed:`, verifyError.message);
+                    lastError = verifyError;
+                }
+            }
+
+            if (!success) {
+                console.error("All verification attempts failed.");
+                setError(`Verification failed: ${lastError?.message || 'Invalid or expired code'}. Please try requesting a new code.`);
                 setVerifyingOtp(false);
                 setSubmitting(false);
                 return;
@@ -170,25 +249,61 @@ const MetaAdLanding = () => {
                 status: 'new'
             };
 
+            console.log("Lead data prepared for full submission:", leadData);
+
             let supabaseError;
+            let rowsAffected = 0;
 
             if (leadId) {
-                // Update existing partial lead
-                const { error } = await supabase
+                console.log("Updating lead by ID:", leadId);
+                const { error, count } = await supabase
                     .from('contacts')
-                    .update(leadData)
+                    .update(leadData, { count: 'exact' })
                     .eq('id', leadId);
                 supabaseError = error;
+                rowsAffected = count || 0;
             } else {
-                // Fallback: Insert new if no partial ID (shouldn't happen normally)
-                const { error } = await supabase
+                console.log("No leadId found, searching by email fallback...");
+                const { data: existing, error: findError } = await supabase
                     .from('contacts')
-                    .insert([leadData]);
-                supabaseError = error;
+                    .select('id')
+                    .eq('email', formData.email)
+                    .eq('type', 'ad_lead_partial')
+                    .order('created_at', { ascending: false })
+                    .limit(1);
+
+                if (existing && existing.length > 0) {
+                    console.log("Found existing lead via fallback:", existing[0].id);
+                    const { error, count } = await supabase
+                        .from('contacts')
+                        .update(leadData, { count: 'exact' })
+                        .eq('id', existing[0].id);
+                    supabaseError = error;
+                    rowsAffected = count || 0;
+                } else {
+                    console.log("No existing lead found, creating new record.");
+                    const { error } = await supabase
+                        .from('contacts')
+                        .insert([leadData]);
+                    supabaseError = error;
+                    rowsAffected = 1; // Assuming success if no error
+                }
             }
 
-            if (supabaseError) throw supabaseError;
+            if (supabaseError) {
+                console.error("Supabase Operation Error:", supabaseError);
+                throw supabaseError;
+            }
 
+            if (rowsAffected === 0) {
+                console.error("Critical: 0 rows were updated. Check your RLS 'UPDATE' policy!");
+                setError('Warning: Your data could not be saved. Please contact support or check RLS policies.');
+                setVerifyingOtp(false);
+                setSubmitting(false);
+                return;
+            }
+
+            console.log("Final submission successful, rows affected:", rowsAffected);
             setSubmitted(true);
         } catch (err) {
             console.error('Error submitting form:', err);
@@ -343,26 +458,7 @@ const MetaAdLanding = () => {
                         >
                             Take me to Homepage
                         </Link>
-                        <Link
-                            to="/"
-                            className="hover-scale"
-                            style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                padding: '12px 25px',
-                                backgroundColor: '#E52323',
-                                border: '1px solid #E52323',
-                                color: '#fff',
-                                textDecoration: 'none',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                fontSize: '14px',
-                                borderRadius: '50px',
-                                transition: 'all 0.3s'
-                            }}
-                        >
 
-                        </Link>
                     </div>
                 </div>
             </div>
@@ -537,7 +633,7 @@ const MetaAdLanding = () => {
                                         value={otp}
                                         onChange={(e) => setOtp(e.target.value)}
                                         required
-                                        maxLength="6"
+                                        maxLength="8"
                                         style={{
                                             width: '100%',
                                             padding: '15px',
@@ -549,8 +645,32 @@ const MetaAdLanding = () => {
                                             textAlign: 'center',
                                             outline: 'none'
                                         }}
-                                        placeholder="000000"
+                                        placeholder="00000000"
                                     />
+                                    <div style={{ marginTop: '15px', textAlign: 'center' }}>
+                                        {resendTimer > 0 ? (
+                                            <p style={{ fontSize: '12px', color: '#888' }}>
+                                                Resend code in <span style={{ color: '#E52323' }}>{Math.floor(resendTimer / 60)}:{(resendTimer % 60).toString().padStart(2, '0')}</span>
+                                            </p>
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                onClick={handleResend}
+                                                disabled={resendDisabled}
+                                                style={{
+                                                    background: 'none',
+                                                    border: 'none',
+                                                    color: '#E52323',
+                                                    fontSize: '12px',
+                                                    textDecoration: 'underline',
+                                                    cursor: 'pointer',
+                                                    opacity: resendDisabled ? 0.5 : 1
+                                                }}
+                                            >
+                                                Didn't receive the code? Resend
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
                                 <div style={{ marginBottom: '20px' }}>
                                     <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', color: '#888' }}>Company Name *</label>
