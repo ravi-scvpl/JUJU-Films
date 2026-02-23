@@ -12,7 +12,7 @@ import outkro from '../assets/outkro.mp4';
 import gamebadalde from '../assets/gamebadalde.mp4';
 import xpert from '../assets/xpertkisuno.mp4';
 import jujuFilms from '../assets/juju-showreel.mp4';
-import jujuFilms2 from '../assets/jujuFilms.mp4';
+import jujuFilms2 from '../assets/JujuFilms.mp4';
 import VideoModal from '../components/VideoModal';
 
 const Homepage2 = () => {
