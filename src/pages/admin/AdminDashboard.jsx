@@ -148,8 +148,8 @@ const AdminDashboard = () => {
                 .select('*, lead_feedbacks(*)')
                 .order('created_at', { ascending: false });
 
-            if (activeTab === 'meta_ads') {
-                query = query.in('type', ['ad_lead', 'ad_lead_partial']);
+            if (activeTab === 'paid_ads') {
+                query = query.in('type', ['paid_ads', 'paid_ads_partial', 'ad_lead', 'ad_lead_partial']);
             } else {
                 query = query.eq('type', activeTab);
             }
@@ -302,7 +302,7 @@ const AdminDashboard = () => {
                             textTransform: 'capitalize'
                         }}
                     >
-                        {tab === 'brand' ? 'Brand Collabs' : tab}
+                        {tab === 'organic_website' ? 'Brand Collabs' : tab}
                     </button>
                 ))}
             </div>
@@ -378,7 +378,7 @@ const AdminDashboard = () => {
                                 {lead.address && <p><strong>City:</strong> {lead.address}</p>}
 
                                 {/* Brand Specifics */}
-                                {activeTab === 'brand' && (
+                                {activeTab === 'organic_website' && (
                                     <>
                                         {lead.company && <p><strong>Company:</strong> {lead.company}</p>}
                                         {lead.deadline && <p><strong>Deadline:</strong> {lead.deadline}</p>}
@@ -387,7 +387,7 @@ const AdminDashboard = () => {
                                 )}
 
                                 {/* Meta Ads Specifics */}
-                                {activeTab === 'meta_ads' && (
+                                {activeTab === 'paid_ads' && (
                                     <>
                                         {lead.company && <p><strong>Company:</strong> {lead.company}</p>}
                                         {lead.website_url && <p><strong>Website:</strong> <a href={lead.website_url} target="_blank" rel="noopener noreferrer">{lead.website_url}</a></p>}

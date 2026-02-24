@@ -133,6 +133,9 @@ const Layout = ({ children }) => {
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>AI Films</Link>
                             </li>
                             <li className="navigation__item">
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ecosystem" onClick={() => setIsMenuOpen(false)}>Growth Content</Link>
+                            </li>
+                            <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} to="/case-studies" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
                             </li>
                             <li className="navigation__item">
@@ -156,9 +159,10 @@ const Layout = ({ children }) => {
                         <nav className="navigation navigation--footer">
                             <ul className="navigation__list">
 
-                                <li className="navigation__item"><Link className="navigation__link" to="/brand-collabrations">Storytellers</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/juju-storytellers">Storytellers</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/juju-commercials">Commercials</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ai-lab">AI Films</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ai-films">AI Films</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ecosystem">Ecosystem</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/contact">Contact</Link></li>
                             </ul>
                         </nav>
@@ -182,8 +186,8 @@ const Layout = ({ children }) => {
                                 <nav className="navigation navigation--bottom">
                                     <ul className="navigation__list footer-inline-list">
                                         <li className="navigation__item "><Link className="navigation__link" to="/privacy-policy">Privacy Policy</Link></li>
-                                        <li className="navigation__item "><a className="navigation__link" href="#">Terms of Use</a></li>
-                                        <li className="navigation__item "><a className="navigation__link" href="#cookiesPopin">Disclaimer</a></li>
+                                        <li className="navigation__item "><Link className="navigation__link" to="/terms-of-use">Terms of Use</Link></li>
+                                        <li className="navigation__item "><Link className="navigation__link" to="/disclaimer">Disclaimer</Link></li>
                                     </ul>
                                 </nav>
                                 <div className="navigation navigation--bottom">

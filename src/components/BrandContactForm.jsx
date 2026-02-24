@@ -22,9 +22,12 @@ const BrandContactForm = () => {
                     <div className="frm_forms with_frm_style frm_style_formidable-style" id="frm_form_2_container" style={{
                         '--title-color': '#ffffff',
                         '--label-color': '#ffffff',
-                        '--text-color': '#000000', // Input text color should differ if inputs are white
+                        '--text-color': '#ffffff',
                         '--form-desc-color': '#dddddd',
-                        '--check-label-color': '#ffffff'
+                        '--check-label-color': '#ffffff',
+                        '--bg-color': 'rgba(255, 255, 255, 0.05)',
+                        '--border-color': 'rgba(255, 255, 255, 0.2)',
+                        '--field-font-size': '16px'
                     }}>
                         <form encType="multipart/form-data" method="post" className="frm-show-form frm_js_validate frm_pro_form">
                             <div className="frm_form_fields">
@@ -67,7 +70,7 @@ const BrandContactForm = () => {
 
                                         <div className="frm_form_field form-field frm_top_container frm_full">
                                             <label className="frm_primary_label">What is your request?</label>
-                                            <textarea rows="5" style={{ color: '#000000' }}></textarea>
+                                            <textarea rows="5"></textarea>
                                         </div>
 
                                         <div className="frm_form_field form-field frm_top_container frm12 frm_first">
@@ -80,11 +83,18 @@ const BrandContactForm = () => {
                                             >
                                                 <div className="dz-message needsclick">
                                                     <span className="frm_upload_text">
-                                                        <button type="button" style={{ pointerEvents: 'none' }}>
+                                                        <button type="button" style={{
+                                                            pointerEvents: 'none',
+                                                            background: 'transparent',
+                                                            color: '#ffffff',
+                                                            border: '1px solid rgba(255,255,255,0.3)',
+                                                            padding: '10px 20px',
+                                                            borderRadius: '4px'
+                                                        }}>
                                                             {selectedFile ? selectedFile.name : "Drop a file here or click to upload"}
                                                         </button>
                                                     </span>
-                                                    {!selectedFile && <div className="frm_small_text"><p>Max file size: 128MB</p></div>}
+                                                    {!selectedFile && <div className="frm_small_text"><p style={{ color: '#888', marginTop: '10px' }}>Max file size: 128MB</p></div>}
                                                 </div>
                                                 <input
                                                     type="file"

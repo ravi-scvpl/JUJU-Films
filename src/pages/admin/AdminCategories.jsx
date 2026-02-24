@@ -101,7 +101,7 @@ const AdminCategories = () => {
                                 onChange={handleInputChange}
                             >
                                 <option value="blog">Blog</option>
-                                <option value="influence">Influence</option>
+                                <option value="influence">Case Studies</option>
                             </select>
                         </div>
 
@@ -132,7 +132,7 @@ const AdminCategories = () => {
                                                 fontWeight: '600',
                                                 marginTop: '4px'
                                             }}>
-                                                {cat.type.toUpperCase()}
+                                                {cat.type === 'influence' ? 'CASE STUDIES' : cat.type.toUpperCase()}
                                             </span>
                                             <span style={{ marginLeft: '10px' }}>Slug: {cat.slug}</span>
                                         </div>

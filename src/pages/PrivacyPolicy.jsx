@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SEO from '../components/SEO';
 
 const PrivacyPolicy = () => {
+    useEffect(() => {
+        document.body.classList.add('switch');
+        return () => {
+            document.body.classList.remove('switch');
+        };
+    }, []);
+
     return (
-        <div style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh', paddingTop: '120px', paddingBottom: '80px' }}>
+        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ minHeight: '100vh', paddingTop: '120px', paddingBottom: '80px', marginBottom: 0 }}>
             <SEO
                 title="Privacy Policy"
                 description="Privacy Policy for JUJU Films - Learn how we collect and protect your information."
@@ -12,10 +19,10 @@ const PrivacyPolicy = () => {
 
             <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
                 <h1 style={{ fontSize: '48px', fontWeight: '300', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '4px' }}>Privacy Policy</h1>
-                <p style={{ color: '#888', marginBottom: '40px', fontSize: '14px' }}>Last Updated on: Feb 23, 2026 | Contact: info@jujuindia.com</p>
+                <p style={{ marginBottom: '40px', fontSize: '14px', opacity: 0.6 }}>Last Updated on: Feb 23, 2026 | Contact: info@jujuindia.com</p>
 
                 <div className="policy-content" style={{ lineHeight: '1.8', fontSize: '16px', fontWeight: '300' }}>
-                    <p style={{ marginBottom: '30px', color: '#bbb' }}>
+                    <p style={{ marginBottom: '30px', opacity: 0.8 }}>
                         This Privacy Policy is published in compliance with the Information Technology Act, 2000 and the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011.
                     </p>
 

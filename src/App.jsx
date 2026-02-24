@@ -18,12 +18,15 @@ const CollectivePage = lazy(() => import('./pages/CollectivePage'));
 const JujuStorytellers = lazy(() => import('./pages/JujuStorytellers'));
 const JujuCommercial = lazy(() => import('./pages/JujuCommercial'));
 const JujuAIFilms = lazy(() => import('./pages/JujuAIFilms'));
+const JujuEcosystem = lazy(() => import('./pages/JujuEcosystem'));
 const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage'));
 const CaseStudyPost = lazy(() => import('./pages/CaseStudyPost'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Contact = lazy(() => import('./pages/Contact'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
+const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 
 const MetaAdLanding = lazy(() => import('./pages/MetaAdLanding'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -66,6 +69,7 @@ function App() {
               <Route path="/juju-ai-films" element={<JujuAIFilms />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/juju-commercials" element={<JujuCommercial />} />
+              <Route path="/juju-ecosystem" element={<JujuEcosystem />} />
               <Route path="/about" element={<About />} />
               {/* <Route path="/team" element={<CollectivePage />} /> */}
               <Route path="/case-studies" element={<CaseStudiesPage />} />
@@ -73,6 +77,8 @@ function App() {
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-use" element={<TermsOfUse />} />
+              <Route path="/disclaimer" element={<Disclaimer />} />
             </Route>
 
 

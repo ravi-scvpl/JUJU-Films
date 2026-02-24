@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import BrandContactForm from '../components/BrandContactForm';
-import VideoModal from '../components/VideoModal';
 import SEO from '../components/SEO';
+import AboutMediaGrid from '../components/about/AboutMediaGrid';
+import AIFilmsDetailedContent from '../components/ai-films/AIFilmsDetailedContent';
+import VideoModal from '../components/VideoModal';
 
 const videos2025 = [
     {
@@ -22,7 +23,7 @@ const videos2025 = [
 ];
 
 const VideoItem = ({ video, onVideoClick }) => {
-    const [isHovered, setIsHovered] = React.useState(false);
+    const [isHovered, setIsHovered] = useState(false);
     let src;
     let thumbSrc;
 
@@ -97,8 +98,8 @@ const VideoItem = ({ video, onVideoClick }) => {
 };
 
 const JujuAIFilms = () => {
-    const [selectedVideo, setSelectedVideo] = React.useState(null);
-    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [selectedVideo, setSelectedVideo] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleVideoClick = (video) => {
         setSelectedVideo(video);
@@ -110,7 +111,7 @@ const JujuAIFilms = () => {
         setSelectedVideo(null);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         document.body.classList.add('switch');
         return () => {
             document.body.classList.remove('switch');
@@ -118,47 +119,52 @@ const JujuAIFilms = () => {
     }, []);
 
     return (
-        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch">
+        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ marginBottom: 0, paddingBottom: 0, paddingTop: '120px' }}>
             <SEO
-                title="AI Films"
-                description="Cost-controlled, full-service brand IP—created entirely with AI."
+                title="AI Films | Human Skill. AI Advantage."
+                description="JUJU AI Films combines world-class creative talent with advanced AI tools to produce AI-powered ads and scalable brand IP."
                 canonical="/juju-ai-films"
-                schema={{
-                    "@context": "https://schema.org",
-                    "@type": "CollectionPage",
-                    "name": "Juju AI Films",
-                    "description": "Cost-controlled, full-service brand IP—created entirely with AI.",
-                    "url": "https://www.jujuindia.com/juju-ai-films"
-                }}
             />
             <div>
-                <header className="hero">
-                    <div className="grid hero__content reveal-on-scroll">
-                        <p pos="row" pos-s="row" className="hero__title">
-                            Juju AI Films
-                        </p>
-                        <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '72px' }}>
-                            <span style={{ color: '#FF2B2B' }}>Cost-controlled, full-service brand IP—
-                                created entirely with</span> AI,
-                            built to scale narratives faster,
-                            without losing emotion or control.
-                        </h1>
+                <div style={{ minHeight: '50vh', padding: '0' }}>
+
+                    {/* Hero Section */}
+                    <div className="text reveal-on-scroll" style={{ margin: 0, paddingBottom: 50 }}>
+                        <div className="grid hero__content" style={{ paddingTop: 0, marginTop: 0 }}>
+                            <p pos="row" pos-s="row" className="hero__title" style={{ fontSize: '36px', marginTop: 0 }}>
+                                <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> AI Films
+                            </p>
+                            <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '64px' }}>
+                                <span>Human Skill. AI Advantage. <br /> Unfair Advantage. </span>
+                            </h1>
+                        </div>
                     </div>
-                </header>
-                <section className="works-chronology">
-                    <ol className="works-chronology__list grid reveal-on-scroll">
-                        <li className="works-chronology__year">
-                            <h5 className="works-chronology__title"><span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span></h5>
-                            <ol>
-                                {videos2025.map((video, index) => (
-                                    <VideoItem key={index} video={video} onVideoClick={handleVideoClick} />
-                                ))}
-                            </ol>
-                        </li>
-                    </ol>
-                </section>
-                <BrandContactForm />
-                <VideoModal video={selectedVideo} isOpen={isModalOpen} onClose={closeModal} />
+
+                    <AboutMediaGrid />
+
+                    <AIFilmsDetailedContent />
+
+                    {/* Works Chronology - Optional: keep it or move it to a specific section */}
+                    {/* <section className="works-chronology" style={{ marginTop: '100px' }}>
+                        <div className="grid">
+                             <div style={{ gridColumn: '1 / 13' }}>
+                                <h2 style={{ fontSize: '48px', fontWeight: '300', marginBottom: '40px' }}>Our Work</h2>
+                             </div>
+                        </div>
+                        <ol className="works-chronology__list grid reveal-on-scroll">
+                            <li className="works-chronology__year">
+                                <h5 className="works-chronology__title"><span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span></h5>
+                                <ol>
+                                    {videos2025.map((video, index) => (
+                                        <VideoItem key={index} video={video} onVideoClick={handleVideoClick} />
+                                    ))}
+                                </ol>
+                            </li>
+                        </ol>
+                    </section> */}
+
+                    <VideoModal video={selectedVideo} isOpen={isModalOpen} onClose={closeModal} />
+                </div>
             </div>
         </div>
     );

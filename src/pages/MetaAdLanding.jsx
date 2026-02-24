@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import SEO from '../components/SEO';
 import '../styles/juju-overrides.css';
 import bgVideo from '../assets/bg-ad-landing-jujufilms.mp4';
 import showreelVideo from '../assets/juju-showreel-small-size.mp4';
-import { Link } from 'react-router-dom';
 
 const formOptions = [
     { value: "Product TVC" },
@@ -23,6 +23,9 @@ const formOptions = [
 ];
 
 const MetaAdLanding = () => {
+    const [searchParams] = useSearchParams();
+    const isOrganic = searchParams.get('src') === 'organic';
+
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         name: '',
@@ -107,7 +110,8 @@ const MetaAdLanding = () => {
                     phone: formData.phone,
                     address: formData.city,
                     company: formData.company || '', // Unified to use company
-                    type: 'ad_lead_partial', // Mark as partial
+                    company: formData.company || '', // Unified to use company
+                    type: isOrganic ? 'organic_website' : 'paid_ads_partial', // attribution based on source
                     status: 'new',
                     lead_tag: 'partial'
                 }])
@@ -309,7 +313,7 @@ const MetaAdLanding = () => {
                 address: formData.city,
                 budget: '',
                 message: `Services: ${Array.isArray(formData.service) ? formData.service.join(', ') : formData.service}`,
-                type: 'ad_lead',
+                type: isOrganic ? 'organic_website' : 'paid_ads',
                 status: 'new',
                 start_timeline: formData.start_timeline,
                 website_url: formData.website_url,
@@ -338,7 +342,7 @@ const MetaAdLanding = () => {
                     .from('contacts')
                     .select('id')
                     .eq('email', formData.email)
-                    .eq('type', 'ad_lead_partial')
+                    .eq('type', isOrganic ? 'organic_website' : 'paid_ads_partial')
                     .order('created_at', { ascending: false })
                     .limit(1);
 

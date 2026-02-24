@@ -87,7 +87,7 @@ const AdminLayout = () => {
                                 to="/admin/influence"
                                 className={`admin-nav-link ${isActive('/admin/influence') ? 'active' : ''}`}
                             >
-                                Influence Posts
+                                Case Studies
                             </Link>
                         </li>
                     </ul>

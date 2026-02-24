@@ -13,6 +13,7 @@ const AdminInfluence = () => {
     const [currentPost, setCurrentPost] = useState(null);
     const [formData, setFormData] = useState({
         title: '',
+        slug: '',
         content: '',
         image_url: '',
         meta_title: '',
@@ -54,12 +55,38 @@ const AdminInfluence = () => {
         setLoading(false);
     };
 
+    const generateSlug = (text) => {
+        return text
+            .toString()
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, '-')        // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')    // Remove all non-word chars
+            .replace(/\-\-+/g, '-');     // Replace multiple - with single -
+    };
+
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
+
+        setFormData(prev => {
+            const newData = {
+                ...prev,
+                [name]: type === 'checkbox' ? checked : value
+            };
+
+            // Auto-generate slug if title changes
+            if (name === 'title') {
+                const currentSlug = prev.slug;
+                const expectedSlug = generateSlug(prev.title);
+
+                // If slug matches the "old" title slug (or is empty), update it
+                if (!currentSlug || currentSlug === expectedSlug) {
+                    newData.slug = generateSlug(value);
+                }
+            }
+
+            return newData;
+        });
     };
 
     const handleContentChange = (content) => {
@@ -133,10 +160,9 @@ const AdminInfluence = () => {
         setCurrentPost(post);
         setFormData({
             title: post.title,
+            slug: post.slug || '',
             content: post.content,
             image_url: post.image_url,
-            meta_title: post.meta_title || '',
-            meta_desc: post.meta_desc || '',
             meta_title: post.meta_title || '',
             meta_desc: post.meta_desc || '',
             category: post.category || '',
@@ -162,6 +188,7 @@ const AdminInfluence = () => {
         setCurrentPost(null);
         setFormData({
             title: '',
+            slug: '',
             content: '',
             image_url: '',
             meta_title: '',
@@ -176,8 +203,8 @@ const AdminInfluence = () => {
     return (
         <div>
             <div className="admin-header">
-                <SEO title="Influence Management" noindex={true} />
-                <h1 className="page-title">Influence Management</h1>
+                <SEO title="Case Studies Management" noindex={true} />
+                <h1 className="page-title">Case Studies Management</h1>
             </div>
 
             <div className="editor-layout">
@@ -195,6 +222,18 @@ const AdminInfluence = () => {
                                 required
                                 placeholder="Enter post title"
                             />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Slug (URL identifier)</label>
+                            <input
+                                className="form-control"
+                                name="slug"
+                                value={formData.slug}
+                                onChange={handleInputChange}
+                                placeholder="e.g. multi-channel-campaign"
+                            />
+                            <small style={{ color: '#6b7280', marginTop: '4px', display: 'block' }}>If empty, ID will be used in URL</small>
                         </div>
 
                         <div className="form-group">
@@ -242,14 +281,16 @@ const AdminInfluence = () => {
                         </div>
 
                         <div className="form-group">
-                            <label className="form-label">SEO Meta Description</label>
+                            <label className="form-label">Short Description (Structured Details)</label>
                             <textarea
                                 className="form-control"
                                 name="meta_desc"
                                 value={formData.meta_desc}
                                 onChange={handleInputChange}
-                                rows="3"
+                                rows="12"
+                                placeholder={"Category: FMCG / Lifestyle\nFormat: 50-episode vertical drama series\nObjective: Build subconscious recall among Gen-Z\nStrategy: Brand as producer, not advertiser\nDistribution: Organic platform hosting\n\nImpact:\n12M+ organic views\n\n68% episode completion rate\n\n4.3x brand recall uplift\n\nStrong comment-led engagement\n\nWhy It Worked:\nThe brand funded the narrative. The story carried the values. No visible selling.\nAgency:\nBrand:"}
                             ></textarea>
+                            <small style={{ color: '#6b7280', marginTop: '4px', display: 'block' }}>Use 'Key: Value' format for each line to display as structured data on the page.</small>
                         </div>
                     </form>
                 </div>
@@ -302,7 +343,7 @@ const AdminInfluence = () => {
 
             {/* List */}
             <div className="card" style={{ marginTop: '32px' }}>
-                <h2 style={{ marginBottom: '24px', fontSize: '20px' }}>All Influence Posts</h2>
+                <h2 style={{ marginBottom: '24px', fontSize: '20px' }}>All Case Studies</h2>
                 {loading ? <p>Loading...</p> : (
                     <div className="post-list">
                         {posts.map(post => (

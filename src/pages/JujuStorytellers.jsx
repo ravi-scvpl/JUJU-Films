@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import BrandContactForm from '../components/BrandContactForm';
-import '../styles/juju-overrides.css';
 import SEO from '../components/SEO';
+import AboutMediaGrid from '../components/about/AboutMediaGrid';
+import StorytellersDetailedContent from '../components/storytellers/StorytellersDetailedContent';
+import VideoModal from '../components/VideoModal';
 
 const videos2025 = [
     {
@@ -58,10 +59,8 @@ const videos2025 = [
 ];
 
 
-import VideoModal from '../components/VideoModal';
-
 const VideoItem = ({ video, onVideoClick }) => {
-    const [isHovered, setIsHovered] = React.useState(false);
+    const [isHovered, setIsHovered] = useState(false);
     let src;
     let thumbSrc;
 
@@ -136,8 +135,8 @@ const VideoItem = ({ video, onVideoClick }) => {
 };
 
 const JujuStorytellers = () => {
-    const [selectedVideo, setSelectedVideo] = React.useState(null);
-    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [selectedVideo, setSelectedVideo] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleVideoClick = (video) => {
         setSelectedVideo(video);
@@ -157,47 +156,54 @@ const JujuStorytellers = () => {
     }, []);
 
     return (
-        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch">
+        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ marginBottom: 0, paddingBottom: 0, paddingTop: '120px' }}>
             <SEO
-                title="Storytellers"
-                description="Brand-funded original stories built as cultural IP—with distribution baked in."
+                title="JUJU Storytellers | Web Series & Micro Dramas"
+                description="JUJU Storytellers specializes in web series, vertical micro dramas, and long-form social content. We build original narrative IP brands can belong to."
                 canonical="/juju-storytellers"
-                schema={{
-                    "@context": "https://schema.org",
-                    "@type": "CollectionPage",
-                    "name": "Juju Storytellers",
-                    "description": "Brand-funded original stories built as cultural IP—with distribution baked in.",
-                    "url": "https://www.jujuindia.com/juju-storytellers"
-                }}
             />
             <div>
-                <header className="hero">
-                    <div className="grid hero__content reveal-on-scroll">
-                        <p pos="row" pos-s="row" className="hero__title">
-                            Juju Storytellers
-                        </p>
-                        <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '72px' }}>
-                            <span style={{ color: '#FF2B2B' }}>Brand-funded original stories built</span> as cultural IP—
-                            with distribution baked in, and recall that compounds over time.
-                        </h1>
+                <div style={{ minHeight: '50vh', padding: '0' }}>
+
+                    {/* Hero Section */}
+                    <div className="text reveal-on-scroll" style={{ margin: 0, paddingBottom: 50 }}>
+                        <div className="grid hero__content" style={{ paddingTop: 0, marginTop: 0 }}>
+                            <p pos="row" pos-s="row" className="hero__title" style={{ fontSize: '36px', marginTop: 0 }}>
+                                <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> Storytellers
+                            </p>
+                            <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '64px' }}>
+                                <span>Web Series. <br /> Vertical Micro Drama Series. <br /> Long-Form Social Content. </span>
+                            </h1>
+                        </div>
                     </div>
-                </header>
-                <section className="works-chronology">
-                    <ol className="works-chronology__list grid reveal-on-scroll">
-                        <li className="works-chronology__year">
-                            <h5 className="works-chronology__title"><span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span></h5>
-                            <ol>
-                                {videos2025.map((video, index) => (
-                                    <VideoItem key={index} video={video} onVideoClick={handleVideoClick} />
-                                ))}
-                            </ol>
-                        </li>
-                    </ol>
-                </section>
-                <BrandContactForm />
-                <VideoModal video={selectedVideo} isOpen={isModalOpen} onClose={closeModal} />
+
+                    <AboutMediaGrid />
+
+                    <StorytellersDetailedContent />
+
+                    {/* Works Chronology - Optional: keep it or move it to a specific section */}
+                    {/* <section className="works-chronology" style={{ marginTop: '100px' }}>
+                        <div className="grid">
+                             <div style={{ gridColumn: '1 / 13' }}>
+                                <h2 style={{ fontSize: '48px', fontWeight: '300', marginBottom: '40px' }}>Our Work</h2>
+                             </div>
+                        </div>
+                        <ol className="works-chronology__list grid reveal-on-scroll">
+                            <li className="works-chronology__year">
+                                <h5 className="works-chronology__title"><span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span></h5>
+                                <ol>
+                                    {videos2025.map((video, index) => (
+                                        <VideoItem key={index} video={video} onVideoClick={handleVideoClick} />
+                                    ))}
+                                </ol>
+                            </li>
+                        </ol>
+                    </section> */}
+
+                    <VideoModal video={selectedVideo} isOpen={isModalOpen} onClose={closeModal} />
+                </div>
             </div>
-        </div >
+        </div>
     );
 };
 

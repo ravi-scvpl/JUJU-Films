@@ -18,8 +18,8 @@ const CaseStudyPost = () => {
                 .eq('slug', slug)
                 .single();
 
-            // Fallback to fetch by ID
-            if (!data && !isNaN(slug)) {
+            // Fallback to fetch by ID (handles UUIDs and numeric IDs)
+            if (!data) {
                 const { data: dataId } = await supabase
                     .from('influencer_posts')
                     .select('*')

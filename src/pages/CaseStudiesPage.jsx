@@ -96,6 +96,50 @@ const CaseStudiesPage = () => {
     const featuredArticle = articles[0];
     const remainingArticles = articles.slice(1);
 
+    const renderClearDescription = (text, className, isLarge = false) => {
+        if (!text) return null;
+
+        // Clean special characters and &nbsp;
+        const cleanText = text.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+
+        const keys = ["Category", "Format", "Objective", "Goal", "Target", "Challenge", "Client", "Role", "Brand", "Success", "Strategy", "Distribution", "Impact", "Why It Worked", "Agency"];
+        const regex = new RegExp(`(${keys.join("|")}):`, "i");
+
+        if (!regex.test(cleanText)) {
+            const truncatedText = isLarge ? cleanText.substring(0, 150) + '...' : cleanText.substring(0, 100) + '...';
+            return <p className={className}>{truncatedText}</p>;
+        }
+
+        const parts = cleanText.split(new RegExp(`(${keys.join("|")}):`, "gi")).filter(part => part !== undefined && part.length > 0);
+
+        const elements = [];
+        let currentPos = 0;
+
+        // The first element might be text BEFORE any key
+        const firstPart = parts[0]?.toLowerCase().trim();
+        if (!keys.some(k => firstPart === k.toLowerCase())) {
+            if (parts[0]?.trim()) {
+                elements.push(<p key="lead" style={{ marginBottom: '10px', opacity: 0.8 }}>{parts[0].trim()}</p>);
+            }
+            currentPos = 1;
+        }
+
+        for (let i = currentPos; i < parts.length; i += 2) {
+            const key = parts[i];
+            const value = parts[i + 1];
+            if (key && value) {
+                elements.push(
+                    <div key={key} style={{ marginBottom: '4px', fontSize: '13px', display: 'flex', gap: '8px', lineHeight: '1.4' }}>
+                        <span style={{ color: '#E52323', textTransform: 'uppercase', fontWeight: '600', minWidth: '85px', fontSize: '11px' }}>{key}:</span>
+                        <span style={{ color: '#ccc', whiteSpace: 'pre-wrap' }}>{value.trim()}</span>
+                    </div>
+                );
+            }
+        }
+
+        return <div className={className} style={{ marginTop: '15px' }}>{elements}</div>;
+    };
+
     return (
         <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch juju-page-container">
             <SEO
@@ -172,9 +216,7 @@ const CaseStudiesPage = () => {
                             </Link>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                            <p className="juju-featured-intro">
-                                {featuredArticle.intro}
-                            </p>
+                            {renderClearDescription(featuredArticle.intro, "juju-featured-intro")}
                             <Link to={`/case-studies/${featuredArticle.slug}`} className="juju-read-more">
                                 View Case Study →
                             </Link>
@@ -239,11 +281,7 @@ const CaseStudiesPage = () => {
                                         </>
                                     )}
 
-                                    {isLarge ? (
-                                        <p className="h2-mag-desc" style={{ marginTop: '20px', maxWidth: '80%', color: '#ccc' }}>{article.intro.substring(0, 150)}...</p>
-                                    ) : (
-                                        <p className="h2-mag-desc" style={{ marginTop: '10px', color: '#ccc' }}>{article.intro.substring(0, 100)}...</p>
-                                    )}
+                                    {renderClearDescription(article.intro, "h2-mag-desc", isLarge)}
                                 </Link>
                             </div>
                         );

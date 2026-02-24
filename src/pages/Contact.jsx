@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 
 const Contact = () => {
     const location = useLocation();
-    const [activeTab, setActiveTab] = useState('brand');
+    const [activeTab, setActiveTab] = useState('organic_website');
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = React.useRef(null);
 
@@ -75,11 +75,11 @@ const Contact = () => {
                     last_name: formData.last_name,
                     email: formData.email,
                     phone: formData.phone,
-                    company: activeTab === 'brand' ? formData.company : null,
-                    address: activeTab === 'brand' ? formData.address : null,
-                    deadline: activeTab === 'brand' ? formData.deadline : null,
-                    budget: activeTab === 'brand' ? formData.budget : null,
-                    portfolio_url: activeTab !== 'brand' ? formData.portfolio_url : null,
+                    company: activeTab === 'organic_website' ? formData.company : null,
+                    address: activeTab === 'organic_website' ? formData.address : null,
+                    deadline: activeTab === 'organic_website' ? formData.deadline : null,
+                    budget: activeTab === 'organic_website' ? formData.budget : null,
+                    portfolio_url: activeTab !== 'organic_website' ? formData.portfolio_url : null,
                     message: formData.message,
                     file_url: fileUrl,
                     status: 'new'
@@ -104,7 +104,7 @@ const Contact = () => {
 
 
     const tabContent = {
-        brand: {
+        organic_website: {
             title: "We are always <br />ready to listen.",
             introHeading: "Brand Collaborations",
             introText: "Do you want to request a quote for the creation of a logo, a visual identity or a graphic design project? Feel free to fill out the form below. You can also write to us directly at info@jujuindia.com.",
@@ -151,8 +151,8 @@ const Contact = () => {
                     <div className="hero__tabs">
                         <nav className="tabs">
                             <ul className="tabs__list">
-                                <li className={`tab ${activeTab === 'brand' ? 'tab--active' : ''}`}>
-                                    <button className="tab__link" onClick={() => setActiveTab('brand')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', font: 'inherit' }}>Brand Collabrations</button>
+                                <li className={`tab ${activeTab === 'organic_website' ? 'tab--active' : ''}`}>
+                                    <button className="tab__link" onClick={() => setActiveTab('organic_website')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', font: 'inherit' }}>Brand Collabrations</button>
                                 </li>
                                 <li className={`tab ${activeTab === 'creators' ? 'tab--active' : ''}`}>
                                     <button className="tab__link" onClick={() => setActiveTab('creators')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', font: 'inherit' }}>Creators Connect</button>
@@ -213,7 +213,7 @@ const Contact = () => {
                                                     </div>
 
                                                     {/* Conditional: Brand Only */}
-                                                    {activeTab === 'brand' && (
+                                                    {activeTab === 'organic_website' && (
                                                         <>
                                                             <div className="frm_form_field form-field frm_top_container frm6 frm_first">
                                                                 <label className="frm_primary_label">Company</label>
@@ -235,7 +235,7 @@ const Contact = () => {
                                                     )}
 
                                                     {/* Conditional: Portfolio/Resume for others */}
-                                                    {activeTab !== 'brand' && (
+                                                    {activeTab !== 'organic_website' && (
                                                         <div className="frm_form_field form-field frm_top_container frm12 frm_first">
                                                             <label className="frm_primary_label">Portfolio / Resume URL</label>
                                                             <input type="url" name="portfolio_url" value={formData.portfolio_url} onChange={handleInputChange} placeholder="https://behance.net/..." />
@@ -244,7 +244,7 @@ const Contact = () => {
 
                                                     <div className="frm_form_field form-field frm_top_container frm_full">
                                                         <label className="frm_primary_label">
-                                                            {activeTab === 'brand' ? 'What is your request?' : 'Tell us about yourself / your project'}
+                                                            {activeTab === 'organic_website' ? 'What is your request?' : 'Tell us about yourself / your project'}
                                                         </label>
                                                         <textarea name="message" value={formData.message} onChange={handleInputChange} rows="5"></textarea>
                                                     </div>
