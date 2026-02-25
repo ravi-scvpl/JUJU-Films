@@ -13,7 +13,7 @@
 /* Hero Section */
 .juju-hero-section {
     min-height: auto !important;
-    border-bottom: 1px solid #222 !important;
+    border-bottom: none !important;
     background: #000 !important;
     margin-top: -1px !important;
     padding-top: 150px;
@@ -26,6 +26,8 @@
     background: #000 !important;
     color: #fff !important;
     padding: 80px 43px 80px 43px;
+    border-top: none !important;
+    border-bottom: none !important;
 }
 
 /* Featured Image Container */
@@ -59,13 +61,13 @@
 .juju-featured-intro {
     font-size: 16px !important;
     line-height: 1.5 !important;
-    color: #ccc !important;
+    color: #FFFFFF !important;
     margin: 0 !important;
 }
 
 .juju-read-more {
     margin-top: 30px !important;
-    color: #E52323 !important;
+    color: #ffffff !important;
     font-size: 16px !important;
     font-weight: 500 !important;
     display: inline-block !important;
@@ -79,6 +81,7 @@
     color: #fff !important;
     padding: 20px 43px 40px;
     /* Default padding */
+    border-top: none !important;
 }
 
 /* Grid Container */
@@ -179,7 +182,7 @@
     }
 
     .juju-grid-section {
-        padding: 20px 43px 40px !important;
+        padding: 20px 43px 40px;
         /* Reduced top padding for gap */
     }
 

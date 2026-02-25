@@ -25,10 +25,14 @@ const JujuEcosystem = () => {
                     <div className="text reveal-on-scroll" style={{ margin: 0, paddingBottom: 50 }}>
                         <div className="grid hero__content" style={{ paddingTop: 0, marginTop: 0 }}>
                             <p pos="row" pos-s="row" className="hero__title" style={{ fontSize: '36px', marginTop: 0 }}>
-                                <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> Ecosystem
+                                <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> Growth Content
                             </p>
                             <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '64px' }}>
-                                <span>Brand Ecosystem & <br /> Growth Content. <br /> Built for Cultural Scale. </span>
+                                <span>6 Second Bumper Ads.<br />
+                                    YouTube Non-Skippable Ads.<br />
+                                    Meta Performance Video Ads.
+                                    Influencer Videos.<br />
+                                    UGC Content. </span>
                             </h1>
                         </div>
                     </div>

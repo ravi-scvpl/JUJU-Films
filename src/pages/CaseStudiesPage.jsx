@@ -130,8 +130,8 @@ const CaseStudiesPage = () => {
             if (key && value) {
                 elements.push(
                     <div key={key} style={{ marginBottom: '4px', fontSize: '13px', display: 'flex', gap: '8px', lineHeight: '1.4' }}>
-                        <span style={{ color: '#E52323', textTransform: 'uppercase', fontWeight: '600', minWidth: '85px', fontSize: '11px' }}>{key}:</span>
-                        <span style={{ color: '#ccc', whiteSpace: 'pre-wrap' }}>{value.trim()}</span>
+                        <span style={{ color: '#FFFFFF', textTransform: 'uppercase', fontWeight: '600', minWidth: '110px', fontSize: '11px', whiteSpace: 'nowrap' }}>{key}</span>
+                        <span style={{ color: '#FFFFFF', whiteSpace: 'pre-wrap', flex: 1 }}>{value.trim()}</span>
                     </div>
                 );
             }

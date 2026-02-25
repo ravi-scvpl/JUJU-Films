@@ -135,7 +135,11 @@ const JujuAIFilms = () => {
                                 <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> AI Films
                             </p>
                             <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '64px' }}>
-                                <span>Human Skill. AI Advantage. <br /> Unfair Advantage. </span>
+                                <span>AI Ads. <br />
+                                    AI UGC Content. <br />
+                                    AI Brand Ambassador Creation. <br />
+                                    AI Spokesperson for Brands. <br />
+                                    AI Influencer & Digital Avatar. </span>
                             </h1>
                         </div>
                     </div>

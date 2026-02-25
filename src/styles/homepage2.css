@@ -566,8 +566,8 @@
 .h2-mag-desc {
     font-size: 18px;
     line-height: 1.4;
-    color: #ccc;
-    max-width: 400px;
+    color: #fff;
+    max-width: 100%;
 }
 
 .h2-mag-media-placeholder {

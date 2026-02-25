@@ -461,7 +461,10 @@ const JujuCommercial = () => {
                                 <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> Commercials
                             </p>
                             <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '64px' }}>
-                                <span>High-Impact Brand Films <br /> Built to Perform. <br /> TVCs & Digital Ads. </span>
+                                <span>TV Commercial (TVC). <br />
+                                    Digital Video Commercial (DVC).<br />
+                                    10 & 20 sec High Impact Ads.<br />
+                                    Brand Film.</span>
                             </h1>
                         </div>
                     </div>

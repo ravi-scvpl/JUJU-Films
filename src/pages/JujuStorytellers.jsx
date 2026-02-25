@@ -172,7 +172,7 @@ const JujuStorytellers = () => {
                                 <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> Storytellers
                             </p>
                             <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '64px' }}>
-                                <span>Web Series. <br /> Vertical Micro Drama Series. <br /> Long-Form Social Content. </span>
+                                <span>Music Videos. <br />  Vertical Micro Drama Series. <br /> Long-Form Social Content. <br /> OTT Web Series </span>
                             </h1>
                         </div>
                     </div>
