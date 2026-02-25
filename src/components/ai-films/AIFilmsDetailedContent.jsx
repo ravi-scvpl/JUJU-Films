@@ -63,8 +63,8 @@ const AIFilmsDetailedContent = () => {
         <div className="ai-films-detailed-content" style={{ marginTop: 0, paddingBottom: '80px' }}>
 
             {/* Intro Section */}
-            <section className="section grid reveal-on-scroll" style={{ display: 'grid', marginBottom: '100px' }}>
-                <div style={{ gridColumn: '5 / 13' }}>
+            <section className="section grid reveal-on-scroll intro-section" style={{ display: 'grid', marginBottom: '100px' }}>
+                <div className="intro-text-column" style={{ gridColumn: '5 / 13' }}>
                     <h2 style={{ fontSize: '36px', fontWeight: '400', color: '#FF2B2B' }}>
                         The future of filmmaking isn’t human vs AI.
                     </h2>
@@ -78,11 +78,11 @@ const AIFilmsDetailedContent = () => {
             </section>
 
             {/* Core Pillars */}
-            <section className="section reveal-on-scroll" style={{ marginBottom: '100px' }}>
+            <section className="section reveal-on-scroll pillars-section" style={{ marginBottom: '100px' }}>
                 <div className="grid">
-                    <div style={{ gridColumn: '1 / 13' }}>
+                    <div className="pillars-container" style={{ gridColumn: '1 / 13' }}>
                         {pillars.map((pillar, index) => (
-                            <div key={index} style={{
+                            <div className="pillar-item" style={{
                                 display: 'grid',
                                 gridTemplateColumns: 'repeat(12, 1fr)',
                                 gap: '20px',
@@ -90,10 +90,10 @@ const AIFilmsDetailedContent = () => {
                                 borderTop: '1px solid #333',
                                 color: '#fff'
                             }}>
-                                <div style={{ gridColumn: '1 / 5' }}>
+                                <div className="pillar-title-col" style={{ gridColumn: '1 / 5' }}>
                                     <h3 style={{ fontSize: '32px', fontWeight: '300', lineHeight: '1.2', color: '#111' }}>{pillar.title}</h3>
                                 </div>
-                                <div style={{ gridColumn: '6 / 13' }}>
+                                <div className="pillar-content-col" style={{ gridColumn: '6 / 13' }}>
                                     <p style={{ fontSize: '18px', color: '#444', marginBottom: '30px' }}>{pillar.desc}</p>
                                     <ul style={{ listStyle: 'none', padding: 0, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
                                         {pillar.points.map((point, idx) => (
@@ -119,13 +119,13 @@ const AIFilmsDetailedContent = () => {
             </section>
 
             {/* Logic Section */}
-            <section className="section reveal-on-scroll" style={{ backgroundColor: '#111', padding: '100px 0', marginBottom: '100px' }}>
+            <section className="section reveal-on-scroll logic-section" style={{ backgroundColor: '#111', padding: '100px 0', marginBottom: '100px' }}>
                 <div className="grid">
-                    <div style={{ gridColumn: '1 / 5' }}>
+                    <div className="logic-title-col" style={{ gridColumn: '1 / 5' }}>
                         <h2 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', color: '#FF2B2B' }}>Why AI Films Work</h2>
                         <h3 style={{ fontSize: '42px', fontWeight: '300', marginTop: '20px', color: '#fff' }}>Strategic Advantage for Modern Brands</h3>
                     </div>
-                    <div style={{ gridColumn: '6 / 13', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px 20px' }}>
+                    <div className="logic-content-col" style={{ gridColumn: '6 / 13', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px 20px' }}>
                         {benefits.map((benefit, index) => (
                             <div key={index}>
                                 <h4 style={{ fontSize: '18px', fontWeight: '400', marginBottom: '10px', color: '#FF2B2B' }}>{benefit.title}</h4>
@@ -137,13 +137,13 @@ const AIFilmsDetailedContent = () => {
             </section>
 
             {/* Who It Is For */}
-            <section className="section grid reveal-on-scroll" style={{ marginBottom: '100px' }}>
+            <section className="section grid reveal-on-scroll who-built-section" style={{ marginBottom: '100px' }}>
                 <div style={{ gridColumn: '1 / 13', paddingTop: '20px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '40px' }}>
-                        <div style={{ gridColumn: '1 / 5' }}>
+                    <div className="who-built-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '40px' }}>
+                        <div className="who-built-title-col" style={{ gridColumn: '1 / 5' }}>
                             <h2 style={{ fontSize: '48px', fontWeight: '300', lineHeight: '1.1' }}>Who this is built for.</h2>
                         </div>
-                        <div style={{ gridColumn: '6 / 13' }}>
+                        <div className="who-built-content-col" style={{ gridColumn: '6 / 13' }}>
                             <div style={{ display: 'grid', gap: '15px' }}>
                                 {[
                                     { title: "Growth-stage Brands", desc: "Scaling digital presence with performance-ready creative." },
@@ -176,9 +176,9 @@ const AIFilmsDetailedContent = () => {
             </section>
 
             {/* CTA */}
-            <section className="section reveal-on-scroll" style={{}}>
+            <section className="section reveal-on-scroll cta-section" style={{}}>
                 <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', alignItems: 'center', gap: '40px' }}>
-                    <div style={{ gridColumn: '1 / 7' }}>
+                    <div className="cta-image-col" style={{ gridColumn: '1 / 7' }}>
                         <div className="office-image-container" style={{ boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
                             <video
                                 loop
@@ -193,7 +193,7 @@ const AIFilmsDetailedContent = () => {
                         </div>
                     </div>
 
-                    <div style={{ gridColumn: '8 / 13' }}>
+                    <div className="cta-text-col" style={{ gridColumn: '8 / 13' }}>
                         <h2 style={{ fontSize: '56px', fontWeight: '300', marginBottom: '20px', lineHeight: '1.1' }}>
                             Ready to Build <br />
                             <span style={{ color: '#FF2B2B' }}>with AI?</span>

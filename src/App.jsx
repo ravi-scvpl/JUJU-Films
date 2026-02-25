@@ -10,6 +10,7 @@ import './styles/home-style-2.css';
 import './styles/style.css';
 import './styles/style2.css';
 import './styles/theme.css';
+import './styles/detailed-pages.css';
 
 // Lazy Load Pages
 const Homepage2 = lazy(() => import('./pages/Homepage2'));

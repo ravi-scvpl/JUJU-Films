@@ -1,0 +1,173 @@
+/* Mobile responsiveness for AI Film, Storyteller, Commercial, and Ecosystem pages */
+
+@media only screen and (max-width: 1023px) {
+
+    /* Hero Section Adjustments */
+    .hero__content {
+        padding-top: 40px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    .hero__title {
+        font-size: 24px !important;
+        margin-bottom: 20px !important;
+        grid-column: 1 / -1 !important;
+    }
+
+    .hero__description {
+        font-size: 32px !important;
+        line-height: 1.2 !important;
+        margin-top: 0 !important;
+        grid-column: 1 / -1 !important;
+    }
+
+    /* Subgrid items on mobile/tablet */
+    .grid[style*="display: grid; grid-template-columns: repeat(12, 1fr)"],
+    .who-built-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    /* All columns should take full width on mobile */
+    .intro-text-column,
+    .pillars-container,
+    .pillar-title-col,
+    .pillar-content-col,
+    .logic-title-col,
+    .logic-content-col,
+    .difference-title-col,
+    .difference-content-col,
+    .who-built-title-col,
+    .who-built-content-col,
+    .cta-image-col,
+    .cta-text-col {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+    }
+
+    /* Intro Section */
+    .intro-section {
+        display: flex !important;
+        flex-direction: column !important;
+        margin-bottom: 60px !important;
+    }
+
+    .intro-section h2 {
+        font-size: 28px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .intro-section p {
+        font-size: 18px !important;
+    }
+
+    /* Core Pillars Section */
+    .pillars-section {
+        margin-bottom: 60px !important;
+    }
+
+    .pillar-item {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        padding: 40px 0 !important;
+    }
+
+    .pillar-title-col h3 {
+        font-size: 28px !important;
+    }
+
+    .pillar-content-col p {
+        font-size: 16px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .pillar-content-col ul {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    /* Logic / Difference Section */
+    .logic-section,
+    .difference-section {
+        padding: 60px 0 !important;
+        margin-bottom: 60px !important;
+    }
+
+    .logic-section .grid,
+    .difference-section .grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    .logic-title-col h3,
+    .difference-title-col h3 {
+        font-size: 32px !important;
+    }
+
+    .logic-content-col,
+    .difference-content-col {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    /* Who It Is For Section */
+    .who-built-section {
+        margin-bottom: 60px !important;
+    }
+
+    .who-built-title-col h2 {
+        font-size: 36px !important;
+    }
+
+    /* CTA Section */
+    .cta-section .grid {
+        display: flex !important;
+        flex-direction: column-reverse !important;
+        /* Text first, then image on mobile */
+        gap: 40px !important;
+    }
+
+    .cta-text-col h2 {
+        font-size: 36px !important;
+    }
+
+    .cta-image-col .office-image-container {
+        height: 300px !important;
+        /* Explicit height for video container on mobile */
+    }
+
+    .cta-image-col video {
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+
+    /* Further adjustments for small mobile */
+    .hero__description {
+        font-size: 28px !important;
+    }
+
+    .intro-section h2 {
+        font-size: 24px !important;
+    }
+
+    .pillar-title-col h3 {
+        font-size: 24px !important;
+    }
+
+    .logic-title-col h3,
+    .difference-title-col h3 {
+        font-size: 28px !important;
+    }
+
+    .cta-text-col h2 {
+        font-size: 32px !important;
+    }
+}

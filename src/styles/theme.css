@@ -249,15 +249,25 @@ body.collective-page .theme-light .page {
 
     /* Header Fixes */
     .header__container {
-        padding: 0 15px !important;
+        padding: 10px 15px !important;
     }
 
     .header__logo {
-        padding-top: 15px !important;
+        padding-top: 0 !important;
+        display: flex;
+        align-items: center;
     }
 
     .header__logo img {
         height: 20px !important;
+    }
+
+    .mobile-menu-toggle {
+        position: static !important;
+        padding: 10px 0 10px 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        margin-left: auto !important;
     }
 
     /* Mobile Menu Centering */
