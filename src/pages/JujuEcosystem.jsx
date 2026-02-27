@@ -3,6 +3,7 @@ import SEO from '../components/SEO';
 import AboutMediaGrid from '../components/about/AboutMediaGrid';
 import EcosystemDetailedContent from '../components/ecosystem/EcosystemDetailedContent';
 import Layout from '../components/Layout';
+import growthvideo from '../assets/growth_content.aep.mp4';
 
 const JujuEcosystem = () => {
     useEffect(() => {
@@ -35,7 +36,7 @@ const JujuEcosystem = () => {
                     </div>
                 </div>
 
-                <AboutMediaGrid />
+                <AboutMediaGrid videoSrc={growthvideo} />
 
                 <section className="reveal-on-scroll" style={{ padding: '0px 0 0' }}>
                     <EcosystemDetailedContent />

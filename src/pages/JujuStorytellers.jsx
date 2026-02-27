@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import ContentPillars from '../components/storytellers/StorytellersDetailedContent';
 import VideoModal from '../components/VideoModal';
 import AboutMediaGrid from '../components/about/AboutMediaGrid';
+import storytellingvideo from '../assets/juju_storytelling.mp4';
 
 const videos2025 = [
     {
@@ -175,10 +176,10 @@ const JujuStorytellers = () => {
                     </div>
                 </div>
 
-                <AboutMediaGrid />
+                <AboutMediaGrid videoSrc={storytellingvideo} />
 
                 <section className="reveal-on-scroll" style={{ padding: '0px 0 0' }}>
-                    <ContentPillars type="storytellers" />
+                    <ContentPillars />
                 </section>
 
                 <VideoModal video={selectedVideo} isOpen={isModalOpen} onClose={closeModal} />

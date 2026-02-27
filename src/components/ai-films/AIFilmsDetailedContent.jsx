@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ImageTicker from '../common/ImageTicker';
 import { aiFilmsImages as tickerImages } from '../../assets/imageTiker';
-import aboutvideo from '../../assets/juju-about.mp4';
+import juju_ai from '../../assets/juju_ai.mp4';
+import juju_about from '../../assets/juju-about.mp4'
 
 const AIFilmsDetailedContent = () => {
 
@@ -188,7 +189,7 @@ const AIFilmsDetailedContent = () => {
                                 autoPlay
                                 style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                             >
-                                <source src={aboutvideo} type="video/mp4" />
+                                <source src={juju_about} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         </div>
@@ -228,3 +229,4 @@ const AIFilmsDetailedContent = () => {
 };
 
 export default AIFilmsDetailedContent;
+

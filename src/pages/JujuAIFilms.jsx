@@ -1,5 +1,9 @@
+import React, { useEffect, useState } from 'react';
+import SEO from '../components/SEO';
 import AboutMediaGrid from '../components/about/AboutMediaGrid';
-import commercialvideo from '../assets/juju-commercials.mp4';
+import AIFilmsDetailedContent from '../components/ai-films/AIFilmsDetailedContent';
+import VideoModal from '../components/VideoModal';
+import aivideo from '../assets/juju_ai.mp4';
 
 const videos2025 = [
     {
@@ -62,7 +66,7 @@ const JujuAIFilms = () => {
                     </div>
                 </div>
 
-                <AboutMediaGrid videoSrc={commercialvideo} />
+                <AboutMediaGrid videoSrc={aivideo} />
 
                 <section className="reveal-on-scroll" style={{ padding: '0px 0 0' }}>
                     <AIFilmsDetailedContent />
