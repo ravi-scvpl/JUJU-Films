@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import SEO from '../../components/SEO';
+import { useAuth } from '../../contexts/AuthContext';
 
 const AdminDashboard = () => {
+    const { role } = useAuth();
     const [leads, setLeads] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('brand'); // brand, creators, internships, jobs
@@ -89,9 +91,23 @@ const AdminDashboard = () => {
     };
 
     const deleteLead = async (id) => {
+        if (role !== 'admin') {
+            alert('Only admins can delete leads.');
+            return;
+        }
+
         if (!window.confirm('Are you sure you want to permanently delete this lead?')) return;
 
         try {
+            // First delete related feedbacks due to foreign key constraint
+            const { error: feedbackError } = await supabase
+                .from('lead_feedbacks')
+                .delete()
+                .eq('contact_id', id);
+
+            if (feedbackError) throw feedbackError;
+
+            // Then delete the contact
             const { error } = await supabase
                 .from('contacts')
                 .delete()
@@ -319,22 +335,24 @@ const AdminDashboard = () => {
                     </div>
                     {currentLeads.map((lead) => (
                         <div key={lead.id} style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', position: 'relative' }}>
-                            <button
-                                onClick={() => deleteLead(lead.id)}
-                                style={{
-                                    position: 'absolute',
-                                    top: '20px',
-                                    right: '20px',
-                                    backgroundColor: 'transparent',
-                                    border: 'none',
-                                    color: '#ff4444',
-                                    cursor: 'pointer',
-                                    fontSize: '12px',
-                                    fontWeight: 'bold'
-                                }}
-                            >
-                                DELETE
-                            </button>
+                            {role === 'admin' && (
+                                <button
+                                    onClick={() => deleteLead(lead.id)}
+                                    style={{
+                                        position: 'absolute',
+                                        top: '20px',
+                                        right: '20px',
+                                        backgroundColor: 'transparent',
+                                        border: 'none',
+                                        color: '#ff4444',
+                                        cursor: 'pointer',
+                                        fontSize: '12px',
+                                        fontWeight: 'bold'
+                                    }}
+                                >
+                                    DELETE
+                                </button>
+                            )}
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', paddingRight: '80px' }}>
                                 <h3 style={{ margin: 0 }}>
                                     {lead.first_name || 'Unknown'} {lead.last_name || ''}
