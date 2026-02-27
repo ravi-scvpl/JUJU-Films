@@ -93,8 +93,8 @@ const CaseStudiesPage = () => {
         };
     }, [activeCategory]);
 
-    const featuredArticle = articles[0];
-    const remainingArticles = articles.slice(1);
+    // All articles will be shown in the grid now
+    const displayArticles = articles;
 
     const renderClearDescription = (text, className, isLarge = false) => {
         if (!text) return null;
@@ -168,67 +168,15 @@ const CaseStudiesPage = () => {
                     </div>
                 </div>
 
-                <ul className="h2-magazine-nav">
-                    <li>
-                        <button
-                            className={`h2-magazine-nav-link ${activeCategory === 'All' ? 'active' : ''}`}
-                            onClick={() => setActiveCategory('All')}
-                            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit' }}
-                        >
-                            All
-                        </button>
-                    </li>
-                    {categories.map(cat => (
-                        <li key={cat.id}>
-                            <button
-                                className={`h2-magazine-nav-link ${activeCategory === cat.name ? 'active' : ''}`}
-                                onClick={() => setActiveCategory(cat.name)}
-                                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit' }}
-                            >
-                                {cat.name}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+
             </section>
 
-            {/* FEATURED SECTION */}
-            {featuredArticle && (
-                <section className="reveal-on-scroll juju-featured-section">
-                    {/* Full Width Image */}
-                    <div className="juju-featured-image-container">
-                        <Link to={`/case-studies/${featuredArticle.slug}`}>
-                            <img
-                                src={featuredArticle.image || `https://placehold.co/1200x500/111/fff?text=${encodeURIComponent(featuredArticle.title)}`}
-                                alt={featuredArticle.title}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                            />
-                        </Link>
-                    </div>
 
-                    {/* Split Layout */}
-                    <div className="juju-featured-content-grid">
-                        <div>
-                            <Link to={`/case-studies/${featuredArticle.slug}`} style={{ textDecoration: 'none', color: '#fff' }}>
-                                <h2 className="juju-featured-title">
-                                    {featuredArticle.title}
-                                </h2>
-                            </Link>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                            {renderClearDescription(featuredArticle.intro, "juju-featured-intro")}
-                            <Link to={`/case-studies/${featuredArticle.slug}`} className="juju-read-more">
-                                View Case Study →
-                            </Link>
-                        </div>
-                    </div>
-                </section>
-            )}
 
             {/* GRID SECTION */}
             <div className="juju-grid-section">
                 <div className="h2-magazine-grid juju-grid-container">
-                    {remainingArticles.map((article, index) => {
+                    {displayArticles.map((article, index) => {
                         const patternIndex = index % 4;
                         let gridStyle = {};
                         let aspectRatio = '16/9';
@@ -281,7 +229,7 @@ const CaseStudiesPage = () => {
                                         </>
                                     )}
 
-                                    {renderClearDescription(article.intro, "h2-mag-desc", isLarge)}
+                                    {/* Description removed as requested */}
                                 </Link>
                             </div>
                         );
