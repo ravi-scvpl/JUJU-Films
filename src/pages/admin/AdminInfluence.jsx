@@ -329,6 +329,24 @@ const AdminInfluence = () => {
                         </div>
 
                         <div className="form-group">
+                            <label className="form-label">Category</label>
+                            <select
+                                className="form-control"
+                                name="category"
+                                value={formData.category}
+                                onChange={handleInputChange}
+                                required
+                            >
+                                <option value="">Select a Category</option>
+                                {categories.map(cat => (
+                                    <option key={cat.id} value={cat.name}>
+                                        {cat.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="form-group">
                             <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                                 <input
                                     type="checkbox"
@@ -383,6 +401,18 @@ const AdminInfluence = () => {
                                         <span className={`status-badge ${post.published ? 'status-published' : 'status-draft'}`}>
                                             {post.published ? 'Published' : 'Draft'}
                                         </span>
+                                        {post.category && (
+                                            <span style={{
+                                                padding: '2px 8px',
+                                                borderRadius: '4px',
+                                                background: '#f3f4f6',
+                                                color: '#374151',
+                                                fontSize: '11px',
+                                                fontWeight: 600
+                                            }}>
+                                                {post.category}
+                                            </span>
+                                        )}
                                         <span>Last modified: {new Date(post.created_at).toLocaleDateString()}</span>
                                     </div>
                                 </div>
