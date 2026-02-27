@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import ImageTicker from '../common/ImageTicker';
+import { aiFilmsImages as tickerImages } from '../../assets/imageTiker';
 import aboutvideo from '../../assets/juju-about.mp4';
 
 const AIFilmsDetailedContent = () => {
@@ -76,7 +77,7 @@ const AIFilmsDetailedContent = () => {
                     </p>
                 </div>
             </section>
-
+            <ImageTicker images={tickerImages} speed={0.8} />
             {/* Core Pillars */}
             <section className="section reveal-on-scroll pillars-section" style={{ marginBottom: '100px' }}>
                 <div className="grid">

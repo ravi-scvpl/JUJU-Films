@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import ImageTicker from '../common/ImageTicker';
+import { storytellersImages as tickerImages } from '../../assets/imageTiker';
 import aboutvideo from '../../assets/juju-about.mp4';
 
 const StorytellersDetailedContent = () => {
-
     const pillars = [
         {
             title: "Web Series Production for Brands & Platforms",
@@ -69,6 +69,7 @@ const StorytellersDetailedContent = () => {
 
                 </div>
             </section>
+            <ImageTicker images={tickerImages} speed={0.8} />
 
 
             {/* Core Pillars */}

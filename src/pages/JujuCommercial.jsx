@@ -4,6 +4,8 @@ import SEO from '../components/SEO';
 import AboutMediaGrid from '../components/about/AboutMediaGrid';
 import CommercialsDetailedContent from '../components/commercials/CommercialsDetailedContent';
 import VideoModal from '../components/VideoModal';
+import Layout from '../components/Layout';
+import commercialsVideo from '../assets/juju-commercials.mp4';
 
 const videos2025 = [
     {
@@ -445,56 +447,35 @@ const JujuCommercial = () => {
     }, []);
 
     return (
-        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ marginBottom: 0, paddingBottom: 0, paddingTop: '120px' }}>
+        <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch juju-page-container">
             <SEO
-                title="Commercials | High-Impact Brand Films"
-                description="JUJU Commercials is a modern TVC and digital ad film production unit built for brands that want impact — not interruption."
-                canonical="/juju-commercial"
+                title="JUJU Commercials | High-Impact Brand Films"
+                description="Specializing in TVCs, digital ads, and high-impact brand films built to perform."
             />
-            <div>
-                <div style={{ minHeight: '50vh', padding: '0' }}>
-
-                    {/* Hero Section */}
-                    <div className="text reveal-on-scroll" style={{ margin: 0, paddingBottom: 50 }}>
-                        <div className="grid hero__content" style={{ paddingTop: 0, marginTop: 0 }}>
-                            <p pos="row" pos-s="row" className="hero__title" style={{ fontSize: '36px', marginTop: 0 }}>
-                                <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> Commercials
-                            </p>
-                            <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '64px' }}>
-                                <span>TV Commercial (TVC). <br />
-                                    Digital Video Commercial (DVC).<br />
-                                    10 & 20 sec High Impact Ads.<br />
-                                    Brand Film.</span>
-                            </h1>
-                        </div>
+            <main id="content" role="main" className="content">
+                {/* Hero Section */}
+                <div className="text reveal-on-scroll" style={{ margin: 0, paddingBottom: 50, paddingTop: 150 }}>
+                    <div className="grid hero__content" style={{ paddingTop: 0, marginTop: 0 }}>
+                        <p pos="row" pos-s="row" className="hero__title" style={{ fontSize: '36px', marginTop: 0 }}>
+                            <span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span> Commercials
+                        </p>
+                        <h1 pos="5-12" pos-s="row" className="hero__description" style={{ fontWeight: '300', fontSize: '64px' }}>
+                            <span>TV Commercial (TVC). <br />
+                                Digital Video Commercial (DVC).<br />
+                                10 & 20 sec High Impact Ads.<br />
+                                Brand Film.</span>
+                        </h1>
                     </div>
-
-                    <AboutMediaGrid />
-
-                    <CommercialsDetailedContent />
-
-                    {/* Works Chronology - Optional: keep it or move it to a specific section */}
-                    {/* <section className="works-chronology" style={{ marginTop: '100px' }}>
-                        <div className="grid">
-                            <div style={{ gridColumn: '1 / 13' }}>
-                                <h2 style={{ fontSize: '48px', fontWeight: '300', marginBottom: '40px' }}>Our Work</h2>
-                            </div>
-                        </div>
-                        <ol className="works-chronology__list grid reveal-on-scroll">
-                            <li className="works-chronology__year">
-                                <h5 className="works-chronology__title"><span style={{ fontWeight: 'bold', color: '#e52323' }}>J</span><span style={{ fontWeight: 'bold', color: '#E9BC2D' }}>U</span><span style={{ fontWeight: 'bold', color: '#4CBF64' }}>J</span><span style={{ fontWeight: 'bold', color: '#52C3E1' }}>U</span></h5>
-                                <ol>
-                                    {videos2025.map((video, index) => (
-                                        <VideoItem key={index} video={video} onVideoClick={handleVideoClick} />
-                                    ))}
-                                </ol>
-                            </li>
-                        </ol>
-                    </section> */}
-
-                    <VideoModal video={selectedVideo} isOpen={isModalOpen} onClose={closeModal} />
                 </div>
-            </div>
+
+                <AboutMediaGrid videoSrc={commercialsVideo} />
+
+                <section className="reveal-on-scroll" style={{ padding: '0px 0 0' }}>
+                    <CommercialsDetailedContent />
+                </section>
+
+                <VideoModal video={selectedVideo} isOpen={isModalOpen} onClose={closeModal} />
+            </main>
         </div>
     );
 };

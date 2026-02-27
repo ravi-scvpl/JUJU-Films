@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import aboutvideo from '../../assets/juju-about1.mp4';
 import './AboutMediaGrid.css';
 
-const AboutMediaGrid = () => {
+const AboutMediaGrid = ({ videoSrc = aboutvideo }) => {
     const videoRef = useRef(null);
 
     return (
@@ -16,7 +16,7 @@ const AboutMediaGrid = () => {
                     muted
                     playsInline
                 >
-                    <source src={aboutvideo} type="video/mp4" />
+                    <source src={videoSrc} type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
             </div>
