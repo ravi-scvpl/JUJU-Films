@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import '../styles/admin.css';
 
 const AdminLayout = () => {
-    const { logout } = useAuth();
+    const { logout, role } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -66,30 +66,34 @@ const AdminLayout = () => {
                                 Dashboard (Leads)
                             </Link>
                         </li>
-                        <li className="admin-nav-item">
-                            <Link
-                                to="/admin/categories"
-                                className={`admin-nav-link ${isActive('/admin/categories') ? 'active' : ''}`}
-                            >
-                                Categories
-                            </Link>
-                        </li>
-                        <li className="admin-nav-item">
-                            <Link
-                                to="/admin/blog"
-                                className={`admin-nav-link ${isActive('/admin/blog') ? 'active' : ''}`}
-                            >
-                                Blog Posts
-                            </Link>
-                        </li>
-                        <li className="admin-nav-item">
-                            <Link
-                                to="/admin/influence"
-                                className={`admin-nav-link ${isActive('/admin/influence') ? 'active' : ''}`}
-                            >
-                                Case Studies
-                            </Link>
-                        </li>
+                        {role !== 'bda' && (
+                            <>
+                                <li className="admin-nav-item">
+                                    <Link
+                                        to="/admin/categories"
+                                        className={`admin-nav-link ${isActive('/admin/categories') ? 'active' : ''}`}
+                                    >
+                                        Categories
+                                    </Link>
+                                </li>
+                                <li className="admin-nav-item">
+                                    <Link
+                                        to="/admin/blog"
+                                        className={`admin-nav-link ${isActive('/admin/blog') ? 'active' : ''}`}
+                                    >
+                                        Blog Posts
+                                    </Link>
+                                </li>
+                                <li className="admin-nav-item">
+                                    <Link
+                                        to="/admin/influence"
+                                        className={`admin-nav-link ${isActive('/admin/influence') ? 'active' : ''}`}
+                                    >
+                                        Case Studies
+                                    </Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </nav>
 

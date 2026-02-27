@@ -89,6 +89,8 @@ const AboutDetailedContent = () => {
                             loop
                             muted
                             playsInline
+                            onContextMenu={(e) => e.preventDefault()}
+                            controlsList="nodownload"
                         >
                             <source src={aboutvideo} type="video/mp4" />
                             Your browser does not support the video tag.

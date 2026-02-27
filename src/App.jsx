@@ -29,6 +29,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
 const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 
+
 const MetaAdLanding = lazy(() => import('./pages/MetaAdLanding'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -80,6 +81,7 @@ function App() {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-use" element={<TermsOfUse />} />
               <Route path="/disclaimer" element={<Disclaimer />} />
+
             </Route>
 
 
@@ -98,9 +100,21 @@ function App() {
             }>
               <Route index element={<Navigate to="/admin/dashboard" replace />} />
               <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="categories" element={<AdminCategories />} />
-              <Route path="blog" element={<AdminBlog />} />
-              <Route path="influence" element={<AdminInfluence />} />
+              <Route path="categories" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminCategories />
+                </ProtectedRoute>
+              } />
+              <Route path="blog" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminBlog />
+                </ProtectedRoute>
+              } />
+              <Route path="influence" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminInfluence />
+                </ProtectedRoute>
+              } />
             </Route>
           </Routes>
         </Suspense>

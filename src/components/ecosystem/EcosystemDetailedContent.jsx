@@ -199,6 +199,8 @@ const EcosystemDetailedContent = () => {
                                 muted
                                 playsInline
                                 autoPlay
+                                onContextMenu={(e) => e.preventDefault()}
+                                controlsList="nodownload"
                                 style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                             >
                                 <source src={juju_about} type="video/mp4" />

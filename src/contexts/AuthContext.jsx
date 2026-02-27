@@ -17,7 +17,8 @@ export const AuthProvider = ({ children }) => {
 
         // Listen for changes on auth state (logged in, signed out, etc.)
         const { data: listener } = supabase.auth.onAuthStateChange(async (event, session) => {
-            setUser(session?.user ?? null);
+            const currentUser = session?.user ?? null;
+            setUser(currentUser);
             setLoading(false);
         });
 
@@ -42,6 +43,7 @@ export const AuthProvider = ({ children }) => {
 
     const value = {
         user,
+        role: user?.user_metadata?.role || 'admin', // Default to admin for safety in this context
         login,
         logout,
         loading

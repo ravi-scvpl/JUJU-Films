@@ -406,6 +406,8 @@ const MetaAdLanding = () => {
                     autoPlay
                     loop
                     playsInline
+                    onContextMenu={(e) => e.preventDefault()}
+                    controlsList="nodownload"
                     style={{
                         position: 'absolute',
                         top: 0,
@@ -556,6 +558,8 @@ const MetaAdLanding = () => {
                 loop
                 muted
                 playsInline
+                onContextMenu={(e) => e.preventDefault()}
+                controlsList="nodownload"
                 style={{
                     position: 'absolute',
                     top: 0,

@@ -18,13 +18,27 @@ const ImageTicker = ({
     const offset1 = useRef(0);
     const offset2 = useRef(0);
     const offset3 = useRef(0);
+    const [shuffledImages, setShuffledImages] = useState(images);
     const [isMobile, setIsMobile] = useState(false);
     const [estimatedWidth, setEstimatedWidth] = useState(500);
 
+    // Initial shuffle on mount
+    useEffect(() => {
+        const shuffle = (array) => {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        };
+        setShuffledImages(shuffle(images));
+    }, [images]);
+
     // Divide images into 3 columns
-    const column1Images = images.filter((_, i) => i % 3 === 0);
-    const column2Images = images.filter((_, i) => i % 3 === 1);
-    const column3Images = images.filter((_, i) => i % 3 === 2);
+    const column1Images = shuffledImages.filter((_, i) => i % 3 === 0);
+    const column2Images = shuffledImages.filter((_, i) => i % 3 === 1);
+    const column3Images = shuffledImages.filter((_, i) => i % 3 === 2);
 
     useEffect(() => {
         if (typeof window === "undefined") return;

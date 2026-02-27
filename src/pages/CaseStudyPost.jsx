@@ -44,7 +44,7 @@ const CaseStudyPost = () => {
         <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch" style={{ minHeight: '100vh', paddingTop: '150px' }}>
             <SEO
                 title={post.meta_title || post.title}
-                description={post.meta_desc || post.intro}
+                description={post.seo_description || post.meta_desc || post.intro}
                 image={post.image_url}
                 canonical={`/case-studies/${slug}`}
                 type="article"
@@ -66,7 +66,7 @@ const CaseStudyPost = () => {
                             "url": "https://www.jujuindia.com/juju-white-logo.webp"
                         }
                     },
-                    "description": post.meta_desc || post.intro
+                    "description": post.seo_description || post.meta_desc || post.intro
                 }}
             />
             <div className="grid">
@@ -80,13 +80,11 @@ const CaseStudyPost = () => {
                         <span>{post.category}</span>
                     </div>
 
-                    {post.image_url && (
-                        <img
-                            src={post.image_url}
-                            alt={post.title}
-                            style={{ width: '100%', height: 'auto', marginBottom: '40px', borderRadius: '4px' }}
-                        />
-                    )}
+                    <img
+                        src={post.image_url}
+                        alt={post.image_alt || post.title}
+                        style={{ width: '100%', height: 'auto', marginBottom: '40px', borderRadius: '4px' }}
+                    />
 
                     <div
                         className="blog-content"

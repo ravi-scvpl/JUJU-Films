@@ -221,7 +221,7 @@ const Homepage2 = () => {
 
                 {/* Hero Media Block (Below Text) */}
                 <div className="h2-hero-media">
-                    <video autoPlay muted loop playsInline>
+                    <video autoPlay muted loop playsInline onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
                         <source src={jujuFilms} type="video/mp4" />
                     </video>
                 </div>
@@ -263,7 +263,7 @@ const Homepage2 = () => {
             <section className="h2-sectors-container">
                 {/* Left Side: Static/Sticky Video */}
                 <div className="h2-sectors-media">
-                    <video autoPlay muted loop playsInline src={jujuFilms2}></video>
+                    <video autoPlay muted loop playsInline src={jujuFilms2} onContextMenu={(e) => e.preventDefault()} controlsList="nodownload"></video>
                     <a
                         href="#"
                         className="h2-magazine-nav-link"
@@ -354,7 +354,7 @@ const Homepage2 = () => {
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src={img1} alt="Game Badal de" loading="lazy" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none">
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
                                 <source src={gamebadalde} type="video/mp4" />
                             </video>
                         </div>
@@ -368,7 +368,7 @@ const Homepage2 = () => {
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src={img2} alt="Out Karo" loading="lazy" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none">
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
                                 <source src={outkro} type="video/mp4" />
                             </video>
                         </div>
@@ -384,7 +384,7 @@ const Homepage2 = () => {
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src={img3} alt="Expert ki Suno" loading="lazy" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none">
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
                                 <source src={xpert} type="video/mp4" />
                             </video>
                         </div>
@@ -398,7 +398,7 @@ const Homepage2 = () => {
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src={img4} alt="Super Shayari" loading="lazy" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none">
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
                                 <source src={shayarifilms} type="video/mp4" />
                             </video>
                         </div>

@@ -28,7 +28,7 @@ const Home = () => {
                 <div className="header-homepage__hero" style={{ opacity: 0.6 }}>
                     <div className="media">
                         {/* Keeping existing video as background/mood */}
-                        <video src="/local_assets/wp-content/uploads/2025/10/showreel_grapheine_27_octobre.mp4" width="2280" height="1410" preload="auto" muted autoPlay playsInline loop></video>
+                        <video src="/local_assets/wp-content/uploads/2025/10/showreel_grapheine_27_octobre.mp4" width="2280" height="1410" preload="auto" muted autoPlay playsInline loop onContextMenu={(e) => e.preventDefault()} controlsList="nodownload"></video>
                     </div>
                 </div>
             </header>

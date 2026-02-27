@@ -16,8 +16,10 @@ const AdminInfluence = () => {
         slug: '',
         content: '',
         image_url: '',
+        image_alt: '',
         meta_title: '',
         meta_desc: '',
+        seo_description: '',
         category: '',
         published: false
     });
@@ -163,8 +165,10 @@ const AdminInfluence = () => {
             slug: post.slug || '',
             content: post.content,
             image_url: post.image_url,
+            image_alt: post.image_alt || '',
             meta_title: post.meta_title || '',
             meta_desc: post.meta_desc || '',
+            seo_description: post.seo_description || '',
             category: post.category || '',
             published: post.published
         });
@@ -191,8 +195,10 @@ const AdminInfluence = () => {
             slug: '',
             content: '',
             image_url: '',
+            image_alt: '',
             meta_title: '',
             meta_desc: '',
+            seo_description: '',
             category: '',
             published: false
         });
@@ -311,6 +317,18 @@ const AdminInfluence = () => {
                         </div>
 
                         <div className="form-group">
+                            <label className="form-label">SEO Meta Description</label>
+                            <textarea
+                                className="form-control"
+                                name="seo_description"
+                                value={formData.seo_description}
+                                onChange={handleInputChange}
+                                rows="3"
+                                placeholder="Enter SEO meta description for search engines"
+                            />
+                        </div>
+
+                        <div className="form-group">
                             <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                                 <input
                                     type="checkbox"
@@ -335,8 +353,19 @@ const AdminInfluence = () => {
 
                     <div className="card">
                         <h3 className="form-label" style={{ fontSize: '16px', marginBottom: '16px' }}>Featured Image</h3>
+                        <div className="form-group">
+                            <label className="form-label">Alt Tag (SEO)</label>
+                            <input
+                                className="form-control"
+                                name="image_alt"
+                                value={formData.image_alt}
+                                onChange={handleInputChange}
+                                placeholder="Describe the image for SEO"
+                                style={{ marginBottom: '10px' }}
+                            />
+                        </div>
                         <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
-                        {formData.image_url && <img src={formData.image_url} alt="Current" className="image-preview" />}
+                        {formData.image_url && <img src={formData.image_url} alt={formData.image_alt || "Current"} className="image-preview" />}
                     </div>
                 </div>
             </div>

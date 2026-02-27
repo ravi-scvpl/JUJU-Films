@@ -15,6 +15,8 @@ const AboutMediaGrid = ({ videoSrc = aboutvideo }) => {
                     loop
                     muted
                     playsInline
+                    onContextMenu={(e) => e.preventDefault()}
+                    controlsList="nodownload"
                 >
                     <source src={videoSrc} type="video/mp4" />
                     Your browser does not support the video tag.

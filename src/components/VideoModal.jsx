@@ -61,6 +61,8 @@ const VideoModal = ({ video, isOpen, onClose }) => {
                 src={video.src}
                 controls
                 autoPlay
+                onContextMenu={(e) => e.preventDefault()}
+                controlsList="nodownload"
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
             ></video>
         );
