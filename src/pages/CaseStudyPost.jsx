@@ -3,11 +3,13 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import '../styles/homepage2.css';
 import SEO from '../components/SEO';
+import VideoRequestModal from '../components/VideoRequestModal';
 
 const CaseStudyPost = () => {
     const { slug } = useParams();
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -91,8 +93,70 @@ const CaseStudyPost = () => {
                         style={{ fontSize: '18px', lineHeight: '1.8', opacity: 0.85, wordWrap: 'break-word', overflowWrap: 'break-word', maxWidth: '100%' }}
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     />
+
                 </div>
             </div>
+
+            {post.video_url && (
+                <div style={{
+                    width: '100%',
+                    padding: '80px 20px',
+                    backgroundColor: '#050505',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                    textAlign: 'center',
+                    marginTop: '40px'
+                }}>
+                    <h2 style={{
+                        fontSize: '32px',
+                        marginBottom: '15px',
+                        fontFamily: 'serif',
+                        color: '#fff',
+                        textTransform: 'uppercase',
+                        letterSpacing: '6px'
+                    }}>
+                        Interested in this work?
+                    </h2>
+                    <p style={{
+                        opacity: 1,
+                        marginBottom: '35px',
+                        fontSize: '15px',
+                        letterSpacing: '1px',
+                        maxWidth: '600px',
+                        margin: '0 auto 35px',
+                        color: '#ffffff'
+                    }}>
+                        We can share the high-resolution master and additional behind-the-scenes content directly with your team.
+                    </p>
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        style={{
+                            backgroundColor: '#E52323',
+                            color: '#fff',
+                            padding: '22px 60px',
+                            border: 'none',
+                            fontSize: '13px',
+                            fontWeight: '700',
+                            textTransform: 'uppercase',
+                            letterSpacing: '3px',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)'
+                        }}
+                        onMouseEnter={e => e.target.style.transform = 'scale(1.05)'}
+                        onMouseLeave={e => e.target.style.transform = 'scale(1)'}
+                    >
+                        Request Master Video
+                    </button>
+                </div>
+            )}
+
+            <VideoRequestModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                caseStudyId={post?.id}
+                caseStudyTitle={post?.title}
+                videoUrl={post?.video_url}
+            />
         </div>
     );
 };

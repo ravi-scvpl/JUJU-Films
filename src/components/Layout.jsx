@@ -163,7 +163,7 @@ const Layout = ({ children }) => {
                                 <li className="navigation__item"><Link className="navigation__link" to="/juju-storytellers">Storytellers</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/juju-commercials">Commercials</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/juju-ai-films">AI Films</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ecosystem">Ecosystem</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ecosystem">Growth Content</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" to="/contact">Contact</Link></li>
                             </ul>
                         </nav>

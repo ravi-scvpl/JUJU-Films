@@ -4,6 +4,7 @@ import { supabase } from '../supabaseClient';
 import '../styles/homepage2.css';
 import '../styles/juju-overrides.css';
 import SEO from '../components/SEO';
+import VideoRequestModal from '../components/VideoRequestModal';
 
 const CaseStudiesPage = () => {
     // Influence Typing Animation State
@@ -15,6 +16,10 @@ const CaseStudiesPage = () => {
     const [articles, setArticles] = useState([]);
     const [categories, setCategories] = useState([]);
     const [activeCategory, setActiveCategory] = useState("All");
+
+    // Modal State
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedPost, setSelectedPost] = useState(null);
 
     useEffect(() => {
         // Fetch Categories
@@ -52,7 +57,8 @@ const CaseStudiesPage = () => {
                         intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
                         date: new Date(post.created_at).getFullYear(), // Just year or full date
                         category: post.category || 'Campaigns',
-                        image: post.image_url
+                        image: post.image_url,
+                        video_url: post.video_url
                     }));
                     setArticles(mappedArticles);
                 }

@@ -21,7 +21,8 @@ const AdminInfluence = () => {
         meta_desc: '',
         seo_description: '',
         category: '',
-        published: false
+        published: false,
+        video_url: ''
     });
     const [imageFile, setImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
@@ -170,7 +171,8 @@ const AdminInfluence = () => {
             meta_desc: post.meta_desc || '',
             seo_description: post.seo_description || '',
             category: post.category || '',
-            published: post.published
+            published: post.published,
+            video_url: post.video_url || ''
         });
         setImageFile(null);
     };
@@ -200,7 +202,8 @@ const AdminInfluence = () => {
             meta_desc: '',
             seo_description: '',
             category: '',
-            published: false
+            published: false,
+            video_url: ''
         });
         setImageFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
@@ -298,6 +301,18 @@ const AdminInfluence = () => {
                             ></textarea>
                             <small style={{ color: '#6b7280', marginTop: '4px', display: 'block' }}>Use 'Key: Value' format for each line to display as structured data on the page.</small>
                         </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Video URL (for Download Request)</label>
+                            <input
+                                className="form-control"
+                                name="video_url"
+                                value={formData.video_url}
+                                onChange={handleInputChange}
+                                placeholder="https://vimeo.com/... or https://youtube.com/..."
+                            />
+                            <small style={{ color: '#6b7280', marginTop: '4px', display: 'block' }}>This URL will be sent to users after email verification.</small>
+                        </div>
                     </form>
                 </div>
 
@@ -386,46 +401,48 @@ const AdminInfluence = () => {
                         {formData.image_url && <img src={formData.image_url} alt={formData.image_alt || "Current"} className="image-preview" />}
                     </div>
                 </div>
-            </div>
+            </div >
 
             {/* List */}
-            <div className="card" style={{ marginTop: '32px' }}>
+            < div className="card" style={{ marginTop: '32px' }}>
                 <h2 style={{ marginBottom: '24px', fontSize: '20px' }}>All Case Studies</h2>
-                {loading ? <p>Loading...</p> : (
-                    <div className="post-list">
-                        {posts.map(post => (
-                            <div key={post.id} className="post-item">
-                                <div>
-                                    <h3 className="post-title">{post.title}</h3>
-                                    <div className="post-meta">
-                                        <span className={`status-badge ${post.published ? 'status-published' : 'status-draft'}`}>
-                                            {post.published ? 'Published' : 'Draft'}
-                                        </span>
-                                        {post.category && (
-                                            <span style={{
-                                                padding: '2px 8px',
-                                                borderRadius: '4px',
-                                                background: '#f3f4f6',
-                                                color: '#374151',
-                                                fontSize: '11px',
-                                                fontWeight: 600
-                                            }}>
-                                                {post.category}
+                {
+                    loading ? <p>Loading...</p> : (
+                        <div className="post-list">
+                            {posts.map(post => (
+                                <div key={post.id} className="post-item">
+                                    <div>
+                                        <h3 className="post-title">{post.title}</h3>
+                                        <div className="post-meta">
+                                            <span className={`status-badge ${post.published ? 'status-published' : 'status-draft'}`}>
+                                                {post.published ? 'Published' : 'Draft'}
                                             </span>
-                                        )}
-                                        <span>Last modified: {new Date(post.created_at).toLocaleDateString()}</span>
+                                            {post.category && (
+                                                <span style={{
+                                                    padding: '2px 8px',
+                                                    borderRadius: '4px',
+                                                    background: '#f3f4f6',
+                                                    color: '#374151',
+                                                    fontSize: '11px',
+                                                    fontWeight: 600
+                                                }}>
+                                                    {post.category}
+                                                </span>
+                                            )}
+                                            <span>Last modified: {new Date(post.created_at).toLocaleDateString()}</span>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '10px' }}>
+                                        <button onClick={() => handleEdit(post)} className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '13px' }}>Edit</button>
+                                        <button onClick={() => handleDelete(post.id)} className="btn btn-danger" style={{ padding: '8px 16px', fontSize: '13px' }}>Delete</button>
                                     </div>
                                 </div>
-                                <div style={{ display: 'flex', gap: '10px' }}>
-                                    <button onClick={() => handleEdit(post)} className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '13px' }}>Edit</button>
-                                    <button onClick={() => handleDelete(post.id)} className="btn btn-danger" style={{ padding: '8px 16px', fontSize: '13px' }}>Delete</button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </div>
-        </div>
+                            ))}
+                        </div>
+                    )
+                }
+            </div >
+        </div >
     );
 };
 
