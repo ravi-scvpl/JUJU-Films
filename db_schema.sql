@@ -17,7 +17,8 @@ create table public.contacts (
   portfolio_url text, -- Creator only
   message text,     -- Request or 'Tell us about yourself'
   file_url text,    -- For attached files (resumes/briefs)
-  status text default 'new' -- 'new', 'contacted', 'archived'
+  status text default 'new', -- 'new', 'contacted', 'archived'
+  source text default 'website' -- 'website', 'self'
 );
 
 -- 2. Blog Posts Table

@@ -12,6 +12,18 @@ const AdminDashboard = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const [showSelfOnly, setShowSelfOnly] = useState(false);
+    const [isAddingLead, setIsAddingLead] = useState(false);
+    const [newLead, setNewLead] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        company: '',
+        type: 'organic_website',
+        message: '',
+        lead_status: '🔵 Cold – Passive'
+    });
 
     useEffect(() => {
         setCurrentPage(1); // Reset page on tab change
@@ -121,6 +133,38 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleAddLead = async (e) => {
+        e.preventDefault();
+        try {
+            const { error } = await supabase
+                .from('contacts')
+                .insert([{
+                    ...newLead,
+                    source: 'self',
+                    type: activeTab === 'paid_ads' ? 'paid_ads' : activeTab
+                }]);
+
+            if (error) throw error;
+
+            setIsAddingLead(false);
+            setNewLead({
+                first_name: '',
+                last_name: '',
+                email: '',
+                phone: '',
+                company: '',
+                type: 'organic_website',
+                message: '',
+                lead_status: '🔵 Cold – Passive'
+            });
+            fetchLeads();
+            alert('Lead added successfully!');
+        } catch (error) {
+            console.error('Error adding lead:', error);
+            alert('Error adding lead. Make sure the "source" column exists.');
+        }
+    };
+
     const exportToCSV = () => {
         const dataToExport = filteredLeads; // Export filtered results
         if (dataToExport.length === 0) return;
@@ -191,12 +235,16 @@ const AdminDashboard = () => {
     const filteredLeads = leads.filter(lead => {
         const search = searchTerm.toLowerCase();
         const fullName = `${lead.first_name || ''} ${lead.last_name || ''}`.toLowerCase();
-        return (
+        const matchesSearch = (
             fullName.includes(search) ||
             (lead.email && lead.email.toLowerCase().includes(search)) ||
             (lead.company && lead.company.toLowerCase().includes(search)) ||
             (lead.phone && lead.phone.includes(search))
         );
+
+        const matchesSelf = !showSelfOnly || lead.source === 'self';
+
+        return matchesSearch && matchesSelf;
     });
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -296,11 +344,121 @@ const AdminDashboard = () => {
                     >
                         Export
                     </button>
-                    <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#E52323', fontWeight: 'bold', whiteSpace: 'nowrap' }}>
-                        Sitemap
-                    </a>
+                    {role === 'admin' && (
+                        <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#E52323', fontWeight: 'bold', whiteSpace: 'nowrap' }}>
+                            Sitemap
+                        </a>
+                    )}
+                    <button
+                        onClick={() => setIsAddingLead(!isAddingLead)}
+                        style={{
+                            padding: '8px 15px',
+                            backgroundColor: '#E52323',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            whiteSpace: 'nowrap'
+                        }}
+                    >
+                        {isAddingLead ? 'Cancel' : 'Add Lead'}
+                    </button>
                 </div>
             </div>
+
+            {/* Add Lead Form */}
+            {isAddingLead && (
+                <div style={{ backgroundColor: '#fff', padding: '25px', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', marginBottom: '30px', border: '1px solid #eee' }}>
+                    <h2 style={{ marginTop: 0, marginBottom: '20px', fontSize: '18px' }}>Add New Lead</h2>
+                    <form onSubmit={handleAddLead} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>First Name*</label>
+                            <input
+                                type="text"
+                                required
+                                value={newLead.first_name}
+                                onChange={(e) => setNewLead({ ...newLead, first_name: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Last Name</label>
+                            <input
+                                type="text"
+                                value={newLead.last_name}
+                                onChange={(e) => setNewLead({ ...newLead, last_name: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Email*</label>
+                            <input
+                                type="email"
+                                required
+                                value={newLead.email}
+                                onChange={(e) => setNewLead({ ...newLead, email: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Phone</label>
+                            <input
+                                type="text"
+                                value={newLead.phone}
+                                onChange={(e) => setNewLead({ ...newLead, phone: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Company</label>
+                            <input
+                                type="text"
+                                value={newLead.company}
+                                onChange={(e) => setNewLead({ ...newLead, company: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Initial Status</label>
+                            <select
+                                value={newLead.lead_status}
+                                onChange={(e) => setNewLead({ ...newLead, lead_status: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            >
+                                <option value="🔥 Hot – Ready">🔥 Hot – Ready</option>
+                                <option value="🟢 Warm – Nurture">🟢 Warm – Nurture</option>
+                                <option value="🔵 Cold – Passive">🔵 Cold – Passive</option>
+                                <option value="⚫ Not Interested – Closed">⚫ Not Interested – Closed</option>
+                            </select>
+                        </div>
+                        <div style={{ gridColumn: '1 / -1' }}>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Notes / Message</label>
+                            <textarea
+                                rows="3"
+                                value={newLead.message}
+                                onChange={(e) => setNewLead({ ...newLead, message: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', resize: 'vertical' }}
+                            ></textarea>
+                        </div>
+                        <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+                            <button
+                                type="button"
+                                onClick={() => setIsAddingLead(false)}
+                                style={{ padding: '10px 20px', backgroundColor: '#f0f0f0', border: '1px solid #ddd', borderRadius: '4px', cursor: 'pointer' }}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                style={{ padding: '10px 25px', backgroundColor: '#4caf50', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                            >
+                                Save Lead
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            )}
 
             {/* Tabs */}
             <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
@@ -321,6 +479,30 @@ const AdminDashboard = () => {
                         {tab === 'organic_website' ? 'Brand Collabs' : tab}
                     </button>
                 ))}
+
+                <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
+                    <button
+                        onClick={() => {
+                            setShowSelfOnly(!showSelfOnly);
+                            setCurrentPage(1);
+                        }}
+                        style={{
+                            padding: '10px 20px',
+                            backgroundColor: showSelfOnly ? '#333' : '#fff',
+                            color: showSelfOnly ? '#fff' : '#333',
+                            border: '1px solid #ddd',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            fontWeight: 'bold'
+                        }}
+                    >
+                        <span style={{ fontSize: '18px' }}>{showSelfOnly ? '☑' : '☐'}</span>
+                        Show Self Leads
+                    </button>
+                </div>
             </div>
 
             {/* Content */}
@@ -383,6 +565,21 @@ const AdminDashboard = () => {
                                     }}>
                                         {lead.lead_status || lead.status || 'New'}
                                     </span>
+                                    {lead.source === 'self' && (
+                                        <span style={{
+                                            fontSize: '10px',
+                                            backgroundColor: '#333',
+                                            color: '#fff',
+                                            padding: '2px 8px',
+                                            borderRadius: '4px',
+                                            marginLeft: '10px',
+                                            verticalAlign: 'middle',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 'bold'
+                                        }}>
+                                            SELF
+                                        </span>
+                                    )}
                                 </h3>
                                 <div style={{ textAlign: 'right' }}>
                                     <div style={{ fontSize: '14px', color: '#333', fontWeight: 'bold' }}>{getLeadAge(lead.created_at)}</div>
