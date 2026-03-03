@@ -12,7 +12,6 @@ const AdminDashboard = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
-    const [showSelfOnly, setShowSelfOnly] = useState(false);
     const [isAddingLead, setIsAddingLead] = useState(false);
     const [newLead, setNewLead] = useState({
         first_name: '',
@@ -20,10 +19,20 @@ const AdminDashboard = () => {
         email: '',
         phone: '',
         company: '',
-        type: 'organic_website',
-        message: '',
+        address: '', // City
+        deadline: '',
+        budget: '',
+        start_timeline: 'Immediately',
+        website_url: '',
+        brand_type: 'Startup/ D2C Brand',
+        has_ambassador: 'No',
+        message: '', // Services
         lead_status: '🔵 Cold – Passive'
     });
+
+    const tabs = role === 'admin'
+        ? ['organic_website', 'paid_ads', 'creators', 'internships', 'jobs', 'self']
+        : ['organic_website', 'paid_ads', 'self'];
 
     useEffect(() => {
         setCurrentPage(1); // Reset page on tab change
@@ -140,6 +149,7 @@ const AdminDashboard = () => {
                 .from('contacts')
                 .insert([{
                     ...newLead,
+                    message: newLead.message ? `Services: ${newLead.message}` : '',
                     source: 'self',
                     type: activeTab === 'paid_ads' ? 'paid_ads' : activeTab
                 }]);
@@ -153,7 +163,13 @@ const AdminDashboard = () => {
                 email: '',
                 phone: '',
                 company: '',
-                type: 'organic_website',
+                address: '',
+                deadline: '',
+                budget: '',
+                start_timeline: 'Immediately',
+                website_url: '',
+                brand_type: 'Startup/ D2C Brand',
+                has_ambassador: 'No',
                 message: '',
                 lead_status: '🔵 Cold – Passive'
             });
@@ -208,7 +224,9 @@ const AdminDashboard = () => {
                 .select('*, lead_feedbacks(*)')
                 .order('created_at', { ascending: false });
 
-            if (activeTab === 'paid_ads') {
+            if (activeTab === 'self') {
+                query = query.eq('source', 'self');
+            } else if (activeTab === 'paid_ads') {
                 query = query.in('type', ['paid_ads', 'paid_ads_partial', 'ad_lead', 'ad_lead_partial']);
             } else {
                 query = query.eq('type', activeTab);
@@ -235,16 +253,12 @@ const AdminDashboard = () => {
     const filteredLeads = leads.filter(lead => {
         const search = searchTerm.toLowerCase();
         const fullName = `${lead.first_name || ''} ${lead.last_name || ''}`.toLowerCase();
-        const matchesSearch = (
+        return (
             fullName.includes(search) ||
             (lead.email && lead.email.toLowerCase().includes(search)) ||
             (lead.company && lead.company.toLowerCase().includes(search)) ||
             (lead.phone && lead.phone.includes(search))
         );
-
-        const matchesSelf = !showSelfOnly || lead.source === 'self';
-
-        return matchesSearch && matchesSelf;
     });
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -310,6 +324,9 @@ const AdminDashboard = () => {
     return (
         <div>
             <SEO title="Admin Dashboard" noindex={true} />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
+                <img src="/juju-black-logo.webp" alt="JUJU Films" style={{ height: '50px' }} />
+            </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', borderBottom: '1px solid #ddd', paddingBottom: '10px', flexWrap: 'wrap', gap: '20px' }}>
                 <h1 style={{ margin: 0 }}>Dashboard (Leads)</h1>
                 <div style={{ display: 'flex', gap: '15px', flexGrow: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -371,7 +388,7 @@ const AdminDashboard = () => {
             {isAddingLead && (
                 <div style={{ backgroundColor: '#fff', padding: '25px', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', marginBottom: '30px', border: '1px solid #eee' }}>
                     <h2 style={{ marginTop: 0, marginBottom: '20px', fontSize: '18px' }}>Add New Lead</h2>
-                    <form onSubmit={handleAddLead} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <form onSubmit={handleAddLead} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px' }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>First Name*</label>
                             <input
@@ -411,6 +428,15 @@ const AdminDashboard = () => {
                             />
                         </div>
                         <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>City (Address)</label>
+                            <input
+                                type="text"
+                                value={newLead.address}
+                                onChange={(e) => setNewLead({ ...newLead, address: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
+                        </div>
+                        <div>
                             <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Company</label>
                             <input
                                 type="text"
@@ -418,6 +444,69 @@ const AdminDashboard = () => {
                                 onChange={(e) => setNewLead({ ...newLead, company: e.target.value })}
                                 style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
                             />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Website URL</label>
+                            <input
+                                type="url"
+                                value={newLead.website_url}
+                                onChange={(e) => setNewLead({ ...newLead, website_url: e.target.value })}
+                                placeholder="https://example.com"
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Deadline</label>
+                            <input
+                                type="text"
+                                value={newLead.deadline}
+                                onChange={(e) => setNewLead({ ...newLead, deadline: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Budget</label>
+                            <input
+                                type="text"
+                                value={newLead.budget}
+                                onChange={(e) => setNewLead({ ...newLead, budget: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Timeline</label>
+                            <select
+                                value={newLead.start_timeline}
+                                onChange={(e) => setNewLead({ ...newLead, start_timeline: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            >
+                                <option value="Immediately">Immediately</option>
+                                <option value="Next 30 Days">Next 30 Days</option>
+                                <option value="Expanding Future">Expanding Future</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Brand Type</label>
+                            <select
+                                value={newLead.brand_type}
+                                onChange={(e) => setNewLead({ ...newLead, brand_type: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            >
+                                <option value="Startup/ D2C Brand">Startup/ D2C Brand</option>
+                                <option value="Established Enterprise">Established Enterprise</option>
+                                <option value="Ad Agency">Ad Agency</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Celebrity Ambassador?</label>
+                            <select
+                                value={newLead.has_ambassador}
+                                onChange={(e) => setNewLead({ ...newLead, has_ambassador: e.target.value })}
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            >
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Initial Status</label>
@@ -432,14 +521,15 @@ const AdminDashboard = () => {
                                 <option value="⚫ Not Interested – Closed">⚫ Not Interested – Closed</option>
                             </select>
                         </div>
-                        <div style={{ gridColumn: '1 / -1' }}>
-                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Notes / Message</label>
-                            <textarea
-                                rows="3"
+                        <div style={{ gridColumn: 'span 2' }}>
+                            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: 'bold' }}>Services (Comma-separated)</label>
+                            <input
+                                type="text"
+                                placeholder="Commercial, AI Films, etc."
                                 value={newLead.message}
                                 onChange={(e) => setNewLead({ ...newLead, message: e.target.value })}
-                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', resize: 'vertical' }}
-                            ></textarea>
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+                            />
                         </div>
                         <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
                             <button
@@ -462,7 +552,7 @@ const AdminDashboard = () => {
 
             {/* Tabs */}
             <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
-                {['organic_website', 'paid_ads', 'creators', 'internships', 'jobs'].map(tab => (
+                {tabs.map(tab => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -476,33 +566,9 @@ const AdminDashboard = () => {
                             textTransform: 'capitalize'
                         }}
                     >
-                        {tab === 'organic_website' ? 'Brand Collabs' : tab}
+                        {tab === 'organic_website' ? 'Brand Collabs' : tab === 'paid_ads' ? 'Paid Ads' : tab}
                     </button>
                 ))}
-
-                <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                    <button
-                        onClick={() => {
-                            setShowSelfOnly(!showSelfOnly);
-                            setCurrentPage(1);
-                        }}
-                        style={{
-                            padding: '10px 20px',
-                            backgroundColor: showSelfOnly ? '#333' : '#fff',
-                            color: showSelfOnly ? '#fff' : '#333',
-                            border: '1px solid #ddd',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            fontWeight: 'bold'
-                        }}
-                    >
-                        <span style={{ fontSize: '18px' }}>{showSelfOnly ? '☑' : '☐'}</span>
-                        Show Self Leads
-                    </button>
-                </div>
             </div>
 
             {/* Content */}
