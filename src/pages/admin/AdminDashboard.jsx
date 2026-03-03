@@ -328,7 +328,7 @@ const AdminDashboard = () => {
                 <img src="/juju-black-logo.webp" alt="JUJU Films" style={{ height: '50px' }} />
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', borderBottom: '1px solid #ddd', paddingBottom: '10px', flexWrap: 'wrap', gap: '20px' }}>
-                <h1 style={{ margin: 0 }}>Dashboard (Leads)</h1>
+                <h1 style={{ margin: 0 }}>Leads Dashboard</h1>
                 <div style={{ display: 'flex', gap: '15px', flexGrow: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
                     <input
                         type="text"
