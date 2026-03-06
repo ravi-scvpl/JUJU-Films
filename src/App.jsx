@@ -31,6 +31,7 @@ const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 
 
 const MetaAdLanding = lazy(() => import('./pages/MetaAdLanding'));
+const Showreel = lazy(() => import('./pages/Showreel'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Admin Pages (Lazy Loaded)
@@ -88,6 +89,7 @@ function App() {
 
             {/* Standalone Landing Page (No Header/Footer) */}
             <Route path="/start-project" element={<MetaAdLanding />} />
+            <Route path="/showreel" element={<Showreel />} />
 
             <Route path="*" element={<NotFound />} />
 
