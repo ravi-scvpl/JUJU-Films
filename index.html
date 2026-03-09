@@ -27,7 +27,7 @@
       src="https://www.facebook.com/tr?id=904020689181121&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
   <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
+  <script defer>(function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({
         'gtm.start':
           new Date().getTime(), event: 'gtm.js'
@@ -36,10 +36,46 @@
           'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-WLSPFXTM');</script>
   <!-- End Google Tag Manager -->
+  <style>
+    /* Inline minimal styles for skeleton header to prevent layout shift */
+    .header-skeleton {
+      position: sticky;
+      top: 0;
+      z-index: 420;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2.5rem;
+      height: 70px;
+      /* Approximate height */
+      box-sizing: border-box;
+    }
+
+    .header-skeleton img {
+      height: 25px;
+      display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+      .header-skeleton {
+        padding: 1.5rem 1rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <!-- Skeleton Header for LCP Optimization -->
+    <header class="header-skeleton">
+      <div class="header__logo">
+        <img src="/juju-white-logo.webp" alt="JUJU Films" fetchpriority="high">
+      </div>
+    </header>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WLSPFXTM" height="0" width="0"
