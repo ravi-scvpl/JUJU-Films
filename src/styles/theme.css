@@ -5,6 +5,45 @@ body {
     transition: background-color 1.6s cubic-bezier(.22, 1, .36, 1), color 1.6s cubic-bezier(.22, 1, .36, 1);
 }
 
+/* Default (Dark Theme) Form Visibility & Aesthetic Fixes */
+.with_frm_style,
+.frm_style_formidable-style.with_frm_style {
+    --label-color: #ffffff !important;
+    --text-color: #ffffff !important;
+    --border-color: rgba(255, 255, 255, 0.4) !important;
+    --description-color: #bbbbbb !important;
+    --check-label-color: #ffffff !important;
+    --bg-color: rgba(255, 255, 255, 0.05) !important;
+    /* Subtle background for fields */
+}
+
+/* Ensure inputs have visible borders and text in Dark Theme */
+.with_frm_style input[type=text],
+.with_frm_style input[type=password],
+.with_frm_style input[type=email],
+.with_frm_style input[type=number],
+.with_frm_style input[type=url],
+.with_frm_style input[type=tel],
+.with_frm_style input[type=search],
+.with_frm_style select,
+.with_frm_style textarea {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+}
+
+.with_frm_style input::placeholder,
+.with_frm_style textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.with_frm_style .frm_primary_label,
+.with_frm_style .frm_required,
+.with_frm_style .frm_description,
+.with_frm_style .frm_error {
+    color: #ffffff !important;
+}
+
 /* Light Theme Class (applied to wrapper in Layout) */
 .theme-light body,
 .theme-light main,
@@ -319,18 +358,42 @@ body.collective-page .theme-light .page {
 /* Contact Page Specific Fixes */
 /* --------------------------------------------------------- */
 
-/* Fix Form Labels in Light Theme */
+/* Fix Form Labels and Fields in Light Theme */
+.theme-light .with_frm_style,
+.theme-light .frm_style_formidable-style.with_frm_style {
+    --label-color: #111111 !important;
+    --text-color: #111111 !important;
+    --border-color: rgba(0, 0, 0, 0.2) !important;
+    --description-color: #444444 !important;
+    --bg-color: #f9f9f9 !important;
+}
+
+.theme-light .with_frm_style input[type=text],
+.theme-light .with_frm_style input[type=password],
+.theme-light .with_frm_style input[type=email],
+.theme-light .with_frm_style input[type=number],
+.theme-light .with_frm_style input[type=url],
+.theme-light .with_frm_style input[type=tel],
+.theme-light .with_frm_style input[type=search],
+.theme-light .with_frm_style select,
+.theme-light .with_frm_style textarea {
+    color: #111111 !important;
+    background-color: #f9f9f9 !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
 .theme-light .frm_primary_label,
 .theme-light .frm_radio label,
 .theme-light .frm_checkbox label,
 .theme-light .frm_description,
-.theme-light .frm_required {
+.theme-light .frm_required,
+.theme-light .frm_form_field label {
     color: #111111 !important;
 }
 
-/* Force light theme on specific form parts if needed */
-.theme-light .frm_form_field label {
-    color: #111111 !important;
+.theme-light .with_frm_style input::placeholder,
+.theme-light .with_frm_style textarea::placeholder {
+    color: #666666 !important;
 }
 
 /* --------------------------------------------------------- */

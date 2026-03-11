@@ -2763,7 +2763,7 @@ fieldset {
 }
 
 .navigation.navigation--footer .navigation__link:focus-visible {
-    outline: 3px dashed currentColor
+    outline: none
 }
 
 .footer__text {
@@ -2773,8 +2773,7 @@ fieldset {
 }
 
 .footer__text a:focus-visible {
-    outline: 2px dashed currentColor;
-    outline-offset: 2px
+    outline: none
 }
 
 .footer__logo {
@@ -2814,8 +2813,7 @@ fieldset {
 }
 
 .navigation.navigation--bottom .navigation__link:focus-visible {
-    outline: 2px dashed currentColor;
-    outline-offset: 2px
+    outline: none
 }
 
 @media only screen and (max-width:1023px) {
@@ -2905,8 +2903,7 @@ fieldset {
 
 .header__container .navigation__link:focus-visible,
 .header__container .header__lang:focus-visible {
-    outline: 2px dashed currentColor;
-    outline-offset: 2px
+    outline: none
 }
 
 @media screen and (pointer:fine) {
@@ -2934,8 +2931,7 @@ fieldset {
 }
 
 .header__logo:focus-visible {
-    outline: 2px dashed currentColor;
-    outline-offset: 2px
+    outline: none
 }
 
 .header__logo svg {
@@ -3130,8 +3126,7 @@ fieldset {
 }
 
 .hero__meta a:focus-visible {
-    outline: 1px dashed var(--color-text);
-    outline-offset: 2px
+    outline: none
 }
 
 @media screen and (pointer:fine) {
