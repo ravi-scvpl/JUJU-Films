@@ -378,6 +378,28 @@ const MetaAdLanding = () => {
             }
 
             console.log("Final submission successful, rows affected:", rowsAffected);
+
+            // Sync to HubSpot
+            try {
+                await fetch('/api/hubspot-sync', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        first_name: formData.name.split(' ')[0],
+                        last_name: formData.name.split(' ').slice(1).join(' ') || '',
+                        email: formData.email,
+                        phone: formData.phone,
+                        company: formData.company,
+                        city: formData.city,
+                        website_url: formData.website_url,
+                        message: `Services: ${Array.isArray(formData.service) ? formData.service.join(', ') : formData.service}`,
+                        type: isOrganic ? 'organic_website' : 'paid_ads'
+                    })
+                });
+            } catch (hubspotErr) {
+                console.error('HubSpot sync failed:', hubspotErr);
+            }
+
             setSubmitted(true);
         } catch (err) {
             console.error('Error submitting form:', err);

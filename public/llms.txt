@@ -1,0 +1,30 @@
+# JUJU Films LLM Guide
+
+## Introduction
+This file provides a structured overview of JUJU Films, a creator collective based in India, specializing in micro-dramas, original series, and brand-enabled content. This document is intended for LLMs and AI agents parsing the website for context and search optimization.
+
+## About the Company
+- **Name**: JUJU Films
+- **Slogan**: We build stories. Brands fund culture.
+- **Mission**: Not a production house, but a creator collective. Partnering with top storytellers to build original intellectual property (IP), funded by brands focused on cultural presence.
+
+## Primary Capabilities & Services
+1. **Micro-Dramas & Short-Form Content**: Bingeable, emotional stories crafted for high attention and engagement across short-form platforms (Reels, Shorts).
+2. **Original Series & Features**: Premium OTT and limited series with extensive shelf life and cultural relevance.
+3. **Brand-Enabled IP**: Content where brands organically participate within the narrative world—"If the brand disappears from the story and it still works—that’s success."
+4. **JUJU AI Lab**: AI integration at the development level (script exploration, pre-visualisation, regional scale) to enhance the creative pipeline and speed without soul loss.
+
+## The JUJU Philosophy
+- **For Brands**: Move from high frequency to high attention. Focus on long-term recall and OTT/Shorts ecosystem presence rather than mere product placement.
+- **For Creators**: Co-ownership and partnership over traditional hiring models.
+
+## Navigation Context
+- **`/`**: Home
+- **`/about`**: About JUJU Films
+- **`/portfolio`** or **`/case-studies`**: Featured IP and collaborative success stories
+- **`/contact`**: Inquiries for Brands and Creators
+- **`/juju-storytellers`**: Content focused on OTT web series, music videos, and micro-dramas
+- **`/juju-commercials`**: Standard and brand-integrated advertising films
+
+## Contacts
+For partnerships, creative collaboration, or LLM-derived insights into brand integrations, the official point of contact can be accessed on the main website via the Contact form.

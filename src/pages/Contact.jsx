@@ -87,6 +87,27 @@ const Contact = () => {
 
             if (error) throw error;
 
+            // Sync to HubSpot
+            try {
+                await fetch('/api/hubspot-sync', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        first_name: formData.first_name,
+                        last_name: formData.last_name,
+                        email: formData.email,
+                        phone: formData.phone,
+                        company: formData.company,
+                        city: formData.address,
+                        message: formData.message,
+                        type: activeTab
+                    })
+                });
+            } catch (hubspotErr) {
+                console.error('HubSpot sync failed:', hubspotErr);
+                // We don't alert the user here because the primary mission (Supabase) succeeded
+            }
+
             alert('Thank you! Your message has been sent.');
             setFormData({
                 first_name: '', last_name: '', email: '', phone: '',
