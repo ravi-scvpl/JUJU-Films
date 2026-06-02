@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const BlogContent = ({ blogs = [] }) => {
 
@@ -15,7 +17,7 @@ const BlogContent = ({ blogs = [] }) => {
                 <div style={{ gridColumn: '2 / 12' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px' }}>
                         {blogs.map((blog, index) => (
-                            <Link to={`/blog/${blog.id}`} key={index} style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                            <Link href={`/blog/${blog.id}`} key={index} style={{ textDecoration: 'none', cursor: 'pointer' }}>
                                 <div style={{ marginBottom: '20px', overflow: 'hidden' }}>
                                     <img
                                         src={`https://placehold.co/600x400/222/fff?text=${encodeURIComponent(blog.theme || 'Blog')}`}

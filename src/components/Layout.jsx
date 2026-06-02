@@ -1,10 +1,12 @@
+"use client";
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Layout = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [isLightTheme, setIsLightTheme] = React.useState(false);
-    const location = useLocation();
+    const pathname = usePathname();
 
     // Inline styles for footer
     const footerStyles = `
@@ -94,7 +96,7 @@ const Layout = ({ children }) => {
             observer.disconnect();
             mutationObserver.disconnect();
         };
-    }, [location.pathname]);
+    }, [pathname]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -106,7 +108,7 @@ const Layout = ({ children }) => {
             <header className="header">
                 <div className="header__container">
 
-                    <Link className="header__logo" to="/" aria-label="Homepage">
+                    <Link className="header__logo" href="/" aria-label="Homepage">
                         <img src="/juju-white-logo.webp" alt="JUJU Films" style={{ height: '25px' }} fetchPriority="high" />
                     </Link>
 
@@ -118,32 +120,32 @@ const Layout = ({ children }) => {
                         <ul className="navigation__list">
 
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
                             </li>
                             {/* <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/team" onClick={() => setIsMenuOpen(false)}>Collective</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/team" onClick={() => setIsMenuOpen(false)}>Collective</Link>
                             </li> */}
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-storytellers" onClick={() => setIsMenuOpen(false)}>Storytellers</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/juju-storytellers" onClick={() => setIsMenuOpen(false)}>Storytellers</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-commercials" onClick={() => setIsMenuOpen(false)}>Commercials </Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/juju-commercials" onClick={() => setIsMenuOpen(false)}>Commercials </Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>AI Films</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>AI Films</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/juju-ecosystem" onClick={() => setIsMenuOpen(false)}>Growth Content</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/juju-ecosystem" onClick={() => setIsMenuOpen(false)}>Growth Content</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/case-studies" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/case-studies" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/blog" onClick={() => setIsMenuOpen(false)}>Thinkspace</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/blog" onClick={() => setIsMenuOpen(false)}>Thinkspace</Link>
                             </li>
 
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
                             </li>
                         </ul>
                     </nav>
@@ -160,11 +162,11 @@ const Layout = ({ children }) => {
                         <nav className="navigation navigation--footer">
                             <ul className="navigation__list">
 
-                                <li className="navigation__item"><Link className="navigation__link" to="/juju-storytellers">Storytellers</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/juju-commercials">Commercials</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ai-films">AI Films</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/juju-ecosystem">Growth Content</Link></li>
-                                <li className="navigation__item"><Link className="navigation__link" to="/contact">Contact</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" href="/juju-storytellers">Storytellers</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" href="/juju-commercials">Commercials</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" href="/juju-ai-films">AI Films</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" href="/juju-ecosystem">Growth Content</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" href="/contact">Contact</Link></li>
                             </ul>
                         </nav>
                     </div>
@@ -186,9 +188,9 @@ const Layout = ({ children }) => {
                                 <span className="footer__copyright">© 2026</span>
                                 <nav className="navigation navigation--bottom">
                                     <ul className="navigation__list footer-inline-list">
-                                        <li className="navigation__item "><Link className="navigation__link" to="/privacy-policy">Privacy Policy</Link></li>
-                                        <li className="navigation__item "><Link className="navigation__link" to="/terms-of-use">Terms of Use</Link></li>
-                                        <li className="navigation__item "><Link className="navigation__link" to="/disclaimer">Disclaimer</Link></li>
+                                        <li className="navigation__item "><Link className="navigation__link" href="/privacy-policy">Privacy Policy</Link></li>
+                                        <li className="navigation__item "><Link className="navigation__link" href="/terms-of-use">Terms of Use</Link></li>
+                                        <li className="navigation__item "><Link className="navigation__link" href="/disclaimer">Disclaimer</Link></li>
                                     </ul>
                                 </nav>
                                 <div className="navigation navigation--bottom">

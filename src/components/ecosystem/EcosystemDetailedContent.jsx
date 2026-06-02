@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import ImageTicker from '../common/ImageTicker';
 import { ecosystemImages as tickerImages } from '../../assets/imageTiker';
-import juju_about from '../../assets/juju-about.mp4';
-import growth_content from '../../assets/growth_content.aep.mp4';
+const juju_about = '/assets/juju-about.mp4';
+const growth_content = '/assets/growth_content.aep.mp4';
 
 const EcosystemDetailedContent = () => {
 
@@ -218,7 +218,7 @@ const EcosystemDetailedContent = () => {
                             JUJU’s ecosystem is built to scale with you.
                         </p>
                         <Link
-                            to="/start-project?src=organic"
+                            href="/start-project?src=organic"
                             className="hover-scale"
                             style={{
                                 display: 'inline-block',

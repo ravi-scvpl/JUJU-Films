@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import ImageTicker from '../common/ImageTicker';
 import { aiFilmsImages as tickerImages } from '../../assets/imageTiker';
-import juju_ai from '../../assets/juju_ai.mp4';
-import juju_about from '../../assets/juju-about.mp4'
+const juju_ai = '/assets/juju_ai.mp4';
+const juju_about = '/assets/juju-about.mp4';
 
 const AIFilmsDetailedContent = () => {
 
@@ -206,7 +206,7 @@ const AIFilmsDetailedContent = () => {
                             JUJU AI Films is built to collaborate.
                         </p>
                         <Link
-                            to="/start-project?src=organic"
+                            href="/start-project?src=organic"
                             className="hover-scale"
                             style={{
                                 display: 'inline-block',

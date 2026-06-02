@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import ImageTicker from '../common/ImageTicker';
 import { storytellersImages as tickerImages } from '../../assets/imageTiker';
-import juju_storytelling from '../../assets/juju_storytelling.mp4';
-import juju_about from '../../assets/juju-about.mp4';
+const juju_storytelling = '/assets/juju_storytelling.mp4';
+const juju_about = '/assets/juju-about.mp4';
 
 const StorytellersDetailedContent = () => {
     const pillars = [
@@ -208,7 +208,7 @@ const StorytellersDetailedContent = () => {
                             Explore Storytelling with JUJU.
                         </p>
                         <Link
-                            to="/start-project?src=organic"
+                            href="/start-project?src=organic"
                             className="hover-scale"
                             style={{
                                 display: 'inline-block',

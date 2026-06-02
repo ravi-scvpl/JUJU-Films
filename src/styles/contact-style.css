@@ -2074,12 +2074,12 @@ table.form_results.with_frm_style tr.frm_odd,
 }
 
 .frm-loading-img {
-    background: url(../local_assets/wp-content/plugins/formidable/images/ajax_loader.gif) no-repeat center center;
+    background: none no-repeat center center;
     padding: 6px 12px;
 }
 
 select.frm_loading_lookup {
-    background-image: url(../local_assets/wp-content/plugins/formidable/images/ajax_loader.gif) !important;
+    background-image: none !important;
     background-position: 10px;
     background-repeat: no-repeat;
     color: transparent !important;

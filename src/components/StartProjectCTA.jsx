@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const StartProjectCTA = () => {
     return (
@@ -30,7 +30,7 @@ const StartProjectCTA = () => {
                         Whether it's a high-impact commercial, an original brand story, or a cost-controlled AI film, we're ready to build with you.
                     </p>
                     <Link
-                        to="/start-project?src=organic"
+                        href="/start-project?src=organic"
                         className="hover-scale"
                         style={{
                             display: 'inline-block',

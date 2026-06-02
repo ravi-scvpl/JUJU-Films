@@ -5,6 +5,16 @@ body {
     transition: background-color 1.6s cubic-bezier(.22, 1, .36, 1), color 1.6s cubic-bezier(.22, 1, .36, 1);
 }
 
+/* Default (Dark Theme) Navigation Menu Link Styles */
+.navigation__link {
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+.navigation__link:hover {
+    color: #E52323;
+}
+
 /* Default (Dark Theme) Form Visibility & Aesthetic Fixes */
 .with_frm_style,
 .frm_style_formidable-style.with_frm_style {

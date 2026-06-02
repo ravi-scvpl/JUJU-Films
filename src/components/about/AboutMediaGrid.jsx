@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useRef } from 'react';
-import aboutvideo from '../../assets/juju-about1.mp4';
+const aboutvideo = '/assets/juju-about1.mp4';
 import './AboutMediaGrid.css';
 
 const AboutMediaGrid = ({ videoSrc = aboutvideo }) => {

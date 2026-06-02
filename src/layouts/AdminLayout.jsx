@@ -1,18 +1,20 @@
+"use client";
 
 import React from 'react';
-import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/admin.css';
 
-const AdminLayout = () => {
+const AdminLayout = ({ children }) => {
     const { logout, role } = useAuth();
-    const navigate = useNavigate();
-    const location = useLocation();
+    const router = useRouter();
+    const pathname = usePathname();
 
     const handleLogout = async () => {
         try {
             await logout();
-            navigate('/admin/login');
+            router.push('/admin/login');
         } catch (error) {
             console.error('Error logging out:', error);
         }
@@ -20,7 +22,6 @@ const AdminLayout = () => {
 
     // Prevent search engine indexing for admin pages
     React.useEffect(() => {
-        // Create or update robots meta tag
         let meta = document.querySelector('meta[name="robots"]');
         const previousContent = meta ? meta.getAttribute('content') : null;
 
@@ -32,13 +33,10 @@ const AdminLayout = () => {
 
         meta.setAttribute('content', 'noindex, nofollow');
 
-        // Cleanup: restore previous state or remove if it didn't exist
         return () => {
             if (previousContent) {
                 meta.setAttribute('content', previousContent);
             } else {
-                // If it didn't exist before, maybe we should remove it? 
-                // Or set it to index, follow default. removing is safer if site-wide default is index.
                 if (meta && meta.parentNode) {
                     meta.parentNode.removeChild(meta);
                 }
@@ -46,7 +44,7 @@ const AdminLayout = () => {
         };
     }, []);
 
-    const isActive = (path) => location.pathname === path;
+    const isActive = (path) => pathname === path;
 
     return (
         <div className="admin-layout">
@@ -60,7 +58,7 @@ const AdminLayout = () => {
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         <li className="admin-nav-item">
                             <Link
-                                to="/admin/dashboard"
+                                href="/admin/dashboard"
                                 className={`admin-nav-link ${isActive('/admin/dashboard') ? 'active' : ''}`}
                             >
                                 Dashboard (Leads)
@@ -70,7 +68,7 @@ const AdminLayout = () => {
                             <>
                                 <li className="admin-nav-item">
                                     <Link
-                                        to="/admin/categories"
+                                        href="/admin/categories"
                                         className={`admin-nav-link ${isActive('/admin/categories') ? 'active' : ''}`}
                                     >
                                         Categories
@@ -78,7 +76,7 @@ const AdminLayout = () => {
                                 </li>
                                 <li className="admin-nav-item">
                                     <Link
-                                        to="/admin/blog"
+                                        href="/admin/blog"
                                         className={`admin-nav-link ${isActive('/admin/blog') ? 'active' : ''}`}
                                     >
                                         Blog Posts
@@ -86,7 +84,7 @@ const AdminLayout = () => {
                                 </li>
                                 <li className="admin-nav-item">
                                     <Link
-                                        to="/admin/influence"
+                                        href="/admin/influence"
                                         className={`admin-nav-link ${isActive('/admin/influence') ? 'active' : ''}`}
                                     >
                                         Case Studies
@@ -107,7 +105,7 @@ const AdminLayout = () => {
 
             {/* Main Content */}
             <main className="admin-main">
-                <Outlet />
+                {children}
             </main>
         </div>
     );

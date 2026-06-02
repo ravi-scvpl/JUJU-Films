@@ -1,5 +1,5 @@
 import React from 'react';
-import aboutvideo from '../../assets/juju-about.mp4';
+const aboutvideo = '/assets/juju-about.mp4';
 
 const AboutDetailedContent = () => {
 

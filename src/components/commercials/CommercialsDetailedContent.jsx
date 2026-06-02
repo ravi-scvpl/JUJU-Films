@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import ImageTicker from '../common/ImageTicker';
 import { commercialsImages as tickerImages } from '../../assets/imageTiker';
-import juju_commercials from '../../assets/juju-commercials.mp4';
-import juju_about from '../../assets/juju-about.mp4';
+const juju_commercials = '/assets/juju-commercials.mp4';
+const juju_about = '/assets/juju-about.mp4';
 
 const CommercialsDetailedContent = () => {
 
@@ -204,7 +204,7 @@ const CommercialsDetailedContent = () => {
                             JUJU Commercials is built for scale and craft.
                         </p>
                         <Link
-                            to="/start-project?src=organic"
+                            href="/start-project?src=organic"
                             className="hover-scale"
                             style={{
                                 display: 'inline-block',
