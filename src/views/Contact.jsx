@@ -27,7 +27,7 @@ const Contact = () => {
     const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
-        const tab = searchParams.get('tab');
+        const tab = searchParams ? searchParams.get('tab') : null;
         if (tab && tabContent[tab]) {
             setActiveTab(tab);
         }

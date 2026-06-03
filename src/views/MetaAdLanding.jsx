@@ -26,8 +26,8 @@ const formOptions = [
 ];
 
 const MetaAdLanding = () => {
-    const [searchParams] = useSearchParams();
-    const isOrganic = searchParams.get('src') === 'organic';
+    const searchParams = useSearchParams();
+    const isOrganic = searchParams ? searchParams.get('src') === 'organic' : false;
 
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({

@@ -146,6 +146,9 @@ const Layout = ({ children }) => {
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} href="/juju-commercials" onClick={() => setIsMenuOpen(false)}>Commercials </Link>
                             </li>
                             <li className="navigation__item">
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/vertical-micro-drama-production-india" onClick={() => setIsMenuOpen(false)}>Vertical Micro Dramas</Link>
+                            </li>
+                            <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} href="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>AI Films</Link>
                             </li>
                             <li className="navigation__item">
@@ -178,6 +181,7 @@ const Layout = ({ children }) => {
 
                                 <li className="navigation__item"><Link className="navigation__link" href="/juju-storytellers">Storytellers</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" href="/juju-commercials">Commercials</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" href="/vertical-micro-drama-production-india">Vertical Micro Dramas</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" href="/juju-ai-films">AI Films</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" href="/juju-ecosystem">Growth Content</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" href="/contact">Contact</Link></li>

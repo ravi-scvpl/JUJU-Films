@@ -283,6 +283,7 @@ const Homepage2 = () => {
                         { name: "Juju Storyteller", path: "/juju-storytellers" },
                         { name: "Juju Commercials", path: "/juju-commercials" },
                         { name: "Juju AI Films", path: "/juju-ai-films" },
+                        { name: "Juju Vertical Micro Dramas", path: "/vertical-micro-drama-production-india" },
                         // { name: "Collective", path: "/team" },
                         { name: "Stories", path: "/blog" },
                         { name: "Case Studies", path: "/case-studies" },
