@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
+import SEO from '../components/SEO';
 const jujuShowreel = '/assets/juju-showreel.mp4';
 
 const Showreel = () => {
@@ -32,6 +33,11 @@ const Showreel = () => {
             }}
             onContextMenu={handleContextMenu}
         >
+            <SEO
+                title="Showreel"
+                description="Watch the official high craft showreel of JUJU Films."
+                canonical="/showreel"
+            />
             <video
                 ref={videoRef}
                 style={{

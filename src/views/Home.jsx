@@ -9,6 +9,32 @@ const Home = () => {
                 title="Home"
                 description="JUJU Films is a creator collective making micro-dramas, series, and films—where brands don’t interrupt stories, they enable them."
                 canonical="/"
+                schema={[
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "Organization",
+                        "name": "JUJU Films",
+                        "url": "https://www.jujuindia.com",
+                        "logo": "https://www.jujuindia.com/juju-white-logo.webp",
+                        "sameAs": [
+                            "https://www.instagram.com/jujufilmsindia",
+                            "https://www.facebook.com/share/17xYvGRBGJ/",
+                            "https://x.com/JujuFilmsIndia",
+                            "https://in.pinterest.com/JujuFilmsIndia/"
+                        ]
+                    },
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "WebSite",
+                        "name": "JUJU Films",
+                        "url": "https://www.jujuindia.com",
+                        "potentialAction": {
+                            "@type": "SearchAction",
+                            "target": "https://www.jujuindia.com/search?q={search_term_string}",
+                            "query-input": "required name=search_term_string"
+                        }
+                    }
+                ]}
             />
             {/* 1. HERO SECTION */}
             <header className="header-homepage grid">
