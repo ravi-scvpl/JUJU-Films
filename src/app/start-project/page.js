@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import MetaAdLanding from '@/views/MetaAdLanding';
 
 export const metadata = {
@@ -10,5 +10,9 @@ export const metadata = {
 };
 
 export default function StartProjectRoute() {
-  return <MetaAdLanding />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MetaAdLanding />
+    </Suspense>
+  );
 }

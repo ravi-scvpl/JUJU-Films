@@ -288,16 +288,15 @@ const Homepage2 = () => {
                         { name: "Case Studies", path: "/case-studies" },
                         { name: " ", path: null },
                         { name: " ", path: null },
-                        { name: "Brand Collabration", path: "/contact", state: { activeTab: 'brand' } },
-                        { name: "Creators Connect", path: "/contact", state: { activeTab: 'creators' } },
-                        { name: "Internship", path: "/contact", state: { activeTab: 'internships' } },
-                        { name: "Job", path: "/contact", state: { activeTab: 'jobs' } }
+                        { name: "Brand Collabration", path: "/contact?tab=organic_website" },
+                        { name: "Creators Connect", path: "/contact?tab=creators" },
+                        { name: "Internship", path: "/contact?tab=internships" },
+                        { name: "Job", path: "/contact?tab=jobs" }
                     ].map((item, index) => (
                         item.path ? (
                             <Link
                                 key={index}
                                 href={item.path}
-                                state={item.state}
                                 className="h2-sector-item"
                                 id={`sector-${index}`}
                                 style={{ textDecoration: 'none', display: 'block' }}
@@ -328,7 +327,7 @@ const Homepage2 = () => {
                     {/* <div className="h2-project-card">
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/07/01-caramba-culturel-logotype-4-2560x1583.webp" alt="Caramba: Live Culture" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.currentTarget.play()} onMouseOut={e => e.currentTarget.pause()}>
                                 <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
                             </video>
                         </div>
@@ -342,7 +341,7 @@ const Homepage2 = () => {
                     {/* <div className="h2-project-card">
                         <div className="h2-project-media-container">
                             <img className="h2-project-img" src="https://grapheine.com/wp-content/uploads/2025/09/cs_elegy-gallimard-jeunesse-2560x1313.webp" alt="Elegy" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()}>
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.currentTarget.play()} onMouseOut={e => e.currentTarget.pause()}>
                                 <source src="https://grapheine.com/wp-content/uploads/2025/09/intro_case_logo-low-1.mp4" type="video/mp4" />
                             </video>
                         </div>
@@ -355,8 +354,8 @@ const Homepage2 = () => {
                     {/* 5. Baudouin Square */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img1} alt="Game Badal de" loading="lazy" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
+                            <img className="h2-project-img" src={img1.src || img1} alt="Game Badal de" loading="lazy" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.currentTarget.play()} onMouseOut={e => e.currentTarget.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
                                 <source src={gamebadalde} type="video/mp4" />
                             </video>
                         </div>
@@ -369,8 +368,8 @@ const Homepage2 = () => {
                     {/* 6. The Animal Company */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img2} alt="Out Karo" loading="lazy" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
+                            <img className="h2-project-img" src={img2.src || img2} alt="Out Karo" loading="lazy" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.currentTarget.play()} onMouseOut={e => e.currentTarget.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
                                 <source src={outkro} type="video/mp4" />
                             </video>
                         </div>
@@ -385,8 +384,8 @@ const Homepage2 = () => {
 
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img3} alt="Expert ki Suno" loading="lazy" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
+                            <img className="h2-project-img" src={img3.src || img3} alt="Expert ki Suno" loading="lazy" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.currentTarget.play()} onMouseOut={e => e.currentTarget.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
                                 <source src={xpert} type="video/mp4" />
                             </video>
                         </div>
@@ -399,8 +398,8 @@ const Homepage2 = () => {
                     {/* 6. The Animal Company */}
                     <div className="h2-project-card">
                         <div className="h2-project-media-container">
-                            <img className="h2-project-img" src={img4} alt="Super Shayari" loading="lazy" />
-                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
+                            <img className="h2-project-img" src={img4.src || img4} alt="Super Shayari" loading="lazy" />
+                            <video className="h2-project-video-hover" muted loop playsInline onMouseOver={e => e.currentTarget.play()} onMouseOut={e => e.currentTarget.pause()} preload="none" onContextMenu={(e) => e.preventDefault()} controlsList="nodownload">
                                 <source src={shayarifilms} type="video/mp4" />
                             </video>
                         </div>

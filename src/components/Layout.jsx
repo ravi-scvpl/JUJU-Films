@@ -70,10 +70,21 @@ const Layout = ({ children }) => {
             });
         }, observerOptions);
 
+        let debounceTimeout = null;
+
         // Select and observe all elements with .reveal-on-scroll
         const observeElements = () => {
-            const elements = document.querySelectorAll('.reveal-on-scroll');
-            elements.forEach(el => observer.observe(el));
+            if (debounceTimeout) {
+                clearTimeout(debounceTimeout);
+            }
+            debounceTimeout = setTimeout(() => {
+                const elements = document.querySelectorAll('.reveal-on-scroll');
+                elements.forEach(el => {
+                    if (!el.classList.contains('is-visible')) {
+                        observer.observe(el);
+                    }
+                });
+            }, 50);
         };
 
         // Delay slightly to ensure DOM is ready? 
@@ -95,6 +106,9 @@ const Layout = ({ children }) => {
             window.removeEventListener('scroll', handleScroll);
             observer.disconnect();
             mutationObserver.disconnect();
+            if (debounceTimeout) {
+                clearTimeout(debounceTimeout);
+            }
         };
     }, [pathname]);
 

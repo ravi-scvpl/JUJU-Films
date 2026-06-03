@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Contact from '@/views/Contact';
 
 export const metadata = {
@@ -10,5 +10,9 @@ export const metadata = {
 };
 
 export default function ContactRoute() {
-  return <Contact />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Contact />
+    </Suspense>
+  );
 }

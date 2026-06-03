@@ -28,7 +28,7 @@ const Contact = () => {
 
     useEffect(() => {
         const tab = searchParams.get('tab');
-        if (tab) {
+        if (tab && tabContent[tab]) {
             setActiveTab(tab);
         }
     }, [searchParams]);
