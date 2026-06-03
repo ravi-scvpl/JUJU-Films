@@ -212,7 +212,7 @@ const VMDRichContent = () => {
 
             {/* Why JUJU (Light Grid) */}
             <section className="section reveal-on-scroll pillars-section" style={{ marginBottom: '100px' }}>
-                <div className="grid pillars-grid-wrapper" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px', borderTop: '1px solid #333', padding: '60px 0' }}>
+                <div className="grid pillars-grid-wrapper" style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px', borderTop: '1px solid #333', paddingTop: '60px', paddingBottom: '60px' }}>
                     <div className="pillar-title-col" style={{ gridColumn: '1 / 5' }}>
                         <h2 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', color: '#FF2B2B', margin: 0 }}>The Discipline</h2>
                         <h3 style={{ fontSize: '42px', fontWeight: '300', marginTop: '20px', lineHeight: '1.1', color: '#111' }}>Why JUJU for Vertical Micro Dramas?</h3>
