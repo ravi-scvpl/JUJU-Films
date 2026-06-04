@@ -13,6 +13,8 @@ export default async function sitemap() {
     { url: '/juju-ecosystem', changeFrequency: 'monthly', priority: 0.8 },
     { url: '/case-studies', changeFrequency: 'weekly', priority: 0.8 },
     { url: '/blog', changeFrequency: 'weekly', priority: 0.8 },
+    { url: '/vertical-micro-drama-production-india', changeFrequency: 'monthly', priority: 0.8 },
+    { url: '/vertical-micro-drama-production-india/playbook', changeFrequency: 'monthly', priority: 0.8 },
     { url: '/contact', changeFrequency: 'monthly', priority: 0.8 },
     { url: '/privacy-policy', changeFrequency: 'yearly', priority: 0.3 },
     { url: '/terms-of-use', changeFrequency: 'yearly', priority: 0.3 },

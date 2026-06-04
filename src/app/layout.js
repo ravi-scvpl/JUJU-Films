@@ -10,6 +10,7 @@ import '@/styles/style2.css';
 import '@/styles/theme.css';
 import '@/styles/detailed-pages.css';
 import '@/index.css';
+import '@/styles/juju-overrides.css';
 
 export const metadata = {
   metadataBase: new URL('https://www.jujuindia.com'),

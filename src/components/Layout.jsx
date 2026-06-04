@@ -145,8 +145,16 @@ const Layout = ({ children }) => {
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} href="/juju-commercials" onClick={() => setIsMenuOpen(false)}>Commercials </Link>
                             </li>
-                            <li className="navigation__item">
+                            <li className="navigation__item has-submenu">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} href="/vertical-micro-drama-production-india" onClick={() => setIsMenuOpen(false)}>Vertical Micro Dramas</Link>
+                                <ul className="submenu">
+                                    <li className="submenu__item">
+                                        <Link className="submenu__link" href="/vertical-micro-drama-production-india" onClick={() => setIsMenuOpen(false)}>Overview</Link>
+                                    </li>
+                                    <li className="submenu__item">
+                                        <Link className="submenu__link" href="/vertical-micro-drama-production-india/playbook" onClick={() => setIsMenuOpen(false)}>VMD Playbook</Link>
+                                    </li>
+                                </ul>
                             </li>
                             <li className="navigation__item">
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} href="/juju-ai-films" onClick={() => setIsMenuOpen(false)}>AI Films</Link>
