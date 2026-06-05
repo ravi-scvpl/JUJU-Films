@@ -1,5 +1,5 @@
 {
-  "/(public)/page": "app/(public)/page.js",
-  "/(public)/vertical-micro-drama-production-india/playbook/page": "app/(public)/vertical-micro-drama-production-india/playbook/page.js",
+  "/(public)/blog/page": "app/(public)/blog/page.js",
+  "/(public)/blog/[slug]/page": "app/(public)/blog/[slug]/page.js",
   "/(public)/vertical-micro-drama-production-india/page": "app/(public)/vertical-micro-drama-production-india/page.js"
 }

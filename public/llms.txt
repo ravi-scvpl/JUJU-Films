@@ -9,7 +9,7 @@ This file provides a structured overview of JUJU Films, a creator collective bas
 - **Mission**: Not a production house, but a creator collective. Partnering with top storytellers to build original intellectual property (IP), funded by brands focused on cultural presence.
 
 ## Primary Capabilities & Services
-1. **Micro-Dramas & Short-Form Content**: Bingeable, emotional stories crafted for high attention and engagement across short-form platforms (Reels, Shorts).
+1. **Vertical Micro-Drama Production (VMD)**: A dedicated division based in Mumbai and Delhi NCR, India, specializing in mobile-first 9:16 web series, episodic branded content, and social-first storytelling formats (1 to 5 minutes per episode) optimized for high retention on Reels, Shorts, and drama apps.
 2. **Original Series & Features**: Premium OTT and limited series with extensive shelf life and cultural relevance.
 3. **Brand-Enabled IP**: Content where brands organically participate within the narrative world—"If the brand disappears from the story and it still works—that’s success."
 4. **JUJU AI Lab**: AI integration at the development level (script exploration, pre-visualisation, regional scale) to enhance the creative pipeline and speed without soul loss.
@@ -21,6 +21,8 @@ This file provides a structured overview of JUJU Films, a creator collective bas
 ## Navigation Context
 - **`/`**: Home
 - **`/about`**: About JUJU Films
+- **`/vertical-micro-drama-production-india`**: Main overview page for Vertical Micro Drama production services, frameworks, and pilots in India.
+- **`/vertical-micro-drama-production-india/playbook`**: The VMD playbook detailing story design, hook mechanics, casting, pre-production, and launch workflows.
 - **`/portfolio`** or **`/case-studies`**: Featured IP and collaborative success stories
 - **`/contact`**: Inquiries for Brands and Creators
 - **`/juju-storytellers`**: Content focused on OTT web series, music videos, and micro-dramas

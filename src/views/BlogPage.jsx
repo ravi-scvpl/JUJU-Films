@@ -6,6 +6,7 @@ import { supabase } from '../supabaseClient';
 import '../styles/homepage2.css';
 import '../styles/juju-overrides.css';
 import SEO from '../components/SEO';
+import { STATIC_BLOGS } from '../data/staticBlogs';
 
 const BlogPage = () => {
     // Stories Typing Animation State
@@ -19,7 +20,6 @@ const BlogPage = () => {
     const [activeCategory, setActiveCategory] = useState("All");
 
     useEffect(() => {
-        // Fetch Blogs
         // Fetch Categories
         const fetchCategories = async () => {
             const { data, error } = await supabase
@@ -49,8 +49,9 @@ const BlogPage = () => {
                     throw error;
                 }
 
+                let mappedBlogs = [];
                 if (data) {
-                    const mappedBlogs = data.map(post => ({
+                    mappedBlogs = data.map(post => ({
                         id: post.id,
                         slug: post.slug,
                         title: post.title,
@@ -60,10 +61,43 @@ const BlogPage = () => {
                         image: post.image_url,
                         altText: post.alt_text
                     }));
-                    setBlogs(mappedBlogs);
                 }
+
+                // Inject static blogs if they are not already returned by DB
+                const combinedBlogs = [...mappedBlogs];
+                Object.values(STATIC_BLOGS).forEach(staticBlog => {
+                    const exists = mappedBlogs.some(b => b.slug === staticBlog.slug);
+                    if (!exists && (activeCategory === 'All' || activeCategory === staticBlog.category)) {
+                        combinedBlogs.unshift({
+                            id: staticBlog.id,
+                            slug: staticBlog.slug,
+                            title: staticBlog.title,
+                            intro: staticBlog.intro,
+                            date: staticBlog.date,
+                            category: staticBlog.category,
+                            image: staticBlog.image_url,
+                            altText: staticBlog.altText || staticBlog.title
+                        });
+                    }
+                });
+
+                setBlogs(combinedBlogs);
             } catch (err) {
                 console.error("Error fetching blogs:", err);
+                // Fallback to static blogs in case of error
+                const staticOnly = Object.values(STATIC_BLOGS)
+                    .filter(staticBlog => activeCategory === 'All' || activeCategory === staticBlog.category)
+                    .map(staticBlog => ({
+                        id: staticBlog.id,
+                        slug: staticBlog.slug,
+                        title: staticBlog.title,
+                        intro: staticBlog.intro,
+                        date: staticBlog.date,
+                        category: staticBlog.category,
+                        image: staticBlog.image_url,
+                        altText: staticBlog.altText || staticBlog.title
+                    }));
+                setBlogs(staticOnly);
             }
         };
 

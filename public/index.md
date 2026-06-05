@@ -6,8 +6,10 @@ JUJU Films is a creator collective making micro-dramas, series, and films—wher
 
 ## Our Core Offerings
 
-### 1. Micro-Dramas
-Short, bingeable emotional stories designed for today’s attention spans.
+### 1. Vertical Micro-Dramas (VMD)
+Short, bingeable emotional stories in 9:16 vertical format designed for mobile attention spans. JUJU operates as a Vertical Micro Drama Production House based in Mumbai and Delhi NCR, India, delivering end-to-end VMD creation (pilots, series, and episodic branded entertainment) optimized for platforms like Instagram Reels, YouTube Shorts, and emerging drama apps.
+- **Learn more**: [Vertical Micro Dramas](/vertical-micro-drama-production-india)
+- **Our framework**: [VMD Playbook](/vertical-micro-drama-production-india/playbook)
 
 ### 2. Original Series & Films
 Limited series and features with long shelf life and strong cultural recall.

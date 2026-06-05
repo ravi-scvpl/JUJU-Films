@@ -41,7 +41,15 @@ const Layout = ({ children }) => {
         // ALWAYS scroll to top on route change
         window.scrollTo(0, 0);
 
+        if (pathname && pathname.includes('/blog/')) {
+            setIsLightTheme(false);
+        }
+
         const handleScroll = () => {
+            if (pathname && pathname.includes('/blog/')) {
+                setIsLightTheme(false);
+                return;
+            }
             const viewportHeight = window.innerHeight;
             if (window.scrollY > viewportHeight / 2) {
                 setIsLightTheme(true);

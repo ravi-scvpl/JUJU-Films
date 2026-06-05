@@ -22,21 +22,22 @@
       "static/css/app/(public)/page.css",
       "static/chunks/app/(public)/page.js"
     ],
-    "/(public)/vertical-micro-drama-production-india/playbook/page": [
+    "/(public)/blog/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/vertical-micro-drama-production-india/playbook/page.js"
+      "static/css/app/(public)/blog/page.css",
+      "static/chunks/app/(public)/blog/page.js"
+    ],
+    "/(public)/blog/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/blog/[slug]/page.js"
     ],
     "/(public)/vertical-micro-drama-production-india/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/(public)/vertical-micro-drama-production-india/page.css",
       "static/chunks/app/(public)/vertical-micro-drama-production-india/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

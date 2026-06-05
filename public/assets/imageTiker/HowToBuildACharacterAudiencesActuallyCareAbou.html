@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How To Build A Character Audiences Actually Care About — JUJU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Georgia:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --black: #0d0c0a;
+            --off-white: #f2f0ec;
+            --red: #e02020;
+            --red-dark: #b01818;
+            --warm-grey: #3f3b35;
+            --light-grey: #d6d5d4;
+            --mid-grey: #8a8880;
+            --cream: #faf8f4;
+            --border: #2a2925;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--off-white);
+            font-family: 'Georgia', serif;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            padding: 0 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--off-white);
+            letter-spacing: 0.08em;
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: var(--red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--mid-grey);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--off-white);
+        }
+
+        /* HERO */
+        .hero {
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            padding: 80px 48px 64px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero-category {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-category::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--red);
+        }
+
+        .hero h1 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: clamp(28px, 4vw, 52px);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--off-white);
+            max-width: 820px;
+            margin-bottom: 32px;
+            letter-spacing: -0.01em;
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            color: var(--mid-grey);
+            letter-spacing: 0.05em;
+        }
+
+        .hero-meta .divider {
+            color: var(--border);
+        }
+
+        .hero-intro {
+            margin-top: 48px;
+            padding-top: 48px;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .hero-intro p {
+            font-size: 17px;
+            line-height: 1.75;
+            color: #c8c5be;
+        }
+
+        .hero-intro p strong {
+            color: var(--off-white);
+            font-weight: 700;
+        }
+
+        /* LAYOUT */
+        .page-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* ARTICLE BODY */
+        .article-body {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 64px;
+            padding: 64px 0 96px;
+            align-items: start;
+        }
+
+        .article-main {
+            min-width: 0;
+        }
+
+        .article-aside {
+            position: sticky;
+            top: 80px;
+        }
+
+        /* SECTIONS */
+        .section {
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section h2 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--off-white);
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .section h3 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--off-white);
+            margin: 32px 0 12px;
+            text-transform: uppercase;
+        }
+
+        .section p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #b8b4ac;
+            margin-bottom: 20px;
+        }
+
+        .section p strong {
+            color: var(--off-white);
+        }
+
+        /* PULLQUOTE */
+        .pullquote {
+            border-left: 3px solid var(--red);
+            margin: 40px 0;
+            padding: 24px 32px;
+            background: #131210;
+        }
+
+        .pullquote p {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--off-white);
+            margin: 0;
+        }
+
+        /* HIGHLIGHT BOX */
+        .highlight-box {
+            background: #131210;
+            border: 1px solid var(--border);
+            padding: 32px;
+            margin: 40px 0;
+        }
+
+        .highlight-box-title {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 20px;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+        }
+
+        .highlight-box ul li {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            color: #b8b4ac;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.5;
+        }
+
+        .highlight-box ul li:last-child {
+            border-bottom: none;
+        }
+
+        .highlight-box ul li::before {
+            content: '→';
+            color: var(--red);
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* NUMBERED LIST */
+        .numbered-list {
+            counter-reset: item;
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .numbered-list li {
+            counter-increment: item;
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 16px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 15px;
+            color: #b8b4ac;
+            line-height: 1.7;
+        }
+
+        .numbered-list li:last-child {
+            border-bottom: none;
+        }
+
+        .numbered-list li::before {
+            content: counter(item, decimal-leading-zero);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--red);
+            padding-top: 3px;
+        }
+
+        .numbered-list li strong {
+            display: block;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--off-white);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        /* SIDEBAR */
+        .sidebar-card {
+            background: #131210;
+            border: 1px solid var(--border);
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 16px;
+        }
+
+        .sidebar-card p {
+            font-size: 13px;
+            line-height: 1.65;
+            color: #8a8880;
+        }
+
+        .sidebar-toc {
+            list-style: none;
+        }
+
+        .sidebar-toc li {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-toc li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-toc a {
+            display: block;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            color: var(--mid-grey);
+            text-decoration: none;
+            padding: 10px 0;
+            letter-spacing: 0.03em;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+
+        .sidebar-toc a:hover {
+            color: var(--off-white);
+            padding-left: 6px;
+        }
+
+        .sidebar-cta {
+            background: var(--red);
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-cta p {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.5;
+            color: var(--off-white);
+            margin-bottom: 16px;
+        }
+
+        .sidebar-cta a {
+            display: inline-block;
+            background: var(--off-white);
+            color: var(--black);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+
+        /* FAQ */
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+        }
+
+        .faq-q {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--off-white);
+            margin-bottom: 12px;
+            letter-spacing: 0.01em;
+        }
+
+        .faq-a {
+            font-size: 15px;
+            line-height: 1.75;
+            color: #8a8880;
+        }
+
+        /* FOOTER CTA */
+        .footer-cta {
+            background: #131210;
+            border-top: 3px solid var(--red);
+            padding: 64px 48px;
+            text-align: center;
+        }
+
+        .footer-cta h3 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--off-white);
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .footer-cta p {
+            font-size: 16px;
+            color: var(--mid-grey);
+            margin-bottom: 32px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--red);
+            color: var(--off-white);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 14px 32px;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--red-dark);
+        }
+
+        /* DIVIDER */
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 48px 0;
+        }
+
+        @media (max-width: 900px) {
+            nav {
+                padding: 0 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 48px 24px 40px;
+            }
+
+            .hero-intro {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .page-wrap {
+                padding: 0 24px;
+            }
+
+            .article-body {
+                grid-template-columns: 1fr;
+            }
+
+            .article-aside {
+                position: static;
+            }
+
+            .footer-cta {
+                padding: 48px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="nav-logo">JU<span>JU</span></a>
+        <ul class="nav-links">
+            <li><a href="#">Storytellers</a></li>
+            <li><a href="#">Commercials</a></li>
+            <li><a href="#">Vertical Micro Dramas</a></li>
+            <li><a href="#">Growth Content</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-category">Content Strategy</div>
+        <h1>How To Build A Character Audiences Actually Care About</h1>
+        <div class="hero-meta">
+            <span>JUJU Editorial</span>
+            <span class="divider">—</span>
+            <span>June 2026</span>
+            <span class="divider">—</span>
+            <span>12 min read</span>
+        </div>
+        <div class="hero-intro">
+            <p>Audiences do not care about characters because they are <strong>likable</strong>. They care because
+                something about the character still feels <strong>unresolved</strong>.</p>
+            <p>That unresolved quality creates curiosity, tension, and the feeling that something still matters. Without
+                it, a character can be entertaining and still be forgettable.</p>
+        </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="page-wrap">
+        <div class="article-body">
+
+            <!-- MAIN CONTENT -->
+            <main class="article-main">
+
+                <!-- Section 1 -->
+                <div class="section" id="why-audiences-follow">
+                    <div class="section-label">01 — The Core Problem</div>
+                    <h2>Why Audiences Follow Some Characters And Forget Others</h2>
+                    <p>The gap between a memorable character and a meaningful one is larger than most creators realise.
+                        Many characters are easy to remember — they have a distinctive look, a sharp sense of humour, or
+                        a strong personality. Those qualities help them stand out for a moment. They do not
+                        automatically make people care.</p>
+                    <p>Audiences become attached when they feel that a character is <strong>in the middle of
+                            something</strong>. A difficult decision. A personal conflict. A relationship that could
+                        change their future. A goal that feels uncertain. That is usually the point where viewing
+                        becomes emotional rather than observational.</p>
+
+                    <div class="pullquote">
+                        <p>"The audience is not watching to see what happens. They are watching because they are afraid
+                            of what might happen — and they need to know."</p>
+                    </div>
+
+                    <p>The characters audiences tend to forget are the ones who never seem to be at risk of anything.
+                        They are competent, confident, and undisturbed. Nothing meaningful presses against them. They go
+                        through the plot without going through anything personal.</p>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="section" id="desire-and-obstacle">
+                    <div class="section-label">02 — The Mechanism</div>
+                    <h2>Desire And Obstacle Create The Engine</h2>
+                    <p>The simplest version of what makes a character work is this: they want something, and something
+                        is in the way. That structure is not a formula. It is a description of how narrative tension
+                        actually functions.</p>
+                    <p>The want does not need to be dramatic. It can be quiet — the desire to be understood, to not
+                        repeat a mistake, to hold a family together, to admit something that has been hidden. What
+                        matters is that the want is real and that the obstacle is genuinely difficult.</p>
+
+                    <div class="highlight-box">
+                        <div class="highlight-box-title">What creates audience investment</div>
+                        <ul>
+                            <li>A character who wants something specific they cannot easily get</li>
+                            <li>An obstacle that reveals something true about who the character is</li>
+                            <li>A cost — something the character risks by trying to get what they want</li>
+                            <li>A gap between how the character sees themselves and what the audience can see</li>
+                            <li>A decision the audience is not sure the character will make correctly</li>
+                        </ul>
+                    </div>
+
+                    <p>Without cost, the story has no pressure. Without pressure, the audience has no reason to worry.
+                        And if the audience is not worried, they are not truly invested.</p>
+                </div>
+
+                <!-- Section 3 -->
+                <div class="section" id="flaws">
+                    <div class="section-label">03 — Craft Detail</div>
+                    <h2>Why Flaws Work When Sympathy Alone Does Not</h2>
+                    <p>Sympathy is easy to manufacture. Give a character a difficult past, a loss, or an unfair
+                        situation and most audiences will feel something for them. That feeling rarely lasts on its own.
+                    </p>
+                    <p>Flaws create a different kind of connection. A flaw is not simply a weakness — it is a pattern of
+                        behaviour that costs the character something and that they cannot fully see or control.
+                        <strong>It is the engine of most meaningful character arcs.</strong></p>
+
+                    <ol class="numbered-list">
+                        <li><strong>Inconsistency Under Pressure</strong>A character who behaves consistently in comfort
+                            but inconsistently under pressure feels human. The inconsistency is not a writing problem —
+                            it is the information the audience is waiting for.</li>
+                        <li><strong>Self-Deception</strong>Characters who misread their own motivations create dramatic
+                            irony. The audience understands something the character does not. That gap creates tension
+                            that almost no other technique can replicate.</li>
+                        <li><strong>The Wrong Solution</strong>A character who solves the right problem in the wrong way
+                            is more compelling than one who always finds the correct answer. The wrong solution reveals
+                            values, priorities, and blind spots.</li>
+                        <li><strong>A Cost The Character Keeps Paying</strong>If a flaw has no ongoing consequences, it
+                            is not really a flaw — it is a personality note. A real flaw shows up repeatedly, costs
+                            something real, and resists easy resolution.</li>
+                    </ol>
+                </div>
+
+                <!-- Section 4 -->
+                <div class="section" id="vertical-drama">
+                    <div class="section-label">04 — Applied To VMD</div>
+                    <h2>Building Character In Vertical Micro Dramas</h2>
+                    <p>Vertical micro dramas have a structural challenge that longer formats do not: the entire first
+                        episode must establish enough about a character that a viewer feels something before they decide
+                        whether to continue.</p>
+                    <p>The audience is not committed. They are auditing. They will decide in thirty seconds whether this
+                        character is worth their attention. That means the opening has to do something different from
+                        what most long-form drama does.</p>
+
+                    <div class="pullquote">
+                        <p>"In VMD, character work is not scene-building — it is signal compression. Every line of
+                            dialogue, every reaction, every visual choice has to do the work that a feature film might
+                            spread across twenty minutes."</p>
+                    </div>
+
+                    <p>The most effective VMD characters are usually introduced mid-problem. Not at the start of a
+                        situation — in the middle of it, already making a choice, already in conflict with something or
+                        someone. That compression removes the setup phase and drops the audience directly into the
+                        emotional stakes.</p>
+
+                    <div class="highlight-box">
+                        <div class="highlight-box-title">VMD character entry techniques</div>
+                        <ul>
+                            <li>Open on a decision already in progress, not a situation being established</li>
+                            <li>Give the character one line that implies a full history without explaining it</li>
+                            <li>Use the physical environment to communicate something the character has not said</li>
+                            <li>Introduce a contradiction in the first thirty seconds — something that does not quite
+                                add up</li>
+                            <li>Let the character want something the audience can immediately understand</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Section 5 -->
+                <div class="section" id="arc">
+                    <div class="section-label">05 — The Arc</div>
+                    <h2>Change, Resistance, And What Actually Moves An Audience</h2>
+                    <p>A character arc is usually described as change — the character starts in one place and ends in
+                        another. That description is incomplete. What actually moves an audience is not the change
+                        itself but the <strong>resistance to change</strong>.</p>
+                    <p>A character who changes easily is not interesting. A character who fights against change, who has
+                        everything to lose by becoming different, who changes only because they have no other option
+                        left — that is where most of the emotion lives.</p>
+                    <p>Even flat arcs work when the character's refusal to change creates pressure on everything around
+                        them. The world changes, other characters change, and the static character becomes a kind of
+                        friction. That friction is narratively productive when it is handled deliberately.</p>
+
+                    <hr class="section-divider">
+
+                    <p>The goal is not to make a character likable. The goal is to make the audience feel that the
+                        character's situation is not finished yet — that something is still unresolved, still pressing,
+                        still at risk. That feeling, more than any single technique, is what keeps people watching.</p>
+                </div>
+
+                <!-- FAQ -->
+                <div class="section" id="faq">
+                    <div class="section-label">FAQ</div>
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <div class="faq-q">What makes a character feel relatable?</div>
+                        <div class="faq-a">A character feels relatable when the audience recognises an emotion,
+                            conflict, or insecurity they understand. Relatability usually comes from emotional truth,
+                            not from similarity in lifestyle or personality.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">Do characters need to be likable?</div>
+                        <div class="faq-a">No. Likability helps in some stories, but it is not the main driver of
+                            audience care. Audiences often connect more strongly with characters who are flawed,
+                            complicated, or still working through something.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">Why do audiences connect with flawed characters?</div>
+                        <div class="faq-a">Flaws create vulnerability, pressure, and contradiction. Those qualities make
+                            a character feel human and give the audience something to understand, anticipate, or worry
+                            about.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">What makes a protagonist memorable?</div>
+                        <div class="faq-a">A memorable protagonist usually wants something badly, behaves in a way that
+                            reveals character under pressure, and changes in a way the audience can feel.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">Why do some characters feel flat?</div>
+                        <div class="faq-a">Characters often feel flat when they are too perfect, too explained, too
+                            static, or too free of conflict. When nothing feels unfinished, the audience has less reason
+                            to stay engaged.</div>
+                    </div>
+                </div>
+
+            </main>
+
+            <!-- SIDEBAR -->
+            <aside class="article-aside">
+                <div class="sidebar-card">
+                    <div class="sidebar-title">In This Article</div>
+                    <ul class="sidebar-toc">
+                        <li><a href="#why-audiences-follow">Why Audiences Follow Some Characters</a></li>
+                        <li><a href="#desire-and-obstacle">Desire And Obstacle</a></li>
+                        <li><a href="#flaws">Why Flaws Work</a></li>
+                        <li><a href="#vertical-drama">Building Character In VMD</a></li>
+                        <li><a href="#arc">Change And Resistance</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-cta">
+                    <p>Building a Vertical Micro Drama series? Talk to our production team.</p>
+                    <a href="#">Start The Conversation →</a>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-title">Related Topics</div>
+                    <ul class="sidebar-toc">
+                        <li><a href="#">Narrative Structure For Short-Form</a></li>
+                        <li><a href="#">Writing Dialogue That Reveals Character</a></li>
+                        <li><a href="#">The VMD First Episode Problem</a></li>
+                        <li><a href="#">Casting For Character Chemistry</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+    <!-- FOOTER CTA -->
+    <div class="footer-cta">
+        <h3>Let's Build Something Real.</h3>
+        <p>We develop, write, cast, shoot, and deliver vertical micro dramas for brands that want to tell actual
+            stories.</p>
+        <a href="#" class="btn-primary">Start A Project</a>
+    </div>
+
+</body>
+
+</html>
