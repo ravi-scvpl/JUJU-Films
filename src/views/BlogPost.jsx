@@ -17,6 +17,7 @@ const BlogPost = ({ blog }) => {
     const [introHTML, setIntroHTML] = useState('');
     const [toc, setToc] = useState([]);
     const [mounted, setMounted] = useState(false);
+    const [faqSchema, setFaqSchema] = useState(null);
 
     useEffect(() => {
         setMounted(true);
@@ -79,8 +80,13 @@ const BlogPost = ({ blog }) => {
         if (!blogState || !blogState.content) return;
 
         if (typeof window !== 'undefined') {
+            // Replace non-breaking spaces with standard spaces to ensure correct line wrapping
+            let cleanHtml = blogState.content
+                .replace(/&nbsp;/g, ' ')
+                .replace(/\u00a0/g, ' ');
+
             const parser = new DOMParser();
-            const doc = parser.parseFromString(blogState.content, 'text/html');
+            const doc = parser.parseFromString(cleanHtml, 'text/html');
             
             // Custom label mapping for editorial section headings
             const labelMap = {
@@ -131,25 +137,52 @@ const BlogPost = ({ blog }) => {
                 h.id = id;
                 
                 const labelNum = String(index + 1).padStart(2, '0');
-                const label = doc.createElement('div');
-                label.className = 'section-label';
                 
-                if (isFAQ) {
-                    label.textContent = 'FAQ';
-                } else if (isConclusion) {
-                    label.textContent = `${labelNum} — Conclusion`;
+                // Allow visual editors to explicitly supply a custom label override element
+                let prevEl = h.previousElementSibling;
+                let isOverride = false;
+                if (prevEl) {
+                    if (prevEl.classList.contains('section-label')) {
+                        isOverride = true;
+                    } else if (prevEl.tagName === 'P' && prevEl.textContent.trim().length > 0 && prevEl.textContent.trim().length <= 35) {
+                        isOverride = true;
+                        // Convert P tag to a DIV to bypass paragraph-specific CSS overrides
+                        const divLabel = doc.createElement('div');
+                        divLabel.className = 'section-label';
+                        divLabel.innerHTML = prevEl.innerHTML;
+                        prevEl.parentNode.replaceChild(divLabel, prevEl);
+                        prevEl = divLabel;
+                    }
+                }
+
+                if (isOverride) {
+                    if (!prevEl.textContent.match(/^\d+\s*—/)) {
+                        prevEl.textContent = `${labelNum} — ${prevEl.textContent}`;
+                    }
                 } else {
-                    const textKey = text.toLowerCase().trim().replace(/\s+/g, ' ');
-                    const customLabel = labelMap[textKey];
-                    label.textContent = customLabel ? `${labelNum} — ${customLabel}` : `${labelNum} — Section`;
+                    const label = doc.createElement('div');
+                    label.className = 'section-label';
+                    
+                    if (isFAQ) {
+                        label.textContent = 'FAQ';
+                    } else if (isConclusion) {
+                        label.textContent = `${labelNum} — Conclusion`;
+                    } else {
+                        const textKey = text.toLowerCase().trim().replace(/\s+/g, ' ');
+                        const customLabel = labelMap[textKey];
+                        label.textContent = customLabel ? `${labelNum} — ${customLabel}` : `${labelNum} — Section`;
+                    }
+                    
+                    h.parentNode.insertBefore(label, h);
                 }
                 
-                h.parentNode.insertBefore(label, h);
                 tocItems.push({ id, text });
             });
             
-            // 3. Reconstruct FAQ markup if present
+            // 3. Reconstruct FAQ markup and compile questions/answers list
             const faqHeading = Array.from(doc.querySelectorAll('h2')).find(h => h.textContent.toLowerCase() === 'faq');
+            const faqList = [];
+            
             if (faqHeading) {
                 const faqContainer = doc.createElement('div');
                 faqContainer.className = 'faq-container';
@@ -163,16 +196,29 @@ const BlogPost = ({ blog }) => {
                         currentItem = doc.createElement('div');
                         currentItem.className = 'faq-item';
                         
+                        const qText = next.textContent.replace(/^Q\.\s*/i, '').trim();
+                        
                         const qDiv = doc.createElement('div');
                         qDiv.className = 'faq-q';
                         qDiv.innerHTML = next.innerHTML.replace(/^<b>Q\.<\/b>\s*/i, '').replace(/^Q\.\s*/i, '');
                         currentItem.appendChild(qDiv);
                         faqContainer.appendChild(currentItem);
+                        
+                        currentItem._qText = qText;
                     } else if (next.nodeName === 'P' && currentItem) {
+                        const aText = next.textContent.replace(/^Ans\.\s*/i, '').trim();
+                        
                         const aDiv = doc.createElement('div');
                         aDiv.className = 'faq-a';
                         aDiv.innerHTML = next.innerHTML.replace(/^<b>Ans\.<\/b>\s*/i, '').replace(/^Ans\.\s*/i, '');
                         currentItem.appendChild(aDiv);
+                        
+                        if (currentItem._qText) {
+                            faqList.push({
+                                question: currentItem._qText,
+                                answer: aText
+                            });
+                        }
                     }
                     elementsToRemove.push(next);
                     next = next.nextElementSibling;
@@ -180,6 +226,39 @@ const BlogPost = ({ blog }) => {
                 
                 elementsToRemove.forEach(el => el.remove());
                 faqHeading.parentNode.insertBefore(faqContainer, faqHeading.nextSibling);
+            }
+
+            // 4. Extract explicit FAQ schema script block if present in content
+            const faqScript = doc.querySelector('script#faq-schema-json');
+            let parsedFaqSchemaObj = null;
+            if (faqScript) {
+                try {
+                    parsedFaqSchemaObj = JSON.parse(faqScript.textContent);
+                    faqScript.remove(); // Keep content clean
+                } catch (e) {
+                    console.error("Error parsing embedded FAQ schema:", e);
+                }
+            }
+
+            // Define final schema set
+            if (parsedFaqSchemaObj) {
+                setFaqSchema(parsedFaqSchemaObj);
+            } else if (faqList.length > 0) {
+                const faqSchemaObj = {
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": faqList.map(item => ({
+                        "@type": "Question",
+                        "name": item.question,
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": item.answer
+                        }
+                    }))
+                };
+                setFaqSchema(faqSchemaObj);
+            } else {
+                setFaqSchema(null);
             }
             
             setIntroHTML(extractedIntro);
@@ -208,6 +287,30 @@ const BlogPost = ({ blog }) => {
     const wordCount = blogState.content ? blogState.content.replace(/<[^>]*>?/gm, '').split(/\s+/).length : 0;
     const readTime = Math.ceil(wordCount / 200) || 12;
 
+    const blogPostingSchema = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": blogState.title,
+        "image": blogState.image_url,
+        "datePublished": blogState.created_at,
+        "dateModified": blogState.updated_at || blogState.created_at,
+        "author": {
+            "@type": "Organization",
+            "name": "JUJU Films"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "JUJU Films",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.jujuindia.com/juju-white-logo.webp"
+            }
+        },
+        "description": blogState.meta_desc || (blogState.content ? blogState.content.substring(0, 150).replace(/<[^>]*>?/gm, '') : '')
+    };
+
+    const finalSchema = faqSchema ? [blogPostingSchema, faqSchema] : blogPostingSchema;
+
     return (
         <div className="wp-singular page-template-default page page-parent wp-theme-grapheine switch blog-page-wrap" style={{ minHeight: '100vh' }}>
             <SEO
@@ -216,27 +319,7 @@ const BlogPost = ({ blog }) => {
                 image={blogState.image_url}
                 canonical={`/blog/${slug}`}
                 type="article"
-                schema={{
-                    "@context": "https://schema.org",
-                    "@type": "BlogPosting",
-                    "headline": blogState.title,
-                    "image": blogState.image_url,
-                    "datePublished": blogState.created_at,
-                    "dateModified": blogState.updated_at || blogState.created_at,
-                    "author": {
-                        "@type": "Organization",
-                        "name": "JUJU Films"
-                    },
-                    "publisher": {
-                        "@type": "Organization",
-                        "name": "JUJU Films",
-                        "logo": {
-                            "@type": "ImageObject",
-                            "url": "https://www.jujuindia.com/juju-white-logo.webp"
-                        }
-                    },
-                    "description": blogState.meta_desc || (blogState.content ? blogState.content.substring(0, 150).replace(/<[^>]*>?/gm, '') : '')
-                }}
+                schema={finalSchema}
             />
 
             {/* Reading Scroll Progress Bar */}

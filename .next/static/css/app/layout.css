@@ -28258,6 +28258,11 @@ body.collective-page .theme-light .page {
     background: var(--border);
 }
 
+.blog-page-wrap .blog-content {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
 .blog-page-wrap .blog-content h2 {
     font-family: 'Roboto Mono', monospace !important;
     font-size: 22px !important;

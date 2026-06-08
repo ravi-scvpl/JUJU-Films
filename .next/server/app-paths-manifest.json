@@ -1,5 +1,7 @@
 {
   "/(public)/blog/page": "app/(public)/blog/page.js",
   "/(public)/blog/[slug]/page": "app/(public)/blog/[slug]/page.js",
-  "/(public)/vertical-micro-drama-production-india/page": "app/(public)/vertical-micro-drama-production-india/page.js"
+  "/admin/login/page": "app/admin/login/page.js",
+  "/admin/(dashboard)/dashboard/page": "app/admin/(dashboard)/dashboard/page.js",
+  "/admin/(dashboard)/blog/page": "app/admin/(dashboard)/blog/page.js"
 }

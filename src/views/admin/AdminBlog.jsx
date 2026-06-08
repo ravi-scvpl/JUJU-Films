@@ -22,7 +22,8 @@ const AdminBlog = () => {
         meta_title: '',
         meta_desc: '',
         category: '',
-        published: false
+        published: false,
+        faq_schema: ''
     });
     const [imageFile, setImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
@@ -130,9 +131,33 @@ const AdminBlog = () => {
         try {
             const imageUrl = await uploadImage();
 
+            // Clean previous FAQ script tags from content HTML
+            let finalContent = formData.content || '';
+            finalContent = finalContent.replace(/<script type="application\/ld\+json" id="faq-schema-json">[\s\S]*?<\/script>/g, '').trim();
+
+            if (formData.faq_schema && formData.faq_schema.trim()) {
+                // Quick validation of the JSON syntax
+                try {
+                    JSON.parse(formData.faq_schema);
+                } catch (jsonErr) {
+                    alert('Invalid JSON in FAQ Schema field. Please check your syntax.');
+                    setUploading(false);
+                    return;
+                }
+                finalContent += `\n<script type="application/ld+json" id="faq-schema-json">\n${formData.faq_schema.trim()}\n</script>`;
+            }
+
+            // Exclude faq_schema from DB payload since it's not a database column!
             const postData = {
-                ...formData,
-                image_url: imageUrl
+                title: formData.title,
+                slug: formData.slug,
+                content: finalContent,
+                image_url: imageUrl,
+                alt_text: formData.alt_text || '',
+                meta_title: formData.meta_title || '',
+                meta_desc: formData.meta_desc || '',
+                category: formData.category || '',
+                published: formData.published
             };
 
             let error;
@@ -163,16 +188,26 @@ const AdminBlog = () => {
     const handleEdit = (post) => {
         setIsEditing(true);
         setCurrentPost(post);
+        
+        let cleanContent = post.content || '';
+        let faqSchemaStr = '';
+        const scriptMatch = cleanContent.match(/<script type="application\/ld\+json" id="faq-schema-json">([\s\S]*?)<\/script>/);
+        if (scriptMatch) {
+            faqSchemaStr = scriptMatch[1].trim();
+            cleanContent = cleanContent.replace(/<script type="application\/ld\+json" id="faq-schema-json">[\s\S]*?<\/script>/, '').trim();
+        }
+
         setFormData({
             title: post.title,
             slug: post.slug,
-            content: post.content,
+            content: cleanContent,
             image_url: post.image_url,
             alt_text: post.alt_text || '',
             meta_title: post.meta_title || '',
             meta_desc: post.meta_desc || '',
             category: post.category || '',
-            published: post.published
+            published: post.published,
+            faq_schema: faqSchemaStr
         });
         setImageFile(null);
     };
@@ -201,7 +236,8 @@ const AdminBlog = () => {
             meta_title: '',
             meta_desc: '',
             category: '',
-            published: false
+            published: false,
+            faq_schema: ''
         });
         setImageFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
@@ -284,6 +320,25 @@ const AdminBlog = () => {
                                 onChange={handleInputChange}
                                 rows="3"
                             ></textarea>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">FAQ Schema (JSON-LD)</label>
+                            <textarea
+                                className="form-control"
+                                name="faq_schema"
+                                value={formData.faq_schema}
+                                onChange={handleInputChange}
+                                rows="5"
+                                placeholder='{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [...]
+}'
+                            ></textarea>
+                            <span style={{ fontSize: '11px', color: '#6b7280', marginTop: '4px', display: 'block' }}>
+                                Paste custom Google FAQPage JSON-LD schema. If left blank, FAQ schema will be automatically generated from the visual Q&A text in the article content.
+                            </span>
                         </div>
                     </form>
                 </div>

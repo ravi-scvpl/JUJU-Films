@@ -33,11 +33,37 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(public)/blog/[slug]/page.js"
     ],
-    "/(public)/vertical-micro-drama-production-india/page": [
+    "/admin/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(public)/vertical-micro-drama-production-india/page.css",
-      "static/chunks/app/(public)/vertical-micro-drama-production-india/page.js"
+      "static/chunks/app/admin/layout.js"
+    ],
+    "/admin/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/page.js"
+    ],
+    "/admin/(dashboard)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/admin/(dashboard)/layout.css",
+      "static/chunks/app/admin/(dashboard)/layout.js"
+    ],
+    "/admin/(dashboard)/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/(dashboard)/dashboard/page.js"
+    ],
+    "/admin/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/login/page.js"
+    ],
+    "/admin/(dashboard)/blog/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/admin/(dashboard)/blog/page.css",
+      "static/chunks/app/admin/(dashboard)/blog/page.js"
     ]
   }
 }
