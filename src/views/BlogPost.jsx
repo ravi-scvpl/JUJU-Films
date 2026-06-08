@@ -5,7 +5,6 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '../supabaseClient';
 import SEO from '../components/SEO';
-import { STATIC_BLOGS } from '../data/staticBlogs';
 
 const BlogPost = ({ blog }) => {
     const { slug } = useParams();
@@ -51,16 +50,11 @@ const BlogPost = ({ blog }) => {
 
                     if (data) {
                         setBlogState(data);
-                    } else if (STATIC_BLOGS[slug]) {
-                        setBlogState(STATIC_BLOGS[slug]);
                     } else {
-                        console.error("Blog post not found in DB or static assets.");
+                        console.error("Blog post not found in DB.");
                     }
                 } catch (err) {
                     console.error("Error fetching blog:", err);
-                    if (STATIC_BLOGS[slug]) {
-                        setBlogState(STATIC_BLOGS[slug]);
-                    }
                 } finally {
                     setLoading(false);
                 }

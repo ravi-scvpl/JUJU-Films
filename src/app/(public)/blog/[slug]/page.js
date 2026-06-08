@@ -1,7 +1,7 @@
 import React from 'react';
 import BlogPost from '@/views/BlogPost';
 import { supabase } from '@/supabaseClient';
-import { STATIC_BLOGS } from '@/data/staticBlogs';
+
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -16,8 +16,6 @@ export async function generateMetadata({ params }) {
 
     if (data) {
       blog = data;
-    } else if (STATIC_BLOGS[slug]) {
-      blog = STATIC_BLOGS[slug];
     }
 
     if (!blog) {
@@ -76,14 +74,9 @@ export default async function BlogPostPage({ params }) {
 
     if (data) {
       blog = data;
-    } else if (STATIC_BLOGS[slug]) {
-      blog = STATIC_BLOGS[slug];
     }
   } catch (error) {
     console.error('Error fetching blog on server:', error);
-    if (STATIC_BLOGS[slug]) {
-      blog = STATIC_BLOGS[slug];
-    }
   }
 
   // Pre-serialize any created_at/updated_at fields if they exist
