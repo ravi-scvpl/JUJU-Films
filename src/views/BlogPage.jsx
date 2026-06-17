@@ -8,6 +8,21 @@ import '../styles/juju-overrides.css';
 import SEO from '../components/SEO';
 
 
+const cleanIntroText = (text) => {
+    if (!text) return '';
+    return text
+        .replace(/<[^>]*>?/gm, '') // Strip HTML tags
+        .replace(/&nbsp;/g, ' ')   // Replace non-breaking spaces entity
+        .replace(/\u00a0/g, ' ')   // Replace actual non-breaking space character
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/\s+/g, ' ')      // Collapse multiple spaces
+        .trim();
+};
+
 const BlogPage = () => {
     // Stories Typing Animation State
     const [storiesTypedText, setStoriesTypedText] = useState("");
@@ -55,7 +70,9 @@ const BlogPage = () => {
                         id: post.id,
                         slug: post.slug,
                         title: post.title,
-                        intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
+                        intro: post.meta_desc 
+                            ? cleanIntroText(post.meta_desc) 
+                            : cleanIntroText(post.content).substring(0, 150) + '...',
                         date: new Date(post.created_at).toLocaleDateString('en-GB'),
                         category: post.category || 'Thought Leadership',
                         image: post.image_url,

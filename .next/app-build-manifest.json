@@ -22,47 +22,16 @@
       "static/css/app/(public)/page.css",
       "static/chunks/app/(public)/page.js"
     ],
-    "/(public)/about/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(public)/about/page.css",
-      "static/chunks/app/(public)/about/page.js"
+      "static/chunks/app/_not-found/page.js"
     ],
-    "/(public)/juju-storytellers/page": [
+    "/(public)/blog/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(public)/juju-storytellers/page.css",
-      "static/chunks/app/(public)/juju-storytellers/page.js"
-    ],
-    "/(public)/juju-commercials/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(public)/juju-commercials/page.css",
-      "static/chunks/app/(public)/juju-commercials/page.js"
-    ],
-    "/(public)/vertical-micro-drama-production-india/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(public)/vertical-micro-drama-production-india/page.css",
-      "static/chunks/app/(public)/vertical-micro-drama-production-india/page.js"
-    ],
-    "/(public)/juju-ai-films/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(public)/juju-ai-films/page.css",
-      "static/chunks/app/(public)/juju-ai-films/page.js"
-    ],
-    "/(public)/juju-ecosystem/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(public)/juju-ecosystem/page.css",
-      "static/chunks/app/(public)/juju-ecosystem/page.js"
-    ],
-    "/start-project/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/start-project/page.css",
-      "static/chunks/app/start-project/page.js"
+      "static/css/app/(public)/blog/page.css",
+      "static/chunks/app/(public)/blog/page.js"
     ]
   }
 }

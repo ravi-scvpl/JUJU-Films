@@ -46,11 +46,28 @@ const InfluencePage = () => {
                 if (error) throw error;
 
                 if (data) {
+                    const cleanIntroText = (text) => {
+                        if (!text) return '';
+                        return text
+                            .replace(/<[^>]*>?/gm, '') // Strip HTML tags
+                            .replace(/&nbsp;/g, ' ')   // Replace non-breaking spaces entity
+                            .replace(/\u00a0/g, ' ')   // Replace actual non-breaking space character
+                            .replace(/&amp;/g, '&')
+                            .replace(/&lt;/g, '<')
+                            .replace(/&gt;/g, '>')
+                            .replace(/&quot;/g, '"')
+                            .replace(/&#39;/g, "'")
+                            .replace(/\s+/g, ' ')      // Collapse multiple spaces
+                            .trim();
+                    };
+
                     const mappedArticles = data.map(post => ({
                         id: post.id,
                         title: post.title,
                         slug: post.slug || post.id, // Use slug if available
-                        intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
+                        intro: post.meta_desc 
+                            ? cleanIntroText(post.meta_desc) 
+                            : cleanIntroText(post.content).substring(0, 150) + '...',
                         date: new Date(post.created_at).getFullYear(), // Just year or full date
                         category: post.category || 'Campaigns',
                         image: post.image_url

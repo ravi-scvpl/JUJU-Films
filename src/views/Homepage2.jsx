@@ -17,6 +17,21 @@ const jujuFilms = '/assets/juju-showreel.mp4';
 const jujuFilms2 = '/assets/JujuFilms.mp4';
 import VideoModal from '../components/VideoModal';
 
+const cleanIntroText = (text) => {
+    if (!text) return '';
+    return text
+        .replace(/<[^>]*>?/gm, '') // Strip HTML tags
+        .replace(/&nbsp;/g, ' ')   // Replace non-breaking spaces entity
+        .replace(/\u00a0/g, ' ')   // Replace actual non-breaking space character
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/\s+/g, ' ')      // Collapse multiple spaces
+        .trim();
+};
+
 const Homepage2 = () => {
     // Dynamic Text State
     const words = ["GOOD JUJU, GREAT FILMS"];
@@ -103,7 +118,9 @@ const Homepage2 = () => {
                         id: post.id,
                         slug: post.slug,
                         title: post.title,
-                        intro: post.meta_desc || post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...',
+                        intro: post.meta_desc 
+                            ? cleanIntroText(post.meta_desc) 
+                            : cleanIntroText(post.content).substring(0, 150) + '...',
                         date: new Date(post.created_at).toLocaleDateString('en-GB'),
                         category: post.category || 'Thought Leadership',
                         image: post.image_url

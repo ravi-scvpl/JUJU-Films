@@ -1,8 +1,5 @@
 {
-  "/start-project/page": "app/start-project/page.js",
-  "/(public)/juju-commercials/page": "app/(public)/juju-commercials/page.js",
-  "/(public)/vertical-micro-drama-production-india/page": "app/(public)/vertical-micro-drama-production-india/page.js",
-  "/(public)/juju-ai-films/page": "app/(public)/juju-ai-films/page.js",
-  "/(public)/juju-ecosystem/page": "app/(public)/juju-ecosystem/page.js",
-  "/(public)/page": "app/(public)/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(public)/page": "app/(public)/page.js",
+  "/(public)/blog/page": "app/(public)/blog/page.js"
 }
