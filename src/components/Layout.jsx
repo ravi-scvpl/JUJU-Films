@@ -174,7 +174,10 @@ const Layout = ({ children }) => {
                                 <Link className="navigation__link" style={{ fontSize: '16px' }} href="/case-studies" onClick={() => setIsMenuOpen(false)}>Case Studies</Link>
                             </li>
                             <li className="navigation__item">
-                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/blog" onClick={() => setIsMenuOpen(false)}>Thinkspace</Link>
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/blog" onClick={() => setIsMenuOpen(false)}>Blogs</Link>
+                            </li>
+                            <li className="navigation__item">
+                                <Link className="navigation__link" style={{ fontSize: '16px' }} href="/showreel" onClick={() => setIsMenuOpen(false)}>Showreel</Link>
                             </li>
 
                             <li className="navigation__item">
@@ -189,6 +192,12 @@ const Layout = ({ children }) => {
                 {children}
             </main>
 
+            {/* Floating Start a Project Button */}
+            <Link href="/start-project?src=floating" className="floating-start-project-btn">
+                <span>Start a Project</span>
+                <span className="arrow">→</span>
+            </Link>
+
             <footer className="footer parallax-section" style={{ marginTop: 0 }}>
                 <div className="grid footer__container parallax-section__container">
                     <div pos="1-4">
@@ -200,6 +209,7 @@ const Layout = ({ children }) => {
                                 <li className="navigation__item"><Link className="navigation__link" href="/vertical-micro-drama-production-india">Vertical Micro Dramas</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" href="/juju-ai-films">AI Films</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" href="/juju-ecosystem">Growth Content</Link></li>
+                                <li className="navigation__item"><Link className="navigation__link" href="/showreel">Showreel</Link></li>
                                 <li className="navigation__item"><Link className="navigation__link" href="/contact">Contact</Link></li>
                             </ul>
                         </nav>

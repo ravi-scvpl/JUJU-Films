@@ -222,7 +222,7 @@ const StorytellersDetailedContent = () => {
                                 fontWeight: '600'
                             }}
                         >
-                            Contact Us
+                            Start a Project
                         </Link>
                     </div>
                 </div>
