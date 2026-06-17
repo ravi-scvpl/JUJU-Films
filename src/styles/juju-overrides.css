@@ -1019,6 +1019,16 @@
     overflow-wrap: break-word !important;
 }
 
+.blog-page-wrap .blog-content a {
+    color: var(--red) !important;
+    text-decoration: underline !important;
+    transition: color 0.2s ease !important;
+}
+
+.blog-page-wrap .blog-content a:hover {
+    color: var(--red-dark) !important;
+}
+
 .blog-page-wrap .blog-content h2 {
     font-family: 'Roboto Mono', monospace !important;
     font-size: 22px !important;
