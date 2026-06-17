@@ -1,5 +1,8 @@
 import { supabase } from '@/supabaseClient';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function sitemap() {
   const baseUrl = 'https://www.jujuindia.com';
 
@@ -15,6 +18,9 @@ export default async function sitemap() {
     { url: '/blog', changeFrequency: 'weekly', priority: 0.8 },
     { url: '/vertical-micro-drama-production-india', changeFrequency: 'monthly', priority: 0.8 },
     { url: '/vertical-micro-drama-production-india/playbook', changeFrequency: 'monthly', priority: 0.8 },
+    { url: '/vertical-micro-dramas', changeFrequency: 'monthly', priority: 0.8 },
+    { url: '/showreel', changeFrequency: 'monthly', priority: 0.8 },
+    { url: '/start-project', changeFrequency: 'monthly', priority: 0.8 },
     { url: '/contact', changeFrequency: 'monthly', priority: 0.8 },
     { url: '/privacy-policy', changeFrequency: 'yearly', priority: 0.3 },
     { url: '/terms-of-use', changeFrequency: 'yearly', priority: 0.3 },
@@ -50,7 +56,8 @@ export default async function sitemap() {
     // 3. Fetch case studies from Supabase
     const { data: caseStudies } = await supabase
       .from('influencer_posts')
-      .select('slug, id, created_at');
+      .select('slug, id, created_at')
+      .eq('published', true);
 
     if (caseStudies) {
       caseStudyMaps = caseStudies.map((post) => ({
