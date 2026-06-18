@@ -8,6 +8,102 @@ import '../styles/homepage2.css';
 import SEO from '../components/SEO';
 import VideoRequestModal from '../components/VideoRequestModal';
 
+const parseVideoUrl = (url) => {
+    if (!url) return null;
+    const ytReg = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const ytMatch = url.match(ytReg);
+    if (ytMatch && ytMatch[2].length === 11) {
+        return { type: 'youtube', id: ytMatch[2] };
+    }
+    const ytListReg = /[&?]list=([^&\s]+)/;
+    const ytListMatch = url.match(ytListReg);
+    if (ytListMatch) {
+        return { type: 'playlist', id: ytListMatch[1] };
+    }
+    const vimeoReg = /(?:vimeo)\.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
+    const vimeoMatch = url.match(vimeoReg);
+    if (vimeoMatch && vimeoMatch[3]) {
+        return { type: 'vimeo', id: vimeoMatch[3] };
+    }
+    if (url.match(/\.(mp4|webm|ogg)/i) || url.startsWith('/assets/') || url.startsWith('/local_assets/')) {
+        return { type: 'local', src: url };
+    }
+    return { type: 'unknown', src: url };
+};
+
+const renderVideoEmbed = (videoUrl, imageUrl, title) => {
+    const video = parseVideoUrl(videoUrl);
+    if (!video) {
+        return (
+            <img
+                src={imageUrl}
+                alt={title}
+                style={{ width: '100%', height: 'auto', marginBottom: '40px', borderRadius: '4px' }}
+            />
+        );
+    }
+    let embedContent;
+    if (video.type === 'youtube') {
+        embedContent = (
+            <iframe
+                src={`https://www.youtube.com/embed/${video.id}?rel=0`}
+                title={title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '4px' }}
+            ></iframe>
+        );
+    } else if (video.type === 'playlist') {
+        embedContent = (
+            <iframe
+                src={`https://www.youtube.com/embed/videoseries?list=${video.id}&rel=0`}
+                title={title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '4px' }}
+            ></iframe>
+        );
+    } else if (video.type === 'vimeo') {
+        embedContent = (
+            <iframe
+                src={`https://player.vimeo.com/video/${video.id}`}
+                title={title}
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '4px' }}
+            ></iframe>
+        );
+    } else if (video.type === 'local') {
+        embedContent = (
+            <video
+                src={video.src}
+                controls
+                preload="metadata"
+                poster={imageUrl}
+                onContextMenu={(e) => e.preventDefault()}
+                controlsList="nodownload"
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain', borderRadius: '4px' }}
+            ></video>
+        );
+    } else {
+        return (
+            <img
+                src={imageUrl}
+                alt={title}
+                style={{ width: '100%', height: 'auto', marginBottom: '40px', borderRadius: '4px' }}
+            />
+        );
+    }
+    return (
+        <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', height: 0, overflow: 'hidden', marginBottom: '40px', borderRadius: '4px', background: '#000' }}>
+            {embedContent}
+        </div>
+    );
+};
+
 const CaseStudyPost = () => {
     const { slug } = useParams();
     const [post, setPost] = useState(null);
@@ -85,11 +181,7 @@ const CaseStudyPost = () => {
                         <span>{post.category}</span>
                     </div>
 
-                    <img
-                        src={post.image_url}
-                        alt={post.image_alt || post.title}
-                        style={{ width: '100%', height: 'auto', marginBottom: '40px', borderRadius: '4px' }}
-                    />
+                    {renderVideoEmbed(post.video_url, post.image_url, post.title)}
 
                     <div
                         className="blog-content"

@@ -29,8 +29,124 @@ const AdminInfluence = () => {
     });
     const [imageFile, setImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
+    const [fetchingMeta, setFetchingMeta] = useState(false);
     const [viewMode, setViewMode] = useState('visual');
     const fileInputRef = useRef(null);
+
+    const [importing, setImporting] = useState(false);
+    const [importProgress, setImportProgress] = useState('');
+
+    const handleImportFromUrlTxt = async () => {
+        if (!window.confirm('WARNING: This will delete all existing case studies and import all videos from url.txt. Are you sure?')) {
+            return;
+        }
+
+        setImporting(true);
+        setImportProgress('Fetching url.txt...');
+
+        try {
+            const res = await fetch('/local_assets/url.txt');
+            if (!res.ok) throw new Error('Failed to load url.txt');
+            const text = await res.text();
+            const urls = text
+                .split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0);
+
+            setImportProgress(`Found ${urls.length} URLs. Deleting existing case studies...`);
+
+            const { error: deleteError } = await supabase
+                .from('influencer_posts')
+                .delete()
+                .neq('id', '00000000-0000-0000-0000-000000000000'); // delete all (assuming uuid is used)
+
+            if (deleteError) throw deleteError;
+
+            let count = 0;
+            const ytIdReg = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const postsToInsert = [];
+            const usedSlugs = new Set();
+
+            const makeUniqueSlug = (titleText, id) => {
+                let base = titleText
+                    .toString()
+                    .toLowerCase()
+                    .trim()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^\w\-]+/g, '')
+                    .replace(/\-\-+/g, '-');
+                if (!base || base.length < 3) base = `video-${id}`;
+                let slug = base;
+                let counter = 2;
+                while (usedSlugs.has(slug)) {
+                    slug = `${base}-${counter}`;
+                    counter++;
+                }
+                usedSlugs.add(slug);
+                return slug;
+            };
+
+            for (const url of urls) {
+                count++;
+                setImportProgress(`[${count}/${urls.length}] Fetching metadata for ${url}...`);
+
+                const match = url.match(ytIdReg);
+                const id = (match && match[2].length === 11) ? match[2] : null;
+                if (!id) continue;
+
+                let title = `YouTube Video ${id}`;
+                let imageUrl = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+                try {
+                    const metaRes = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
+                    const metaData = await metaRes.json();
+                    if (metaData && metaData.title) {
+                        title = metaData.title;
+                        imageUrl = metaData.thumbnail_url || imageUrl;
+                    }
+                } catch (e) {
+                    console.error("noembed error", e);
+                }
+
+                postsToInsert.push({
+                    title: title,
+                    slug: makeUniqueSlug(title, id),
+                    video_url: url,
+                    image_url: imageUrl,
+                    content: '<p></p>',
+                    published: true,
+                    category: 'Case Study',
+                    meta_title: '',
+                    meta_desc: '',
+                    seo_description: '',
+                    image_alt: ''
+                });
+
+                await new Promise(r => setTimeout(r, 100));
+            }
+
+            setImportProgress(`Inserting ${postsToInsert.length} posts...`);
+
+            const batchSize = 10;
+            for (let i = 0; i < postsToInsert.length; i += batchSize) {
+                const batch = postsToInsert.slice(i, i + batchSize);
+                const { error: insertError } = await supabase
+                    .from('influencer_posts')
+                    .insert(batch);
+                if (insertError) throw insertError;
+                setImportProgress(`Inserted ${Math.min(i + batchSize, postsToInsert.length)} / ${postsToInsert.length} posts...`);
+            }
+
+            alert('Successfully imported all case studies from url.txt!');
+            fetchPosts();
+        } catch (err) {
+            console.error(err);
+            alert(`Error during import: ${err.message}`);
+        } finally {
+            setImporting(false);
+            setImportProgress('');
+        }
+    };
 
     useEffect(() => {
         fetchPosts();
@@ -93,6 +209,27 @@ const AdminInfluence = () => {
 
             return newData;
         });
+    };
+
+    const fetchVideoMetadata = async (url) => {
+        setFetchingMeta(true);
+        try {
+            const response = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
+            const data = await response.json();
+            if (data && data.title) {
+                setFormData(prev => ({
+                    ...prev,
+                    title: prev.title && !(prev.title.startsWith('http://') || prev.title.startsWith('https://')) ? prev.title : data.title,
+                    video_url: prev.video_url || url,
+                    image_url: data.thumbnail_url || prev.image_url,
+                    slug: generateSlug(data.title)
+                }));
+            }
+        } catch (err) {
+            console.error("Error fetching video metadata:", err);
+        } finally {
+            setFetchingMeta(false);
+        }
     };
 
     const handleContentChange = (content) => {
@@ -214,9 +351,21 @@ const AdminInfluence = () => {
 
     return (
         <div>
-            <div className="admin-header">
+            <div className="admin-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
                 <SEO title="Case Studies Management" noindex={true} />
-                <h1 className="page-title">Case Studies Management</h1>
+                <h1 className="page-title" style={{ margin: 0 }}>Case Studies Management</h1>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    {importing && <span style={{ color: '#E52323', fontSize: '13px', fontWeight: 'bold' }}>{importProgress}</span>}
+                    <button
+                        type="button"
+                        onClick={handleImportFromUrlTxt}
+                        disabled={importing}
+                        className="btn btn-secondary"
+                        style={{ backgroundColor: '#10b981', color: '#fff', border: 'none', padding: '10px 20px', fontSize: '13px', fontWeight: 'bold', cursor: 'pointer' }}
+                    >
+                        {importing ? 'Importing...' : 'Import from url.txt'}
+                    </button>
+                </div>
             </div>
 
             <div className="editor-layout">
@@ -225,14 +374,23 @@ const AdminInfluence = () => {
                     <h2 className="card-title">{isEditing ? 'Edit Post' : 'Create New Post'}</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <label className="form-label">Title</label>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <label className="form-label" style={{ marginBottom: '8px' }}>Title</label>
+                                {fetchingMeta && <span style={{ color: '#E52323', fontSize: '11px', fontWeight: 'bold' }}>Fetching details...</span>}
+                            </div>
                             <input
                                 className="form-control"
                                 name="title"
                                 value={formData.title}
                                 onChange={handleInputChange}
+                                onBlur={async (e) => {
+                                    const val = e.target.value.trim();
+                                    if (val && (val.startsWith('http://') || val.startsWith('https://'))) {
+                                        await fetchVideoMetadata(val);
+                                    }
+                                }}
                                 required
-                                placeholder="Enter post title"
+                                placeholder="Enter title or paste video URL to autofill"
                             />
                         </div>
 
@@ -306,12 +464,21 @@ const AdminInfluence = () => {
                         </div>
 
                         <div className="form-group">
-                            <label className="form-label">Video URL (for Download Request)</label>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <label className="form-label" style={{ marginBottom: '8px' }}>Video URL (for Download Request)</label>
+                                {fetchingMeta && <span style={{ color: '#E52323', fontSize: '11px', fontWeight: 'bold' }}>Fetching details...</span>}
+                            </div>
                             <input
                                 className="form-control"
                                 name="video_url"
                                 value={formData.video_url}
                                 onChange={handleInputChange}
+                                onBlur={async (e) => {
+                                    const val = e.target.value.trim();
+                                    if (val && (val.startsWith('http://') || val.startsWith('https://')) && (!formData.title || formData.title.startsWith('http://') || formData.title.startsWith('https://'))) {
+                                        await fetchVideoMetadata(val);
+                                    }
+                                }}
                                 placeholder="https://vimeo.com/... or https://youtube.com/..."
                             />
                             <small style={{ color: '#6b7280', marginTop: '4px', display: 'block' }}>This URL will be sent to users after email verification.</small>

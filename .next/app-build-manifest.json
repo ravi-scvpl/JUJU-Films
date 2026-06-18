@@ -11,27 +11,27 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/(public)/layout": [
+    "/admin/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/layout.js"
+      "static/chunks/app/admin/layout.js"
     ],
-    "/(public)/page": [
+    "/admin/(dashboard)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(public)/page.css",
-      "static/chunks/app/(public)/page.js"
+      "static/css/app/admin/(dashboard)/layout.css",
+      "static/chunks/app/admin/(dashboard)/layout.js"
     ],
-    "/_not-found/page": [
+    "/admin/(dashboard)/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/admin/(dashboard)/dashboard/page.js"
     ],
-    "/(public)/blog/page": [
+    "/admin/(dashboard)/influence/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(public)/blog/page.css",
-      "static/chunks/app/(public)/blog/page.js"
+      "static/css/app/admin/(dashboard)/influence/page.css",
+      "static/chunks/app/admin/(dashboard)/influence/page.js"
     ]
   }
 }
