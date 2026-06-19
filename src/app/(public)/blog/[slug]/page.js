@@ -82,6 +82,7 @@ export default async function BlogPostPage({ params }) {
   // Pre-serialize any created_at/updated_at fields if they exist
   const serializedBlog = blog ? {
     ...blog,
+    content: blog.content ? blog.content.replace(/&nbsp;/g, ' ').replace(/\u00a0/g, ' ') : '',
     created_at: blog.created_at ? new Date(blog.created_at).toISOString() : null,
     updated_at: blog.updated_at ? new Date(blog.updated_at).toISOString() : null,
   } : null;

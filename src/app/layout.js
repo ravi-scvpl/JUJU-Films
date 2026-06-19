@@ -29,7 +29,8 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Georgia:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
         <link rel="preload" as="image" href="/juju-white-logo.webp" type="image/webp" fetchPriority="high" />
-        
+      </head>
+      <body>
         {/* Meta Pixel Script */}
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
@@ -62,8 +63,6 @@ export default function RootLayout({ children }) {
             })(window, document, 'script', 'dataLayer', 'GTM-WLSPFXTM');
           `}
         </Script>
-      </head>
-      <body>
         {/* GTM (noscript) */}
         <noscript>
           <iframe

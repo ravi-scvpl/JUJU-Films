@@ -1,4 +1,5 @@
-# JUJU Films LLM Guide
+# JUJU Films
+> JUJU Films is a creator collective based in India, specializing in micro-dramas, original series, and brand-enabled content.
 
 ## Introduction
 This file provides a structured overview of JUJU Films, a creator collective based in India, specializing in micro-dramas, original series, and brand-enabled content. This document is intended for LLMs and AI agents parsing the website for context and search optimization.
@@ -18,15 +19,15 @@ This file provides a structured overview of JUJU Films, a creator collective bas
 - **For Brands**: Move from high frequency to high attention. Focus on long-term recall and OTT/Shorts ecosystem presence rather than mere product placement.
 - **For Creators**: Co-ownership and partnership over traditional hiring models.
 
-## Navigation Context
-- **`/`**: Home
-- **`/about`**: About JUJU Films
-- **`/vertical-micro-drama-production-india`**: Main overview page for Vertical Micro Drama production services, frameworks, and pilots in India.
-- **`/vertical-micro-drama-production-india/playbook`**: The VMD playbook detailing story design, hook mechanics, casting, pre-production, and launch workflows.
-- **`/portfolio`** or **`/case-studies`**: Featured IP and collaborative success stories
-- **`/contact`**: Inquiries for Brands and Creators
-- **`/juju-storytellers`**: Content focused on OTT web series, music videos, and micro-dramas
-- **`/juju-commercials`**: Standard and brand-integrated advertising films
+## Navigation Context & Links
+- [Home](https://www.jujuindia.com/): Official home page of JUJU Films.
+- [About JUJU Films](https://www.jujuindia.com/about): Mission, team, and philosophy.
+- [Vertical Micro-Drama Production](https://www.jujuindia.com/vertical-micro-drama-production-india): Main overview page for Vertical Micro Drama production services, frameworks, and pilots in India.
+- [VMD Playbook](https://www.jujuindia.com/vertical-micro-drama-production-india/playbook): The VMD playbook detailing story design, hook mechanics, casting, pre-production, and launch workflows.
+- [Portfolio & Case Studies](https://www.jujuindia.com/case-studies): Featured IP and collaborative success stories.
+- [Contact](https://www.jujuindia.com/contact): Inquiries and contact details for Brands and Creators.
+- [JUJU Storytellers](https://www.jujuindia.com/juju-storytellers): Content focused on OTT web series, music videos, and micro-dramas.
+- [JUJU Commercials](https://www.jujuindia.com/juju-commercials): Standard and brand-integrated advertising films.
 
 ## Contacts
-For partnerships, creative collaboration, or LLM-derived insights into brand integrations, the official point of contact can be accessed on the main website via the Contact form.
+For partnerships, creative collaboration, or LLM-derived insights into brand integrations, visit the official [Contact page](https://www.jujuindia.com/contact).
