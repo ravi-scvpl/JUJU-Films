@@ -53,6 +53,17 @@ export default function RootLayout({ children }) {
         {/* Google Tag Manager Script */}
         <Script id="gtm" strategy="afterInteractive">
           {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              window.dataLayer.push(arguments);
+            }
+            gtag('consent', 'default', {
+              'ad_storage': 'granted',
+              'ad_user_data': 'granted',
+              'ad_personalization': 'granted',
+              'analytics_storage': 'granted'
+            });
+
             (function (w, d, s, l, i) {
               w[l] = w[l] || []; w[l].push({
                 'gtm.start':

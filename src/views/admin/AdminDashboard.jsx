@@ -229,7 +229,20 @@ const AdminDashboard = () => {
             if (activeTab === 'self') {
                 query = query.eq('source', 'self');
             } else if (activeTab === 'paid_ads') {
-                query = query.in('type', ['paid_ads', 'paid_ads_partial', 'ad_lead', 'ad_lead_partial']);
+                query = query.in('type', [
+                    'paid_ads', 
+                    'paid_ads_partial', 
+                    'ad_lead', 
+                    'ad_lead_partial',
+                    'whatsapp',
+                    'whatsapp_partial',
+                    'instagram',
+                    'instagram_partial',
+                    'facebook',
+                    'facebook_partial',
+                    'tag',
+                    'tag_partial'
+                ]);
             } else {
                 query = query.eq('type', activeTab);
             }
@@ -606,6 +619,41 @@ const AdminDashboard = () => {
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', paddingRight: '80px' }}>
                                 <h3 style={{ margin: 0 }}>
                                     {lead.first_name || 'Unknown'} {lead.last_name || ''}
+                                    {lead.source === 'self' && (
+                                        <span style={{
+                                            fontSize: '10px',
+                                            backgroundColor: '#333',
+                                            color: '#fff',
+                                            padding: '2px 8px',
+                                            borderRadius: '4px',
+                                            marginLeft: '10px',
+                                            verticalAlign: 'middle',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 'bold'
+                                        }}>
+                                            SELF
+                                        </span>
+                                    )}
+                                    {lead.type && (
+                                        <span style={{
+                                            fontSize: '10px',
+                                            backgroundColor: 
+                                                lead.type.includes('whatsapp') ? '#25D366' : 
+                                                lead.type.includes('instagram') ? '#E1306C' : 
+                                                lead.type.includes('facebook') ? '#1877F2' : 
+                                                lead.type.includes('tag') ? '#4285F4' : 
+                                                lead.type.includes('organic_website') ? '#E52323' : '#8a3ab9',
+                                            color: '#fff',
+                                            padding: '2px 8px',
+                                            borderRadius: '4px',
+                                            marginLeft: '10px',
+                                            verticalAlign: 'middle',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 'bold'
+                                        }}>
+                                            {lead.type.replace('_partial', '').replace('_', ' ')}
+                                        </span>
+                                    )}
                                     {lead.lead_tag && (
                                         <span style={{
                                             fontSize: '10px',
@@ -633,21 +681,7 @@ const AdminDashboard = () => {
                                     }}>
                                         {lead.lead_status || lead.status || 'New'}
                                     </span>
-                                    {lead.source === 'self' && (
-                                        <span style={{
-                                            fontSize: '10px',
-                                            backgroundColor: '#333',
-                                            color: '#fff',
-                                            padding: '2px 8px',
-                                            borderRadius: '4px',
-                                            marginLeft: '10px',
-                                            verticalAlign: 'middle',
-                                            textTransform: 'uppercase',
-                                            fontWeight: 'bold'
-                                        }}>
-                                            SELF
-                                        </span>
-                                    )}
+                                    
                                 </h3>
                                 <div style={{ textAlign: 'right' }}>
                                     <div style={{ fontSize: '14px', color: '#333', fontWeight: 'bold' }}>{getLeadAge(lead.created_at)}</div>

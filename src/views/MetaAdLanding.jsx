@@ -27,7 +27,26 @@ const formOptions = [
 
 const MetaAdLanding = () => {
     const searchParams = useSearchParams();
-    const isOrganic = searchParams ? searchParams.get('src') === 'organic' : false;
+    const getAttributionType = (isPartial = false) => {
+        const src = searchParams ? (searchParams.get('src') || '') : '';
+        const cleanSrc = src.toLowerCase().trim();
+        
+        let baseType = 'paid_ads';
+        
+        if (cleanSrc === 'whatsapp') {
+            baseType = 'whatsapp';
+        } else if (cleanSrc === 'insta' || cleanSrc === 'instagram') {
+            baseType = 'instagram';
+        } else if (cleanSrc === 'facebook' || cleanSrc === 'fb') {
+            baseType = 'facebook';
+        } else if (cleanSrc === 'tag') {
+            baseType = 'tag';
+        } else if (cleanSrc === 'organic' || cleanSrc === 'floating' || cleanSrc === '') {
+            baseType = 'organic_website';
+        }
+        
+        return isPartial ? `${baseType}_partial` : baseType;
+    };
 
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
@@ -114,7 +133,7 @@ const MetaAdLanding = () => {
                     address: formData.city,
                     company: formData.company || '', // Unified to use company
                     company: formData.company || '', // Unified to use company
-                    type: isOrganic ? 'organic_website' : 'paid_ads_partial', // attribution based on source
+                    type: getAttributionType(true), // attribution based on source
                     status: 'new',
                     lead_tag: 'partial'
                 }])
@@ -316,7 +335,7 @@ const MetaAdLanding = () => {
                 address: formData.city,
                 budget: '',
                 message: `Services: ${Array.isArray(formData.service) ? formData.service.join(', ') : formData.service}`,
-                type: isOrganic ? 'organic_website' : 'paid_ads',
+                type: getAttributionType(false),
                 status: 'new',
                 start_timeline: formData.start_timeline,
                 website_url: formData.website_url,
@@ -345,7 +364,7 @@ const MetaAdLanding = () => {
                     .from('contacts')
                     .select('id')
                     .eq('email', formData.email)
-                    .eq('type', isOrganic ? 'organic_website' : 'paid_ads_partial')
+                    .eq('type', getAttributionType(true))
                     .order('created_at', { ascending: false })
                     .limit(1);
 
@@ -396,7 +415,7 @@ const MetaAdLanding = () => {
                         city: formData.city,
                         website_url: formData.website_url,
                         message: `Services: ${Array.isArray(formData.service) ? formData.service.join(', ') : formData.service}`,
-                        type: isOrganic ? 'organic_website' : 'paid_ads'
+                        type: getAttributionType(false)
                     })
                 });
             } catch (hubspotErr) {
