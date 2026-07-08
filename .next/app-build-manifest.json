@@ -21,17 +21,6 @@
       "static/chunks/main-app.js",
       "static/css/app/(public)/page.css",
       "static/chunks/app/(public)/page.js"
-    ],
-    "/(public)/vertical-micro-drama-production-india/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(public)/vertical-micro-drama-production-india/page.css",
-      "static/chunks/app/(public)/vertical-micro-drama-production-india/page.js"
-    ],
-    "/(public)/vertical-micro-drama-production-india/playbook/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(public)/vertical-micro-drama-production-india/playbook/page.js"
     ]
   }
 }

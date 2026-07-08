@@ -1,4 +1,3 @@
 {
-  "/(public)/page": "app/(public)/page.js",
-  "/(public)/vertical-micro-drama-production-india/playbook/page": "app/(public)/vertical-micro-drama-production-india/playbook/page.js"
+  "/(public)/page": "app/(public)/page.js"
 }

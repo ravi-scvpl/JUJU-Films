@@ -1,0 +1,45 @@
+{
+  "company": "JUJU Films",
+  "industries_served": [
+    "Entertainment & Streaming (OTT)",
+    "Direct-To-Consumer (D2C) Brands",
+    "Lifestyle & Fashion",
+    "Technology & SaaS Brands",
+    "Mobile App Platforms"
+  ],
+  "tools_and_technologies": [
+    "Stable Diffusion & Midjourney (Concept art, pre-visualisation)",
+    "Adobe Premiere Pro & DaVinci Resolve (Editing, color grading)",
+    "Adobe After Effects (Visual effects, motion graphics)",
+    "Supabase (Content databases, dynamic user management)",
+    "Framer Motion (Web UI animation and digital experiences)"
+  ],
+  "success_metrics": [
+    "Episode-level viewer retention rate",
+    "User return rate (cohort analysis from Ep 1 to Ep 10/20)",
+    "Brand recall and positive brand sentiment",
+    "Average watch time per session"
+  ],
+  "typical_process": [
+    {
+      "stage": "Development",
+      "description": "Scripting, hook optimization, casting briefs, and AI pre-visualisation."
+    },
+    {
+      "stage": "Pre-Production",
+      "description": "Casting, locations, scheduling, and framing plans (9:16 layout composition)."
+    },
+    {
+      "stage": "Production",
+      "description": "Directing, shooting on high-end mobile/digital cinema cameras, audio recording optimized for mobile devices."
+    },
+    {
+      "stage": "Post-Production",
+      "description": "Editing, color grading, SFX, background scores, and mobile-optimized typography/subtitles."
+    },
+    {
+      "stage": "Launch & Distribution",
+      "description": "Release planning, thumbnail optimization, hook performance testing, and platform-specific format exporting."
+    }
+  ]
+}

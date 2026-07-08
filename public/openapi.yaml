@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: JUJU Films Content API
+  description: Public read-only API catalog for JUJU Films, exposing details on production services, capabilities, blogs, and case studies.
+  version: 1.0.0
+servers:
+  - url: https://www.jujuindia.com
+    description: Production Server
+  - url: http://localhost:3000
+    description: Local Development Server
+paths:
+  /api/services:
+    get:
+      summary: Get JUJU Films Services
+      description: Returns a list of primary creative services, production formats, and company divisions.
+      responses:
+        '200':
+          description: A list of services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+  /api/blogs:
+    get:
+      summary: Get Published Blogs
+      description: Returns recent blog posts from JUJU Films, with support for keyword search and pagination.
+      parameters:
+        - name: search
+          in: query
+          description: Search term to filter blog posts by title or content
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of blog posts to return
+          required: false
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: A list of blog posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogPost'
+  /api/case-studies:
+    get:
+      summary: Get Case Studies
+      description: Returns brand campaigns and creator case studies, with support for keyword search and pagination.
+      parameters:
+        - name: search
+          in: query
+          description: Search term to filter case studies by title, content, or intro text
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of case studies to return
+          required: false
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: A list of case studies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CaseStudy'
+  /api/categories:
+    get:
+      summary: Get Blog Categories
+      description: Returns categories used to tag and classify blog content.
+      responses:
+        '200':
+          description: A list of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+
+components:
+  schemas:
+    Service:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Vertical Micro-Drama Production (VMD)
+        slug:
+          type: string
+          example: vertical-micro-drama-production-india
+        description:
+          type: string
+          example: Mobile-first 9:16 vertical series optimized for high viewer retention.
+        url:
+          type: string
+          example: /vertical-micro-drama-production-india
+    BlogPost:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          example: The Psychology of Cliffhangers in Short-Form Content
+        slug:
+          type: string
+          example: psychology-of-cliffhangers
+        content:
+          type: string
+          description: HTML or text content of the post
+        image_url:
+          type: string
+          format: uri
+        meta_title:
+          type: string
+        meta_desc:
+          type: string
+        url:
+          type: string
+          example: /blog/psychology-of-cliffhangers
+        created_at:
+          type: string
+          format: date-time
+    CaseStudy:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          example: Brand Campaign for OutKro
+        slug:
+          type: string
+          example: outkro-campaign
+        content:
+          type: string
+        image_url:
+          type: string
+          format: uri
+        meta_title:
+          type: string
+        meta_desc:
+          type: string
+        url:
+          type: string
+          example: /case-studies/outkro-campaign
+        created_at:
+          type: string
+          format: date-time
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: Industry Insights
+        type:
+          type: string
+          example: blog
+        created_at:
+          type: string
+          format: date-time

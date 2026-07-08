@@ -1,0 +1,55 @@
+# JUJU Films (LLMs and AI Agents Catalog)
+> JUJU Films is a creator collective based in India, specializing in mobile-first vertical micro-dramas (9:16), premium OTT original series, and brand-enabled intellectual property.
+
+This file provides a structured index of the JUJU Films website, capabilities, and automated tools for LLMs, crawlers, and AI agents.
+
+---
+
+## Machine-Readable API Catalog
+For programmatic access to JUJU Films content, the following read-only REST endpoints are available:
+
+- **Services/Capabilities**: [GET /api/services](https://www.jujuindia.com/api/services) - Returns a list of our core capabilities.
+- **Recent Blogs**: [GET /api/blogs](https://www.jujuindia.com/api/blogs) - Returns published blog posts (accepts `search` and `limit` query parameters).
+- **Case Studies**: [GET /api/case-studies](https://www.jujuindia.com/api/case-studies) - Returns campaign success stories and metrics.
+- **Blog Categories**: [GET /api/categories](https://www.jujuindia.com/api/categories) - List of categories for blog categorization.
+
+The API specification is documented in [OpenAPI Specification](https://www.jujuindia.com/openapi.yaml).
+
+---
+
+## Model Context Protocol (MCP) Server
+JUJU Films provides an MCP server for AI assistants (like Claude, ChatGPT, or Cursor) to search local content and submit contact leads.
+
+- **File**: `mcp-server.js` (Root of repository)
+- **Execution Command**: `node mcp-server.js`
+- **Capabilities & Tools**:
+  - `get_services`: Exposes detailed company divisions and VMD framework definitions.
+  - `search_blogs(query, limit)`: Performs an active search on published blog articles in our Supabase instance.
+  - `search_case_studies(query, limit)`: Active search on influencer campaign case studies.
+  - `submit_contact_request(type, first_name, email, message, ...)`: Submits a lead directly into the CRM database.
+
+---
+
+## Navigation & Core Pages
+- **Home**: [https://www.jujuindia.com/](https://www.jujuindia.com/) - Main entry point.
+- **About**: [https://www.jujuindia.com/about](https://www.jujuindia.com/about) - Story, team, and creative philosophy.
+- **Vertical Micro-Drama Production**: [https://www.jujuindia.com/vertical-micro-drama-production-india](https://www.jujuindia.com/vertical-micro-drama-production-india) - Overview of VMD production, frameworks, and pilot series.
+- **VMD Playbook**: [https://www.jujuindia.com/vertical-micro-drama-production-india/playbook](https://www.jujuindia.com/vertical-micro-drama-production-india/playbook) - Our story design, hook mechanics, casting, pre-production, and launch playbook.
+- **Case Studies**: [https://www.jujuindia.com/case-studies](https://www.jujuindia.com/case-studies) - Portfolio of IP and client collaborations.
+- **Blog**: [https://www.jujuindia.com/blog](https://www.jujuindia.com/blog) - Creative insights, VMD trends, and production tips.
+- **Start Project (Contact Form)**: [https://www.jujuindia.com/start-project](https://www.jujuindia.com/start-project) - Inbound funnel for Brands and Creators.
+
+---
+
+## AI Directory (`/ai`)
+- [Overview](/ai/overview.md) - Summary of AI integrations and crawler capabilities.
+- [Agent Skills](/ai/skills.json) - Standardized machine-readable agent skills description.
+- [Capabilities](/ai/capabilities.json) - Structured JSON of tools, metrics, and workflows.
+- [VMD Knowledge Base](/ai/knowledge.md) - Comprehensive context on the JUJU VMD Framework™ (Hook, Character, Escalation, Cliffhanger, Call-to-Action).
+
+---
+
+## Documentation Directory (`/docs`)
+- [Services Catalog](/docs/services.md) - Full text overview of VMD, Ads, and AI Lab.
+- [Case Studies Index](/docs/case-studies.md) - Summary of featured campaigns (e.g., OutKro, Shayari, Game Badalde).
+- [Blogs Index](/docs/blogs.md) - Summary of blog posts structure and insights.

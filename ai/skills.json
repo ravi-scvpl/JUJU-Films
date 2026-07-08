@@ -1,0 +1,25 @@
+{
+  "company": "JUJU Films",
+  "skills": [
+    {
+      "name": "Vertical Micro-Drama (VMD) Production",
+      "description": "Produce mobile-first 9:16 vertical series of 1-5 minute episodes optimized for user attention, cliffhangers, and algorithmic feed retention."
+    },
+    {
+      "name": "Brand-Enabled IP Storytelling",
+      "description": "Integrate brands organically into character-led narrative worlds where content drives long-term attention and cultural recall."
+    },
+    {
+      "name": "AI-Powered Pre-Visualisation",
+      "description": "Leverage generative AI models in pre-production workflows for storyboarding, character design, script prototyping, and language localization."
+    },
+    {
+      "name": "Hook Optimization & Narrative Mechanics",
+      "description": "Design storytelling mechanics (3-second visual hooks, rapid escalations, cliffhangers) to capture and maintain viewer engagement on social apps."
+    },
+    {
+      "name": "OTT Web Series Development",
+      "description": "Develop and produce premium long-form and limited series for streaming platforms and traditional digital networks."
+    }
+  ]
+}
